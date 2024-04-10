@@ -1,0 +1,4 @@
+SECRET_KEY_BASE: "rake secret"
+
+APP_HOST: "cheeseformice.localhost"
+APP_PORT: "3000"
