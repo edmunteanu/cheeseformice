@@ -3,3 +3,4 @@
 set -euo pipefail
 
 bin/rails zeitwerk:check
+bundle exec rspec

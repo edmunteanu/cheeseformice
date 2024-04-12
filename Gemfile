@@ -17,7 +17,14 @@ gem "bootsnap", require: false
 gem "figaro"
 
 group :development, :test do
-  gem "debug", platforms: %i[ mri windows ]
+  gem 'factory_bot_rails'
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
+  gem 'super_diff'
 end
 
 group :development do
