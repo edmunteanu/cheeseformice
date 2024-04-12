@@ -1,0 +1,24 @@
+#!/bin/sh
+
+for cache_group in "$@"
+do
+  case $cache_group in
+
+  rails)
+    cache restore nvm-$(checksum .nvmrc),nvm-$SEMAPHORE_GIT_BRANCH,nvm-main
+    cache restore gems-$(checksum Gemfile.lock),gems-$SEMAPHORE_GIT_BRANCH,gems-main
+    cache restore yarn-cache-$(checksum yarn.lock),yarn-cache-$SEMAPHORE_GIT_BRANCH,yarn-cache-main
+    cache restore node-modules-$(checksum yarn.lock),node-modules-$SEMAPHORE_GIT_BRANCH,node-modules-main
+    ;;
+
+  assets)
+    cache restore assets-$SEMAPHORE_GIT_BRANCH,assets-main
+    cache restore sprocketscache-$SEMAPHORE_GIT_BRANCH,sprocketscache-main
+    ;;
+
+  *)
+    echo "Invalid argument: Cache group $cache_group not found."
+    exit 1
+    ;;
+  esac
+done

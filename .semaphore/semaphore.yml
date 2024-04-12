@@ -1,0 +1,85 @@
+version: v1.0
+name: cheeseformice
+
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+
+auto_cancel:
+  running:
+    when: 'true'
+
+fail_fast:
+  cancel:
+    when: branch != 'main'
+
+global_job_config:
+  secrets:
+    - name: cheeseformice
+
+  prologue:
+    commands:
+      - checkout --use-cache
+      - source .semaphore/bin/cache_restore rails
+      - bundle config set deployment 'true'
+      - bundle config set path 'vendor/bundle'
+      - bundle install -j 4
+      - nvm install
+      - bin/yarn install --cache-folder ~/.cache/yarn
+
+blocks:
+  - name: cache
+    dependencies: []
+    execution_time_limit:
+      minutes: 10
+    task:
+      jobs:
+        - name: cache
+          commands:
+            - source .semaphore/bin/cache_store rails
+
+  - name: linting
+    dependencies: [cache]
+    execution_time_limit:
+      minutes: 5
+    task:
+      jobs:
+        - name: linting
+          commands:
+            - bin/fastcheck
+
+  - name: tests
+    dependencies: [cache]
+    execution_time_limit:
+      minutes: 10
+    task:
+      env_vars:
+        - name: DATABASE_URL
+          value: postgresql://postgres@localhost/test?encoding=utf8
+        - name: RAILS_ENV
+          value: test
+      prologue:
+        commands:
+          - sem-service start postgres
+          - cp config/application.example.yml config/application.yml
+          - bundle exec rails db:create db:schema:load
+      jobs:
+        - name: tests
+          commands:
+            - bin/check
+      epilogue:
+        on_fail:
+          commands:
+            - mkdir -p log coverage tmp/screenshots tmp/capybara
+            - artifact push job log
+            - artifact push job tmp/screenshots
+            - artifact push job tmp/capybara
+            - zip -r coverage-$SEMAPHORE_GIT_SHA coverage/
+            - artifact push job coverage-$SEMAPHORE_GIT_SHA.zip
+
+promotions:
+  - name: main
+    pipeline_file: main-deploy.yml
+    auto_promote:
+      when: result = 'passed' and branch = 'main'
