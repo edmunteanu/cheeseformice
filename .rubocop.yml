@@ -746,6 +746,7 @@ AllCops:
     - 'log/**/*'
     - 'public/**/*'
     - 'tmp/**/*'
+    - 'db/a801_schema.rb'
     - 'db/schema.rb'
     - 'vendor/**/*'
     - 'node_modules/**/*'

@@ -1,18 +1,37 @@
+# Reusable configurations
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS', 5) %>
+a801: &a801
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS', 5) %>
+  host: <%= ENV.fetch('A801_DATABASE_HOST') %>
+  port: <%= ENV.fetch('A801_DATABASE_PORT') %>
+  database: <%= ENV.fetch('A801_DATABASE_NAME') %>
+  username: <%= ENV.fetch('A801_DATABASE_USERNAME') %>
+  password: <%= ENV.fetch('A801_DATABASE_PASSWORD') %>
+  database_tasks: false
 
+# Development-specific configuration. Offers both a primary and an a801 database configuration.
 development:
-  <<: *default
-  database: cheeseformice_development
+  primary:
+    <<: *default
+    database: cheeseformice_development
+  a801:
+    <<: *a801
 
+# Test-specific configuration. Only offers a primary database configuration.
 test:
-  <<: *default
-  database: cheeseformice_test
+  primary:
+    <<: *default
+    database: cheeseformice_test
 
+# Production-specific configuration. Offers both a primary and an a801 database configuration.
 production:
-  <<: *default
-  database: cheeseformice_production
-  username: cheeseformice
-  password: <%= ENV["CHEESEFORMICE_DATABASE_PASSWORD"] %>
+  primary:
+    <<: *default
+    database: cheeseformice_production
+  a801:
+    <<: *a801
