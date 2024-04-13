@@ -37,6 +37,9 @@ blocks:
           - cp config/application.example.yml config/application.yml
           - bundle exec rails db:create db:schema:load
       jobs:
+        - name: linters
+          commands:
+            - bin/fastcheck
         - name: tests
           commands:
             - bin/check
