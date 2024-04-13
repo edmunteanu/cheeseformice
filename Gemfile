@@ -18,8 +18,17 @@ gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
+  gem 'super_diff'
+end
+
 group :development, :test do
   gem 'brakeman', require: false
+  gem 'bullet'
   gem 'erb_lint', require: false
   gem 'factory_bot_rails'
   gem 'rspec-rails'
@@ -31,10 +40,11 @@ group :development, :test do
   gem 'standard'
 end
 
-group :test do
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'shoulda-matchers'
-  gem 'simplecov', require: false
-  gem 'super_diff'
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
+group :production do
+  gem 'lograge'
 end
