@@ -1,2 +1,27 @@
 #!/usr/bin/env bash
 set -euo pipefail
+
+echo 'Executing Zeitwerk check'
+bin/rails zeitwerk:check
+
+echo 'Executing rubocop'
+if ! bundle exec rubocop -D -c .rubocop.yml --fail-fast
+then
+  echo 'Rubocop detected issues!'
+  bundle exec rubocop -A -D -c .rubocop.yml
+
+  echo 'Tried to auto correct the issues, but must be reviewed manually, commit aborted'
+  exit 1
+fi
+
+echo 'Executing brakeman'
+bundle exec brakeman -q -z --no-summary --no-pager
+
+echo 'Executing sass-lint'
+yarn sass-lint -v --no-exit app/assets/stylesheets/**/*.scss
+
+echo 'Executing eslint'
+yarn eslint app/javascript
+
+echo 'Executing erb-lint'
+bundle exec erblint --config .erb-lint.yml --lint-all
