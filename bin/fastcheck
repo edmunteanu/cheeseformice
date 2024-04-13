@@ -13,3 +13,6 @@ then
   echo 'Tried to auto correct the issues, but must be reviewed manually, commit aborted'
   exit 1
 fi
+
+echo 'Executing brakeman'
+bundle exec brakeman -q -z --no-summary --no-pager

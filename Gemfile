@@ -19,6 +19,7 @@ gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do
+  gem 'brakeman', require: false
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'rubocop-capybara'
