@@ -1,24 +1,25 @@
-# README
+# CheeseForMice
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a cheese.formice.com recreation using Ruby on Rails. It is a statistics / leaderboard website for the
+game Transformice. This project takes a lot of inspiration from previous iterations of the cheese.formice.com page.
 
-Things you may want to cover:
+## Setting up the project
 
-* Ruby version
+```sh
+git clone git@github.com:edmunteanu/cheeseformice.git
+cd cheeseformice
+bin/setup
+```
 
-* System dependencies
+## Running the project
 
-* Configuration
+```sh
+bin/dev
+```
 
-* Database creation
+## Testing the application locally
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+bin/fastcheck
+bin/check
+```
