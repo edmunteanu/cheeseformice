@@ -20,13 +20,14 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do
   gem 'brakeman', require: false
+  gem 'erb_lint', require: false
   gem 'factory_bot_rails'
   gem 'rspec-rails'
-  gem 'rubocop-capybara'
-  gem 'rubocop-factory_bot'
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
   gem 'standard'
 end
 

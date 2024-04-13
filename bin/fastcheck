@@ -22,3 +22,6 @@ yarn sass-lint -v --no-exit app/assets/stylesheets/**/*.scss
 
 echo 'Executing eslint'
 yarn eslint app/javascript
+
+echo 'Executing erb-lint'
+bundle exec erblint --config .erb-lint.yml --lint-all
