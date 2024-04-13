@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JavaScriptErrorReporter
   RSpec.configure do |config|
     config.after(:each, :js, type: :system) do

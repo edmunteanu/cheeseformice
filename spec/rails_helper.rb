@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'spec_helper'
 require_relative '../config/environment'
 
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
 require 'capybara/rspec'
