@@ -1,7 +1,9 @@
-SECRET_KEY_BASE: "rake secret"
+SECRET_KEY_BASE: 'rake secret'
 
-APP_HOST: "cheeseformice.localhost"
-APP_PORT: "3000"
+APP_HOST: 'cheeseformice.localhost'
+APP_PORT: '3000'
+
+LOGRAGE_ENABLED: 'false'
 
 test:
   # SELENIUM_DRIVER: 'selenium_chrome'
