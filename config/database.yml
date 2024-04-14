@@ -13,6 +13,9 @@ a801: &a801
   username: <%= ENV.fetch('A801_DATABASE_USERNAME') %>
   password: <%= ENV.fetch('A801_DATABASE_PASSWORD') %>
   database_tasks: false
+  # connect_timeout is deliberately left empty to force the mysql2 adapter to use nil as the timeout. For more
+  # information, refer to https://devcenter.heroku.com/articles/quotaguardstatic#setting-up-mysql-access-from-rails
+  connect_timeout:
 
 # Development-specific configuration. Offers both a primary and an a801 database configuration.
 development:
