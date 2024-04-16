@@ -2,5 +2,4 @@
 
 Rails.application.routes.draw do
   get 'home/check'
-  get 'home/tunnel_test'
 end
