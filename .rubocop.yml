@@ -234,6 +234,8 @@ Metrics/MethodLength:
     - array
     - hash
     - heredoc
+  Exclude:
+    - 'db/migrate/*'
 
 Metrics/ModuleLength:
   Enabled: true
@@ -370,6 +372,11 @@ RSpec/DescribedClass:
   SkipBlocks: true
 
 RSpec/ExampleLength:
+  Max: 10
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
   Exclude:
     - 'spec/system/**/*'
     - 'spec/requests/**/*'
@@ -542,6 +549,7 @@ Style/HashLikeCase:
 Style/HashSyntax:
   Enabled: true
   EnforcedStyle: ruby19
+  EnforcedShorthandSyntax: never
 
 Style/HashTransformKeys:
   Enabled: true
