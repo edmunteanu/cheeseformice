@@ -29,7 +29,7 @@ module Utils
         dress_list: a801_player.dress_list,
         mouse_color: a801_player.color1,
         shaman_color: a801_player.color2,
-        skills: a801_player.skills,
+        skills: a801_player.skills
       }
     end
 
