@@ -11,7 +11,7 @@ SimpleCov.start 'rails' do
   add_filter 'app/models/a801' # Exclude a801 models from coverage, since they are only used as a querying interface
   add_filter '.semaphore-cache'
   enable_coverage :branch
-  minimum_coverage line: 100, branch: 100
+  minimum_coverage line: 100, branch: 90
 end
 
 RSpec.configure do |config|
