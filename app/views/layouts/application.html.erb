@@ -1,8 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100" lang="en" data-bs-theme="dark">
   <head>
-    <title>Cheeseformice</title>
+    <meta charset="utf-8">
+    <title><%= content_for?(:title) ? yield(:title) : t('meta.title') %></title>
+    <meta name="description" content="<%= t('meta.description') %>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%# Turbo 8 %>
+    <%= turbo_refreshes_with method: :morph, scroll: :preserve  %>
+    <meta name="view-transition" content="same-origin">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,7 +17,9 @@
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', type: 'module' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="h-100">
+    <div class="container py-5">
+      <%= yield %>
+    </div>
   </body>
 </html>

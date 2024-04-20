@@ -1,0 +1,7 @@
+// Order of precedence: utils/variables -> themes/dark -> vendor/bootstrap -> the rest
+@import 'utils/variables';
+@import 'themes/dark';
+@import 'vendor/bootstrap';
+
+@import 'components/card';
+@import 'pages/player';

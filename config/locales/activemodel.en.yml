@@ -1,0 +1,26 @@
+en:
+  activemodel:
+    attributes:
+      player:
+        rounds_played: "Rounds played"
+        shaman_cheese: "Cheese gathered as shaman"
+        saved_mice: "Mice saved"
+        saved_mice_hard: "Mice saved (hard mode)"
+        saved_mice_divine: "Mice saved (divine mode)"
+        saved_mice_without_skills: "Mice saved (without skills)"
+        saved_mice_without_skills_hard: "Mice saved (without skills - hard mode)"
+        saved_mice_without_skills_divine: "Mice saved (without skills - divine mode)"
+        cheese_gathered: "Cheese gathered"
+        firsts: "Firsts"
+        bootcamp: "Bootcamp"
+        survivor_rounds_played: "Rounds played"
+        survivor_mice_killed: "Mice killed"
+        survivor_shaman_rounds: "Shaman rounds"
+        survivor_survived_rounds: "Survived rounds"
+        racing_rounds_played: "Rounds played"
+        racing_finished_maps: "Finished maps"
+        racing_firsts: "Firsts"
+        racing_podiums: "Podiums"
+        defilante_rounds_played: "Rounds played"
+        defilante_finished_maps: "Finished maps"
+        defilante_points: "Points"

@@ -195,6 +195,7 @@ GEM
     nokogiri (1.16.3-x86_64-linux)
       racc (~> 1.4)
     optimist (3.1.0)
+    pagy (8.2.2)
     parallel (1.24.0)
     parser (3.3.0.5)
       ast (~> 2.4.1)
@@ -393,6 +394,7 @@ DEPENDENCIES
   jsbundling-rails
   lograge
   mysql2
+  pagy (~> 8.2)
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.3, >= 7.1.3.2)

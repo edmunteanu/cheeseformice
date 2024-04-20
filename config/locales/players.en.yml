@@ -1,0 +1,6 @@
+en:
+  players:
+    index:
+      title: "Top players"
+    player:
+      score: "Score: %{score}"
