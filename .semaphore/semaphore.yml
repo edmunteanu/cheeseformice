@@ -35,6 +35,7 @@ blocks:
           - nvm install
           - yarn install --cache-folder ~/.cache/yarn
           - cp config/application.example.yml config/application.yml
+          - bundle exec rake assets:precompile
           - bundle exec rails db:create db:schema:load
       jobs:
         - name: linters
