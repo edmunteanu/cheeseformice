@@ -31,6 +31,22 @@ RSpec.describe Player do
     end
   end
 
+  describe 'scopes' do
+    describe '.eligible_for_ranking' do
+      let!(:players) do
+        [
+          create(:player, stats_reliability: 0),
+          create(:player, stats_reliability: 1),
+          create(:player, stats_reliability: 2)
+        ]
+      end
+
+      it 'returns only the players with stats_reliability 0 and 1' do
+        expect(described_class.eligible_for_ranking).to contain_exactly(players.first, players.second)
+      end
+    end
+  end
+
   describe 'score and ratio calculations' do
     let(:player) do
       create(:player, rounds_played: 100_000, saved_mice: 100_000, saved_mice_hard: 50_000, saved_mice_divine: 45_000,
