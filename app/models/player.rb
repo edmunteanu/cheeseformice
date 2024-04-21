@@ -10,6 +10,8 @@ class Player < ApplicationRecord
   MAX_NAME_LENGTH = 100
   TAG_REGEX = /#\d{4}$/
 
+  has_many :change_logs, dependent: :destroy
+
   validates :a801_id, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true, length: { maximum: MAX_NAME_LENGTH }
 
