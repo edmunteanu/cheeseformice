@@ -17,8 +17,8 @@ fi
 echo 'Executing brakeman'
 bundle exec brakeman -q -z --no-summary --no-pager
 
-#echo 'Executing sass-lint'
-scss-lint app/assets/stylesheets/
+echo 'Executing stylelint'
+yarn stylelint app/assets/stylesheets/**/*.scss
 
 echo 'Executing eslint'
 yarn eslint app/javascript

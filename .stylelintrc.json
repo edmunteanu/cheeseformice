@@ -1,0 +1,15 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "except": ["blockless-after-blockless", "first-nested"],
+        "ignore": ["after-comment"],
+        "ignoreAtRules": ["else", "import"]
+      }
+    ],
+    "scss/at-extend-no-missing-placeholder": null,
+    "scss/dollar-variable-empty-line-before": null
+  }
+}
