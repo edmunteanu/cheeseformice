@@ -1,0 +1,31 @@
+<div class="card player-card">
+  <div class="card-body">
+    <div class="d-flex align-items-center gap-3">
+      <h4 class="mb-0"><%= player.name %></h4>
+      <div class="vr"></div>
+      <span><%= t('.score', score: number_with_delimiter(player.normal_score)) %></span>
+      <span class="ms-auto"><%= "##{player.normal_rank}" %></span>
+    </div>
+
+    <div class="card-separator"></div>
+
+    <div class="row">
+      <div class="col-6 col-md-3">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:rounds_played) %></span>
+        <%= number_with_delimiter(player.rounds_played) %>
+      </div>
+      <div class="col-6 col-md-3">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:saved_mice) %></span>
+        <%= number_with_delimiter(player.saved_mice) %>
+      </div>
+      <div class="col-6 col-md-3">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:firsts) %></span>
+        <%= number_with_delimiter(player.firsts) %>
+      </div>
+      <div class="col-6 col-md-3">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:cheese_gathered) %></span>
+        <%= number_with_delimiter(player.cheese_gathered) %>
+      </div>
+    </div>
+  </div>
+</div>

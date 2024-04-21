@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'home/check'
+  root to: 'players#index'
 end

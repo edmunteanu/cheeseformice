@@ -1,0 +1,7 @@
+<h1 class="text-primary mb-5"><%= t('.title') %></h1>
+
+<% @players.each do |player| %>
+  <%= render player %>
+<% end %>
+
+<%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
