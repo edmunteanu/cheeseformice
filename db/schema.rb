@@ -10,9 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_14_134513) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_21_132506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "change_logs", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.integer "rounds_played", default: 0, null: false
+    t.integer "shaman_cheese", default: 0, null: false
+    t.integer "saved_mice", default: 0, null: false
+    t.integer "saved_mice_hard", default: 0, null: false
+    t.integer "saved_mice_divine", default: 0, null: false
+    t.integer "saved_mice_without_skills", default: 0, null: false
+    t.integer "saved_mice_hard_without_skills", default: 0, null: false
+    t.integer "saved_mice_divine_without_skills", default: 0, null: false
+    t.integer "cheese_gathered", default: 0, null: false
+    t.integer "firsts", default: 0, null: false
+    t.integer "bootcamp", default: 0, null: false
+    t.integer "survivor_rounds_played", default: 0, null: false
+    t.integer "survivor_mice_killed", default: 0, null: false
+    t.integer "survivor_shaman_rounds", default: 0, null: false
+    t.integer "survivor_survived_rounds", default: 0, null: false
+    t.integer "racing_rounds_played", default: 0, null: false
+    t.integer "racing_finished_maps", default: 0, null: false
+    t.integer "racing_firsts", default: 0, null: false
+    t.integer "racing_podiums", default: 0, null: false
+    t.integer "defilante_rounds_played", default: 0, null: false
+    t.integer "defilante_finished_maps", default: 0, null: false
+    t.integer "defilante_points", default: 0, null: false
+    t.integer "normal_score", default: 0, null: false
+    t.integer "survivor_score", default: 0, null: false
+    t.integer "racing_score", default: 0, null: false
+    t.integer "defilante_score", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_change_logs_on_player_id"
+  end
 
   create_table "players", force: :cascade do |t|
     t.bigint "a801_id", null: false
@@ -73,4 +106,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_14_134513) do
     t.index ["survivor_score"], name: "index_players_on_survivor_score"
   end
 
+  add_foreign_key "change_logs", "players"
 end

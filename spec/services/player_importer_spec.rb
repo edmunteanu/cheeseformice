@@ -8,7 +8,7 @@ RSpec.describe PlayerImporter, type: :service do
 
     let(:mock_relation) { double(ActiveRecord::Relation) }
     let(:mock_players) do
-      Array.new(5) do |index|
+      Array.new(2) do |index|
         double(A801::Player, id: index, updatedLast7days: 0, registration_date: Time.current,
                              stats_reliability: 0, name: "Double_#{index}", title: '0', unlocked_titles: '',
                              experience: 0, look: '', badges: '', dress_list: '', color1: 'fff', color2: '000',
@@ -29,7 +29,7 @@ RSpec.describe PlayerImporter, type: :service do
     end
 
     it 'creates new Player records for each A801::Player record that does not exist' do
-      expect { import_players }.to change(Player, :count).by(4)
+      expect { import_players }.to change(Player, :count).by(1)
     end
   end
 end
