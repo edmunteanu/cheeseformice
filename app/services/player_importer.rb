@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PlayerImporter < BaseImporter
+class PlayerImporter < MultithreadedMutator
   MIN_CHEESE_GATHERED = 1000
 
   class << self
@@ -8,11 +8,11 @@ class PlayerImporter < BaseImporter
 
     private
 
-    def a801_players
+    def records
       A801::Player.where(cheese_gathered: MIN_CHEESE_GATHERED..)
     end
 
-    def import_player(a801_player)
+    def handle_record(a801_player)
       Player.find_or_initialize_by(a801_id: a801_player.id).tap do |player|
         break unless player.new_record?
 

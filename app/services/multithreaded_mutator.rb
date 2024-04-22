@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class BaseImporter
+class MultithreadedMutator
   MAX_POOL_SIZE = 9
 
   class << self
     def call
-      a801_players.in_batches do |batch|
+      records.in_batches do |batch|
         threads = []
         pool_size = [ActiveRecord::Base.connection_pool.size - 1, MAX_POOL_SIZE].min
         slice_size = batch.count < pool_size ? batch.count : (batch.count / pool_size.to_f).ceil
@@ -19,19 +19,19 @@ class BaseImporter
     private
 
     # :nocov:
-    def a801_players
+    def records
       raise NotImplementedError, 'This method must be implemented in a subclass'
     end
     # :nocov:
 
     def start_threads(threads, batch, slice_size)
       batch.each_slice(slice_size) do |slice|
-        threads << Thread.new { slice.each { |a801_player| import_player(a801_player) } }
+        threads << Thread.new { slice.each { |record| handle_record(record) } }
       end
     end
 
     # :nocov:
-    def import_player(a801_player)
+    def handle_record(record)
       raise NotImplementedError, 'This method must be implemented in a subclass'
     end
     # :nocov:
