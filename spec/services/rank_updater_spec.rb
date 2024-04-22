@@ -33,5 +33,16 @@ RSpec.describe RankUpdater, type: :service do
         expect(disqualified_player.reload.normal_rank).to be_nil
       end
     end
+
+    context 'when the player already had a rank' do
+      let!(:fourth_player) { create(:player, rounds_played: 50, cheese_gathered: 25, normal_rank: 1) }
+
+      it 'updates the previous rank and the current rank' do
+        update_ranks
+
+        expect(fourth_player.reload.previous_normal_rank).to eq(1)
+        expect(fourth_player.normal_rank).to eq(4)
+      end
+    end
   end
 end
