@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_22_135813) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_23_144230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -106,6 +106,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_22_135813) do
     t.index ["normal_score"], name: "index_players_on_normal_score"
     t.index ["racing_rank"], name: "index_players_on_racing_rank"
     t.index ["racing_score"], name: "index_players_on_racing_score"
+    t.index ["stats_reliability"], name: "index_players_on_stats_reliability"
     t.index ["survivor_rank"], name: "index_players_on_survivor_rank"
     t.index ["survivor_score"], name: "index_players_on_survivor_score"
   end
