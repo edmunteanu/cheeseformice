@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe PlayerImporter, type: :service do
   describe '#call' do
-    subject(:import_players) { described_class.call }
+    subject(:import_players) { described_class.new.call }
 
     let(:mock_relation) { double(ActiveRecord::Relation) }
     let(:mock_players) do

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe PlayerUpdater, type: :service do
   describe '#call' do
-    subject(:update_players) { described_class.call }
+    subject(:update_players) { described_class.new.call }
 
     let!(:existing_player) { create(:player, a801_id: 0, name: 'Double_0') }
     let(:mock_relation) { double(ActiveRecord::Relation) }
