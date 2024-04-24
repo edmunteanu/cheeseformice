@@ -176,6 +176,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.22.3)
     msgpack (1.7.2)
@@ -332,6 +333,9 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (6.2.0)
       activesupport (>= 5.2.0)
+    simple_form (5.3.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -375,6 +379,10 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     uniform_notifier (1.16.0)
+    view_component (3.12.1)
+      activesupport (>= 5.2.0, < 8.0)
+      concurrent-ruby (~> 1.0)
+      method_source (~> 1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     webrick (1.8.1)
@@ -424,6 +432,7 @@ DEPENDENCIES
   rubocop-rspec
   selenium-webdriver
   shoulda-matchers
+  simple_form
   simplecov
   sprockets-rails
   standard
@@ -431,6 +440,7 @@ DEPENDENCIES
   super_diff
   turbo-rails
   tzinfo-data
+  view_component
 
 RUBY VERSION
    ruby 3.3.0p0
