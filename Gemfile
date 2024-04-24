@@ -6,6 +6,8 @@ ruby File.read(File.join(__dir__, '.ruby-version')).strip
 
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
+gem 'devise'
+gem 'devise-i18n'
 gem 'figaro'
 gem 'jbuilder'
 gem 'jsbundling-rails'
