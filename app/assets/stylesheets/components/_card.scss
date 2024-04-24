@@ -5,6 +5,10 @@ $card-separator-border-color: rgb(60 60 60);
   --bs-card-border-radius: 1rem;
   --bs-card-border-width: 0;
 
+  &.sign-in-card {
+    width: 500px;
+  }
+
   .card-separator {
     @extend .my-3;
 

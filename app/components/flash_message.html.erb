@@ -1,0 +1,11 @@
+<div class="alert flash-message show <%= "alert-#{alert_class}" %> <%= 'fade alert-dismissible' if dismissable? %>"
+     data-controller='flash-dismiss' data-action='animationend->flash-dismiss#dismissAlert'>
+  <i class="me-3 bi <%= icon_class %>"></i>
+  <div>
+    <%= raw message %>
+  </div>
+
+  <% if dismissable? %>
+    <button class="btn-close" data-bs-dismiss="alert" type="button"></button>
+  <% end %>
+</div>

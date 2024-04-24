@@ -20,8 +20,11 @@
   </head>
 
   <body class="h-100">
-    <div class="container py-5">
+    <div class="container h-100 py-5">
       <%= yield %>
+    </div>
+    <div class="flash-messages-container">
+      <%= render partial: 'layouts/flash_messages', flash: flash %>
     </div>
   </body>
 </html>

@@ -6,6 +6,8 @@ ruby File.read(File.join(__dir__, '.ruby-version')).strip
 
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
+gem 'devise'
+gem 'devise-i18n'
 gem 'figaro'
 gem 'jbuilder'
 gem 'jsbundling-rails'
@@ -15,10 +17,12 @@ gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
 gem 'redis', '>= 4.0.1'
+gem 'simple_form'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
+gem 'view_component'
 
 group :test do
   gem 'capybara'
