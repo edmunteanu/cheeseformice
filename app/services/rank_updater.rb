@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RankUpdater
-  BATCH_SIZE = 100_000
+  BATCH_SIZE = 200_000
 
   class << self
     def call
