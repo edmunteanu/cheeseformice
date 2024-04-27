@@ -1,0 +1,4 @@
+en:
+  leaderboard_player:
+    new: "New"
+    score: "Score: %{score}"

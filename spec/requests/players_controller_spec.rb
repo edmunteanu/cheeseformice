@@ -4,7 +4,12 @@ require 'rails_helper'
 
 RSpec.describe PlayersController do
   describe '#index' do
-    let!(:players) { create_list(:player, 3) }
+    let!(:players) do
+      build_list(:player, 3).each_with_index do |player, index|
+        player.normal_rank = index + 1
+        player.save!
+      end
+    end
 
     before { get root_path }
 
