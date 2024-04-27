@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe FlashMessage, type: :component do
-  let(:component) { described_class.new(type, message) }
-
   describe '#alert_class' do
     it { expect(described_class.new('alert', '').alert_class).to eq('warning') }
     it { expect(described_class.new('notice', '').alert_class).to eq('success') }
