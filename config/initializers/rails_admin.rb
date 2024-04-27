@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 RailsAdmin.config do |config|
-  config.parent_controller = 'Admin::BaseController'
   config.asset_source = :sprockets
   config.authenticate_with { warden.authenticate! scope: :user }
   config.current_user_method(&:current_user)
