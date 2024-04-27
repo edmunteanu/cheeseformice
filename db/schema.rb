@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_24_185510) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_27_132526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,6 +98,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_24_185510) do
     t.integer "previous_survivor_rank"
     t.integer "previous_racing_rank"
     t.integer "previous_defilante_rank"
+    t.integer "change_logs_count"
     t.index ["a801_id"], name: "index_players_on_a801_id", unique: true
     t.index ["defilante_rank"], name: "index_players_on_defilante_rank"
     t.index ["defilante_score"], name: "index_players_on_defilante_score"

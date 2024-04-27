@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(File.join(__dir__, '.ruby-version')).strip
 
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
+gem 'dartsass-sprockets'
 gem 'devise'
 gem 'devise-i18n'
 gem 'figaro'
@@ -16,6 +18,8 @@ gem 'pagy', '~> 8.2'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'
+# TODO: Point to rubygems once support for turbo-rails 2.0 is officially released
+gem 'rails_admin', github: 'railsadminteam/rails_admin', branch: 'master'
 gem 'redis', '>= 4.0.1'
 gem 'simple_form'
 gem 'sprockets-rails'
