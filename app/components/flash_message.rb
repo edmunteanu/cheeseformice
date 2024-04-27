@@ -5,7 +5,7 @@ class FlashMessage < ViewComponent::Base
 
   def initialize(type, message, dismissable: true)
     super
-    @alert_class, @icon_class = calculate_alert_and_icon(type)
+    @alert_class, @icon_class = infer_alert_and_icon(type)
     @message = message
     @dismissable = dismissable
   end
@@ -16,7 +16,7 @@ class FlashMessage < ViewComponent::Base
 
   private
 
-  def calculate_alert_and_icon(type)
+  def infer_alert_and_icon(type)
     case type
     when 'alert'
       %w[warning bi-exclamation-circle]

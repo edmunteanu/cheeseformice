@@ -4,7 +4,10 @@
       <h4 class="mb-0"><%= player.name %></h4>
       <div class="vr"></div>
       <span><%= t('.score', score: number_with_delimiter(player.normal_score)) %></span>
-      <span class="ms-auto"><%= "##{player.normal_rank}" %></span>
+      <div class="d-flex align-items-center gap-3 ms-auto">
+        <%== displayed_rank_progression %>
+        <h4 class="mb-0"><%= "##{player.normal_rank}" %></h4>
+      </div>
     </div>
 
     <div class="card-separator"></div>
