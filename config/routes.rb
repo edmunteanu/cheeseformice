@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root to: 'players#index'
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  mount GoodJob::Engine => '/admin/jobs'
+  authenticate :user, ->(user) { user.admin? } do
+    mount GoodJob::Engine => '/good_job'
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  end
 end
