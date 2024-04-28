@@ -54,4 +54,6 @@ Rails.application.configure do
 
   config.action_controller.action_on_unpermitted_parameters = :raise
   config.action_controller.raise_on_missing_callback_actions = true
+
+  config.good_job.execution_mode = :inline
 end
