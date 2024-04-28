@@ -20,7 +20,7 @@ RailsAdmin.config do |config|
   config.model 'Player' do
     list do
       filters %i[name]
-      include_fields :id, :a801_id, :name, :registration_date, :updated_last_7_days
+      include_fields :id, :a801_id, :name, :registration_date, :stats_reliability, :updated_last_7_days
 
       field(:change_logs) { pretty_value { bindings[:object].change_logs.size } }
     end
