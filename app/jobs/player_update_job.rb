@@ -4,6 +4,8 @@ class PlayerUpdateJob < ApplicationJob
   retry_on StandardError, wait: :polynomially_longer, attempts: 3
 
   def perform
+    return if ENV.fetch('DISABLE_PLAYER_UPDATE_JOB', nil) == 'true'
+
     update_log = UpdateLog.create!
 
     update_players(update_log)
