@@ -1,2 +1,2 @@
-web: bin/qgtunnel bundle exec puma -C config/puma.rb
-worker: bundle exec good_job start
+web: bundle exec puma -C config/puma.rb
+worker: bin/qgtunnel bundle exec good_job start
