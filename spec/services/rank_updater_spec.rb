@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe RankUpdater, type: :service do
   describe '#call' do
-    subject(:update_ranks) { described_class.call }
+    subject(:update_ranks) { described_class.new.call }
 
     let!(:disqualified_player) { create(:player, stats_reliability: 2) }
     let!(:first_player) { create(:player, stats_reliability: 1, rounds_played: 300, cheese_gathered: 150) }

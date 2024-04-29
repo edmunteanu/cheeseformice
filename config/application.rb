@@ -24,5 +24,7 @@ module Cheeseformice
 
     config.time_zone = 'Zurich'
     config.i18n.default_locale = :en
+
+    config.active_job.queue_adapter = :good_job
   end
 end

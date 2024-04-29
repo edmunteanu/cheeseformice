@@ -38,6 +38,8 @@ Rails.application.configure do
 
   config.active_support.disallowed_deprecation_warnings = []
 
+  config.active_job.queue_adapter = :test
+
   config.i18n.raise_on_missing_translations = true
   config.i18n.exception_handler = proc { |exception| raise exception.to_exception }
 

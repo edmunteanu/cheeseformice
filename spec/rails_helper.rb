@@ -25,6 +25,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include ActiveSupport::Testing::TimeHelpers
   config.include JavaScriptErrorReporter, type: :system, js: true
+  config.include ActiveJob::TestHelper
 
   config.fixture_paths = [Rails.root.join('spec/fixtures')]
 
