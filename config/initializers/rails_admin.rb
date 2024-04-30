@@ -5,7 +5,7 @@ RailsAdmin.config do |config|
   config.authenticate_with { warden.authenticate! scope: :user }
   config.current_user_method(&:current_user)
   config.main_app_name = %w[CheeseForMice Admin]
-  config.included_models = %w[User Player ChangeLog UpdateLog]
+  config.included_models = %w[User Player ChangeLog]
 
   config.actions do
     dashboard
@@ -42,22 +42,6 @@ RailsAdmin.config do |config|
       field(:created_at)
 
       include_all_fields
-    end
-  end
-
-  config.model 'UpdateLog' do
-    list do
-      filters %i[created_at]
-      include_fields :id, :status, :created_at, :completed_at
-
-      field(:time_lapsed)
-    end
-
-    show do
-      field(:status)
-      field(:created_at)
-      field(:completed_at)
-      field(:time_lapsed)
     end
   end
 end
