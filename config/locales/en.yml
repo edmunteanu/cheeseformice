@@ -6,6 +6,7 @@ en:
     title: "CheeseForMice"
   navbar:
     brand: "CheeseForMice"
+    brand_alt: "Logo represented by a piece of cheese"
     brand_short: "CFM"
     jobs: "Jobs"
     leaderboard: "Leaderboard"
