@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   get '/leaderboard', to: 'players#index'
+  get '/404', to: 'errors#not_found'
+  get '/500', to: 'errors#internal_server_error'
 
   authenticate :user, ->(user) { user.admin? } do
     mount GoodJob::Engine => '/good_job'
