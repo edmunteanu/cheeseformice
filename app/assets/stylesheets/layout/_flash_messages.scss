@@ -1,5 +1,5 @@
 .flash-messages-container {
-  @extend .position-fixed;
+  @extend .position-absolute;
 
   width: 500px;
   right: 1rem;

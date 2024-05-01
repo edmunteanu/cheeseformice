@@ -1,5 +1,5 @@
 .card {
-  --bs-card-bg: #{$component-bg};
+  --bs-card-bg: var(--bs-dark);
   --bs-card-border-radius: 1rem;
   --bs-card-border-width: 0;
   --bs-card-spacer-x: 1.5rem;
