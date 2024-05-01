@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PlayersController < ApplicationController
+class PlayersController < AuthenticatedController
   def index
     # TODO: Sort by normal_rank, survivor_rank, racing_rank, defilante_rank (based on query param)
     #   once the players are sorted by the respective scores and the ranks persisted to the DB.
