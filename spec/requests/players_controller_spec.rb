@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe PlayersController do
   describe '#index' do
     context 'when not signed in' do
-      before { get root_path }
+      before { get leaderboard_path }
 
       it 'redirects to the sign-in page' do
         expect(response).to redirect_to(new_user_session_path)
@@ -23,7 +23,7 @@ RSpec.describe PlayersController do
 
       before do
         sign_in(user)
-        get root_path
+        get leaderboard_path
       end
 
       it 'displays the player names' do
