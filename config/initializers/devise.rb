@@ -24,7 +24,7 @@ Devise.setup do |config|
   config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
 
   # ==> Configuration for :timeoutable
-  config.timeout_in = 1.hour
+  config.timeout_in = 12.hours
 
   # ==> Configuration for :lockable
   config.lock_strategy = :failed_attempts
