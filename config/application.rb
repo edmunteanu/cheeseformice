@@ -26,5 +26,7 @@ module Cheeseformice
     config.i18n.default_locale = :en
 
     config.active_job.queue_adapter = :good_job
+
+    config.exceptions_app = routes
   end
 end
