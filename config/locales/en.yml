@@ -4,3 +4,9 @@ en:
       profiles. Stay ahead with up-to-date rankings, monitor your performance and see how you fare against your
       friends and the broader community. Perfect for enthusiasts and more competitive players!"
     title: "CheeseForMice"
+  navbar:
+    brand: "CheeseForMice"
+    brand_short: "CFM"
+    jobs: "Jobs"
+    leaderboard: "Leaderboard"
+    logout: "Logout"

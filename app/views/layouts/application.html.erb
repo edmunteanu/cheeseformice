@@ -19,12 +19,16 @@
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', type: 'module' %>
   </head>
 
-  <body class="h-100">
-    <div class="container h-100 py-5">
-      <%= yield %>
-    </div>
-    <div class="flash-messages-container">
-      <%= render partial: 'layouts/flash_messages', flash: flash %>
+  <body class="d-flex flex-column h-100">
+    <%= render 'layouts/navbar' %>
+
+    <div class="flex-grow-1 position-relative">
+      <div class="container py-5 h-100">
+        <%= yield %>
+      </div>
+      <div class="flash-messages-container">
+        <%= render partial: 'layouts/flash_messages', flash: flash %>
+      </div>
     </div>
   </body>
 </html>
