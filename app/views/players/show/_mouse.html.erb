@@ -25,7 +25,7 @@
             <%= [number_with_delimiter(player.current_experience),
                  number_with_delimiter(player.experience_needed)].join(' / ') %>
           </span>
-          <div class="progress-bar bg-info overflow-visible"
+          <div class="progress-bar bg-primary overflow-visible"
                style="width: <%= decimal_to_percentage(player.level_progress) %>;">
           </div>
         </div>
