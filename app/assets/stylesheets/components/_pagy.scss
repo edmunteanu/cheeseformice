@@ -6,17 +6,17 @@
     --bs-pagination-padding-x: 0;
     --bs-pagination-padding-y: 0;
 
+    .page-item {
+      .page-link {
+        @extend .btn, .btn-secondary;
+      }
+    }
+
     .page-item.prev {
       @extend .me-auto;
 
       .page-link {
         @extend .btn, .btn-primary;
-      }
-    }
-
-    .page-item {
-      .page-link {
-        @extend .btn, .btn-secondary;
       }
     }
 
