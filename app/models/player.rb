@@ -20,6 +20,10 @@ class Player < ApplicationRecord
   after_validation :normalize_name
   before_save :update_scores, :log_changes
 
+  def to_param
+    name
+  end
+
   private
 
   def normalize_name

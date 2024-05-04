@@ -1,15 +1,15 @@
 en:
-  activemodel:
+  activerecord:
     attributes:
       player:
         rounds_played: "Rounds played"
         shaman_cheese: "Cheese gathered as shaman"
         saved_mice: "Mice saved"
-        saved_mice_hard: "Mice saved (hard mode)"
-        saved_mice_divine: "Mice saved (divine mode)"
-        saved_mice_without_skills: "Mice saved (without skills)"
-        saved_mice_without_skills_hard: "Mice saved (without skills - hard mode)"
-        saved_mice_without_skills_divine: "Mice saved (without skills - divine mode)"
+        saved_mice_hard: "Mice saved (hard)"
+        saved_mice_divine: "Mice saved (divine)"
+        saved_mice_without_skills: "Mice saved (no skills)"
+        saved_mice_hard_without_skills: "Mice saved (no skills - hard)"
+        saved_mice_divine_without_skills: "Mice saved (no skills - divine)"
         cheese_gathered: "Cheese gathered"
         firsts: "Firsts"
         bootcamp: "Bootcamp"

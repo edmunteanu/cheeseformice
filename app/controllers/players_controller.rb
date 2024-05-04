@@ -11,6 +11,10 @@ class PlayersController < AuthenticatedController
     @pagy, @players = pagy_countless(Player.eligible_for_ranking.order(:normal_rank), max_pages: MAX_LEADERBOARD_PAGES)
   end
 
+  def show
+    @player = Player.find_by(name: params[:id])
+  end
+
   private
 
   # The Pagy overflow extra does not work with the :max_pages option. Setting it to :last_page in the initializer

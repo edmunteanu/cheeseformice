@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   get '/leaderboard', to: 'players#index'
+  resources :players, only: :show
+
   get '/404', to: 'errors#not_found'
   get '/500', to: 'errors#internal_server_error'
 

@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-between gap-3">
+  <div class="d-flex flex-column flex-md-row align-items-md-baseline gap-0 gap-md-3 overflow-hidden">
+    <h4 class="text-truncate mb-0"><%= title %></h4>
+    <div class="vr d-none d-md-block"></div>
+    <span><%= t('players.score', score: score) %></span>
+  </div>
+
+  <div class="d-flex align-items-center">
+    <div class="d-flex flex-shrink-0 align-items-baseline gap-3">
+      <%== displayed_rank_change %>
+      <h4 class="mb-0"><%= "##{rank}" %></h4>
+    </div>
+  </div>
+</div>

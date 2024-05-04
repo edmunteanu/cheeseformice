@@ -84,4 +84,30 @@ RSpec.describe PlayersController do
       end
     end
   end
+
+  describe '#show' do
+    let(:player) { create(:player) }
+
+    context 'when not signed in' do
+      before { get player_path(player) }
+
+      it 'redirects to the sign-in page' do
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'when signed in' do
+      let(:user) { create(:user) }
+
+      before do
+        sign_in(user)
+        get player_path(player)
+      end
+
+      it 'displays the player name' do
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include(player.name)
+      end
+    end
+  end
 end

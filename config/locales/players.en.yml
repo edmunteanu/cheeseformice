@@ -2,3 +2,10 @@ en:
   players:
     index:
       title: "Top players"
+    score: "Score: %{score}"
+    show:
+      categories:
+        defilante: "Defilante"
+        normal: "Mouse"
+        racing: "Racing"
+        survivor: "Survivor"
