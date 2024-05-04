@@ -30,6 +30,58 @@ RSpec.describe PlayersController do
         expect(response).to have_http_status(:ok)
         players.each { |player| expect(response.body).to include(player.name) }
       end
+
+      describe 'page parameter' do
+        before do
+          stub_const('PlayersController::MAX_LEADERBOARD_PAGES', 2)
+          stub_const('Pagy::DEFAULT', Pagy::DEFAULT.merge(items: 1))
+          get leaderboard_path, params: { page: page }
+        end
+
+        context 'when the page parameter is lower than the maximum number of pages' do
+          let(:page) { 1 }
+
+          it 'displays the page' do
+            expect(response).to have_http_status(:ok)
+            expect(response.body).to include(players.first.name)
+            expect(response.body).not_to include(players.second.name)
+            expect(response.body).not_to include(players.third.name)
+          end
+        end
+
+        context 'when the page parameter is equal to the maximum number of pages' do
+          let(:page) { 2 }
+
+          it 'displays the last page' do
+            expect(response).to have_http_status(:ok)
+            expect(response.body).not_to include(players.first.name)
+            expect(response.body).to include(players.second.name)
+            expect(response.body).not_to include(players.third.name)
+          end
+        end
+
+        context 'when the page parameter is higher than the maximum number of pages' do
+          let(:page) { 3 }
+
+          it 'displays the second page' do
+            expect(response).to have_http_status(:ok)
+            expect(response.body).not_to include(players.first.name)
+            expect(response.body).to include(players.second.name)
+            expect(response.body).not_to include(players.third.name)
+          end
+        end
+
+        context 'when the page parameter is not an integer' do
+          let(:page) { 'random' }
+
+          it 'displays the first page' do
+            expect(response).to have_http_status(:ok)
+            expect(response.body).to include(players.first.name)
+            expect(response.body).not_to include(players.second.name)
+            expect(response.body).not_to include(players.third.name)
+          end
+        end
+      end
     end
   end
 end

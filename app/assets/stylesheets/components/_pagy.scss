@@ -1,0 +1,48 @@
+.pagy-bootstrap {
+  .pagination {
+    @extend .gap-2, .mb-0, .w-100;
+
+    --bs-pagination-border-width: 0;
+    --bs-pagination-padding-x: 0;
+    --bs-pagination-padding-y: 0;
+
+    .page-item.prev {
+      @extend .me-auto;
+
+      .page-link {
+        @extend .btn, .btn-primary;
+      }
+    }
+
+    .page-item {
+      .page-link {
+        @extend .btn, .btn-secondary;
+      }
+    }
+
+    .page-item.disabled {
+      .page-link {
+        @extend .text-muted;
+
+        background-color: transparent;
+        border-color: transparent;
+      }
+    }
+
+    .page-item.active {
+      .page-link {
+        @extend .border-primary, .bg-primary, .text-bg-primary;
+
+        cursor: initial;
+      }
+    }
+
+    .page-item.next {
+      @extend .ms-auto;
+
+      .page-link {
+        @extend .btn, .btn-primary;
+      }
+    }
+  }
+}
