@@ -2,3 +2,15 @@ en:
   players:
     index:
       title: "Top players"
+    score: "Score: %{score}"
+    show:
+      badges: "Badges"
+      categories:
+        defilante: "Defilante"
+        normal: "Normal"
+        racing: "Racing"
+        survivor: "Survivor"
+      change_logs: "Last 30 days"
+      level: "Level"
+      mouse: "Mouse"
+      registration_date: "Registration date"

@@ -34,6 +34,7 @@ module PlayerCalculators
     def saved_mice_without_skills_ratio = normal_ratio(saved_mice_without_skills)
     def saved_mice_hard_without_skills_ratio = normal_ratio(saved_mice_hard_without_skills)
     def saved_mice_divine_without_skills_ratio = normal_ratio(saved_mice_divine_without_skills)
+    def shaman_cheese_ratio = normal_ratio(shaman_cheese)
     def cheese_gathered_ratio = normal_ratio(cheese_gathered)
     def firsts_ratio = normal_ratio(firsts)
     def bootcamp_ratio = normal_ratio(bootcamp)

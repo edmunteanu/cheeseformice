@@ -116,36 +116,44 @@ RSpec.describe Player do
     context 'when the experience is 0' do
       let(:experience) { 0 }
 
-      it 'returns current level 1 and current experience 0' do
+      it 'returns correct values' do
         expect(player.current_level).to eq(1)
         expect(player.current_experience).to eq(0)
+        expect(player.experience_needed).to eq(32)
+        expect(player.level_progress).to eq(0.0)
       end
     end
 
     context 'when the experience is in the range of level 1 to 29' do
       let(:experience) { 1299 } # 1300 needed for level 14
 
-      it 'returns current level 13 and current experience 211' do
+      it 'returns correct values' do
         expect(player.current_level).to eq(13)
         expect(player.current_experience).to eq(211)
+        expect(player.experience_needed).to eq(212)
+        expect(player.level_progress).to be_within(0.1).of(0.99)
       end
     end
 
     context 'when the experience is in the range of level 30 to 59' do
       let(:experience) { 32_659 } # 32660 needed for level 39
 
-      it 'returns current level 38 and current experience 3959' do
+      it 'returns correct values' do
         expect(player.current_level).to eq(38)
         expect(player.current_experience).to eq(3_959)
+        expect(player.experience_needed).to eq(3_960)
+        expect(player.level_progress).to be_within(0.1).of(0.99)
       end
     end
 
     context 'when the experience is in the range of level 60 and above' do
       let(:experience) { 4_312_634 } # 4312635 needed for level 130
 
-      it 'returns current level 129 and current experience 113474' do
+      it 'returns correct values' do
         expect(player.current_level).to eq(129)
         expect(player.current_experience).to eq(113_474)
+        expect(player.experience_needed).to eq(113_475)
+        expect(player.level_progress).to be_within(0.1).of(0.99)
       end
     end
   end

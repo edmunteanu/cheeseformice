@@ -6,7 +6,7 @@
 
 <div class="player-list">
   <% @players.each do |player| %>
-    <%= render LeaderboardPlayer.new(player, 'normal') %>
+    <%= render 'players/index/player_card', player: player %>
   <% end %>
 </div>
 

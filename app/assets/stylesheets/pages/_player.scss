@@ -1,4 +1,6 @@
-.player-list {
+.player-list,
+.player-misc,
+.player-stats {
   .card {
     @extend .mb-3;
 

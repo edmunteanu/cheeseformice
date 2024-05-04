@@ -1,4 +1,3 @@
 en:
-  leaderboard_player:
+  score_header:
     new: "New"
-    score: "Score: %{score}"
