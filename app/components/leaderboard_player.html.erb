@@ -1,10 +1,13 @@
 <div class="card player-card">
   <div class="card-body">
-    <div class="d-flex align-items-center gap-3">
-      <h4 class="mb-0"><%= player.name %></h4>
-      <div class="vr"></div>
-      <span><%= t('.score', score: number_with_delimiter(player.normal_score)) %></span>
-      <div class="d-flex align-items-center gap-3 ms-auto">
+    <div class="d-flex justify-content-between gap-3">
+      <div class="d-flex flex-column flex-md-row align-items-md-center gap-0 gap-md-3 overflow-hidden">
+        <h4 class="text-truncate mb-0"><%= player.name %></h4>
+        <div class="vr d-none d-md-block"></div>
+        <span><%= t('.score', score: number_with_delimiter(player.normal_score)) %></span>
+      </div>
+
+      <div class="d-flex flex-shrink-0 align-items-center gap-3">
         <%== displayed_rank_progression %>
         <h4 class="mb-0"><%= "##{player.normal_rank}" %></h4>
       </div>
@@ -13,18 +16,21 @@
     <div class="card-separator"></div>
 
     <div class="row">
-      <div class="col-6 col-md-3">
+      <div class="col-6 col-md-3 mb-3 mb-md-0">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:rounds_played) %></span>
         <%= number_with_delimiter(player.rounds_played) %>
       </div>
-      <div class="col-6 col-md-3">
+
+      <div class="col-6 col-md-3 mb-3 mb-md-0">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:saved_mice) %></span>
         <%= number_with_delimiter(player.saved_mice) %>
       </div>
+
       <div class="col-6 col-md-3">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:firsts) %></span>
         <%= number_with_delimiter(player.firsts) %>
       </div>
+
       <div class="col-6 col-md-3">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:cheese_gathered) %></span>
         <%= number_with_delimiter(player.cheese_gathered) %>
