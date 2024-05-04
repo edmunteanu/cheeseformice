@@ -2,8 +2,11 @@
   --bs-card-bg: var(--bs-dark);
   --bs-card-border-radius: 1rem;
   --bs-card-border-width: 0;
-  --bs-card-spacer-x: 1.5rem;
-  --bs-card-spacer-y: 1.5rem;
+
+  @include media-breakpoint-up(md) {
+    --bs-card-spacer-x: 1.5rem;
+    --bs-card-spacer-y: 1.5rem;
+  }
 
   &.sign-in-card {
     width: 500px;

@@ -1,3 +1,9 @@
-.player-card {
-  @extend .mb-3;
+.player-list {
+  .card {
+    @extend .mb-3;
+
+    &:last-child {
+      @extend .mb-0;
+    }
+  }
 }
