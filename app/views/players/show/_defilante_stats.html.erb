@@ -6,18 +6,24 @@
 
     <div class="row g-4">
       <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:defilante_rounds_played) %></span>
-        <span><%= number_with_delimiter(player.defilante_rounds_played) %></span>
-      </div>
-
-      <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:defilante_finished_maps) %></span>
-        <span><%= number_with_delimiter(player.defilante_finished_maps) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.defilante_finished_maps) %></span>
+          <span class="text-muted"><%= display_ratio(player.defilante_finished_maps_ratio) %></span>
+        </div>
       </div>
 
       <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:defilante_points) %></span>
-        <span><%= number_with_delimiter(player.defilante_points) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.defilante_points) %></span>
+          <span class="text-muted"><%= display_ratio(player.defilante_points_ratio) %></span>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:defilante_rounds_played) %></span>
+        <span><%= number_with_delimiter(player.defilante_rounds_played) %></span>
       </div>
     </div>
   </div>

@@ -1,10 +1,14 @@
 <h1 class="text-primary mb-4 mb-md-5"><%= @player.name %></h1>
 
-<div class="row g-3">
+<div class="row g-3 mb-4 mb-md-5">
   <div class="col-12 col-lg-3">
-    <div class="card">
+    <div class="card h-100">
       <div class="card-body">
+        <%# TODO: Implement level & experience progress, title, a801 profile, (future: tribe?) %>
 
+        <div class="card-separator"></div>
+
+        <h4 class="text-center mb-3"><%= t('.badges') %></h4>
       </div>
     </div>
   </div>
@@ -14,5 +18,21 @@
     <%= render 'players/show/racing_stats', player: @player %>
     <%= render 'players/show/survivor_stats', player: @player %>
     <%= render 'players/show/defilante_stats', player: @player %>
+  </div>
+</div>
+
+<%# TODO: Implement nav-pills to switch between ChangeLogs for Normal, Racing, Survivor, Defilante %>
+
+<div class="row g-3">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="mb-0"><%= t('.change_logs') %></h4>
+
+        <div class="card-separator"></div>
+
+        <%# TODO: Implement ChangeLog overview %>
+      </div>
+    </div>
   </div>
 </div>

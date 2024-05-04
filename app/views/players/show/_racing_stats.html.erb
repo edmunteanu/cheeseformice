@@ -6,23 +6,32 @@
 
     <div class="row g-4">
       <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:racing_rounds_played) %></span>
-        <span><%= number_with_delimiter(player.racing_rounds_played) %></span>
-      </div>
-
-      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:racing_finished_maps) %></span>
-        <span><%= number_with_delimiter(player.racing_finished_maps) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.racing_finished_maps) %></span>
+          <span class="text-muted"><%= display_ratio(player.racing_finished_maps_ratio) %></span>
+        </div>
       </div>
 
       <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:racing_podiums) %></span>
-        <span><%= number_with_delimiter(player.racing_podiums) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.racing_podiums) %></span>
+          <span class="text-muted"><%= display_ratio(player.racing_podiums_ratio) %></span>
+        </div>
       </div>
 
       <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:racing_firsts) %></span>
-        <span><%= number_with_delimiter(player.racing_firsts) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.racing_firsts) %></span>
+          <span class="text-muted"><%= display_ratio(player.racing_firsts_ratio) %></span>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:racing_rounds_played) %></span>
+        <span><%= number_with_delimiter(player.racing_rounds_played) %></span>
       </div>
     </div>
   </div>

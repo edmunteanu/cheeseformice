@@ -4,8 +4,10 @@ en:
       title: "Top players"
     score: "Score: %{score}"
     show:
+      badges: "Badges"
       categories:
         defilante: "Defilante"
         normal: "Mouse"
         racing: "Racing"
         survivor: "Survivor"
+      change_logs: "Last 30 days"

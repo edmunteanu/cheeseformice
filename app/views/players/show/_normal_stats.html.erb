@@ -7,54 +7,91 @@
     <div class="row g-4 mb-4">
       <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:saved_mice) %></span>
-        <span><%= number_with_delimiter(player.saved_mice) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.saved_mice) %></span>
+          <span class="text-muted"><%= display_ratio(player.saved_mice_ratio) %></span>
+        </div>
       </div>
 
       <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:saved_mice_hard) %></span>
-        <span><%= number_with_delimiter(player.saved_mice_hard) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.saved_mice_hard) %></span>
+          <span class="text-muted"><%= display_ratio(player.saved_mice_hard_ratio) %></span>
+        </div>
       </div>
 
       <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:saved_mice_divine) %></span>
-        <span><%= number_with_delimiter(player.saved_mice_divine) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.saved_mice_divine) %></span>
+          <span class="text-muted"><%= display_ratio(player.saved_mice_divine_ratio) %></span>
+        </div>
       </div>
 
       <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:saved_mice_without_skills) %></span>
-        <span><%= number_with_delimiter(player.saved_mice_without_skills) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.saved_mice_without_skills) %></span>
+          <span class="text-muted"><%= display_ratio(player.saved_mice_without_skills_ratio) %></span>
+        </div>
       </div>
 
       <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:saved_mice_hard_without_skills) %></span>
-        <span><%= number_with_delimiter(player.saved_mice_hard_without_skills) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.saved_mice_hard_without_skills) %></span>
+          <span class="text-muted"><%= display_ratio(player.saved_mice_hard_without_skills_ratio) %></span>
+        </div>
       </div>
 
       <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:saved_mice_divine_without_skills) %></span>
-        <span><%= number_with_delimiter(player.saved_mice_divine_without_skills) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.saved_mice_divine_without_skills) %></span>
+          <span class="text-muted"><%= display_ratio(player.saved_mice_divine_without_skills_ratio) %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+      <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:shaman_cheese) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.shaman_cheese) %></span>
+          <span class="text-muted"><%= display_ratio(player.shaman_cheese_ratio) %></span>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:firsts) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.firsts) %></span>
+          <span class="text-muted"><%= display_ratio(player.firsts_ratio) %></span>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:cheese_gathered) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.cheese_gathered) %></span>
+          <span class="text-muted"><%= display_ratio(player.cheese_gathered_ratio) %></span>
+        </div>
       </div>
     </div>
 
     <div class="row g-4">
-      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
+      <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:bootcamp) %></span>
+        <div class="d-flex gap-1">
+          <span><%= number_with_delimiter(player.bootcamp) %></span>
+          <span class="text-muted"><%= display_ratio(player.bootcamp_ratio) %></span>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:rounds_played) %></span>
         <span><%= number_with_delimiter(player.rounds_played) %></span>
-      </div>
-
-      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:firsts) %></span>
-        <span><%= number_with_delimiter(player.firsts) %></span>
-      </div>
-
-      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:cheese_gathered) %></span>
-        <span><%= number_with_delimiter(player.cheese_gathered) %></span>
-      </div>
-
-      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:bootcamp) %></span>
-        <span><%= number_with_delimiter(player.bootcamp) %></span>
       </div>
     </div>
   </div>
