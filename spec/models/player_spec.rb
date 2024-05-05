@@ -13,19 +13,35 @@ RSpec.describe Player do
     it { is_expected.to validate_length_of(:name).is_at_most(Player::MAX_NAME_LENGTH) }
 
     describe 'name normalization' do
-      context 'when the tag is present' do
-        let(:player) { create(:player, name: 'Player#1234') }
+      context 'when the name is wrongly capitalized and the tag is missing' do
+        let(:player) { create(:player, name: 'pLayer_One') }
 
-        it 'does not change the name' do
-          expect(player.name).to eq('Player#1234')
+        it 'capitalizes the name and appends #0000 to it' do
+          expect(player.name).to eq('Player_one#0000')
         end
       end
 
-      context 'when the tag is missing' do
-        let(:player) { create(:player, name: 'Player') }
+      context 'when the name is wrongly capitalized but the tag is present' do
+        let(:player) { create(:player, name: 'pLayer_One#1234') }
 
-        it 'appends #0000 to the name' do
-          expect(player.name).to eq('Player#0000')
+        it 'capitalizes the name and does not change the tag' do
+          expect(player.name).to eq('Player_one#1234')
+        end
+      end
+
+      context 'when the name starts with a + and is wrongly capitalized' do
+        let(:player) { create(:player, name: '+pLayer_One#1234') }
+
+        it 'capitalizes the name and does not change the tag' do
+          expect(player.name).to eq('+Player_one#1234')
+        end
+      end
+
+      context 'when the name is correctly capitalized and the tag is present' do
+        let(:player) { create(:player, name: 'Player_one#1234') }
+
+        it 'does not change the name' do
+          expect(player.name).to eq('Player_one#1234')
         end
       end
     end
