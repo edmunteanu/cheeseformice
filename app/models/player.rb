@@ -26,6 +26,7 @@ class Player < ApplicationRecord
 
   private
 
+  # TODO: Capitalize name as well + write a migration to run over all existing accounts
   def normalize_name
     self.name = "#{name}#0000" if name.present? && !name.match?(TAG_REGEX)
   end

@@ -12,6 +12,7 @@ class PlayersController < AuthenticatedController
   end
 
   def show
+    # TODO: Handle the case where the player does not exist, otherwise there's a 500 error.
     @player = Player.find_by(name: params[:id])
   end
 
