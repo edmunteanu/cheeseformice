@@ -1,3 +1,9 @@
+:root {
+  // Separators
+  --separator-color: rgb(60 60 60);
+  --separator-thickness: 2px;
+}
+
 // Colors
 $primary: rgb(210 75 175);
 $secondary: rgb(50 50 50);
@@ -6,7 +12,3 @@ $success: rgb(85 170 105);
 $warning: rgb(240 185 65);
 $danger: rgb(220 100 90);
 $dark: rgb(40 40 40);
-
-// Separators
-$separator-color: rgb(60 60 60);
-$separator-thickness: 2px;

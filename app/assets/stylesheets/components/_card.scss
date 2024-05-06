@@ -15,8 +15,8 @@
   .card-separator {
     @extend .my-3;
 
-    background-color: $separator-color;
-    height: $separator-thickness;
+    background-color: var(--separator-color);
+    height: var(--separator-thickness);
     margin-right: calc(var(--bs-card-spacer-x) * -1);
     margin-left: calc(var(--bs-card-spacer-x) * -1);
   }
