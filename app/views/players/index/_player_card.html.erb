@@ -6,11 +6,6 @@
 
     <div class="row g-3">
       <div class="col-6 col-md-3">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:rounds_played) %></span>
-        <span><%= number_with_delimiter(player.rounds_played) %></span>
-      </div>
-
-      <div class="col-6 col-md-3">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:saved_mice) %></span>
         <span><%= number_with_delimiter(player.saved_mice) %></span>
       </div>
@@ -23,6 +18,11 @@
       <div class="col-6 col-md-3">
         <span class="d-block fw-bold"><%= Player.human_attribute_name(:cheese_gathered) %></span>
         <span><%= number_with_delimiter(player.cheese_gathered) %></span>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <span class="d-block fw-bold"><%= Player.human_attribute_name(:rounds_played) %></span>
+        <span><%= number_with_delimiter(player.rounds_played) %></span>
       </div>
     </div>
   </div>
