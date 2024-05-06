@@ -1,5 +1,5 @@
 .vr {
-  background-color: $separator-color;
+  background-color: var(--separator-color);
   opacity: 1;
-  width: $separator-thickness;
+  width: var(--separator-thickness);
 }
