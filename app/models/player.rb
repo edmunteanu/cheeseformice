@@ -21,7 +21,7 @@ class Player < ApplicationRecord
   before_save :update_scores, :log_changes
 
   def to_param
-    name
+    name.downcase
   end
 
   private

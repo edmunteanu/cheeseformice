@@ -108,6 +108,14 @@ RSpec.describe PlayersController do
         expect(response).to have_http_status(:ok)
         expect(response.body).to include(player.name)
       end
+
+      context 'when the player does not exist' do
+        let(:player) { build_stubbed(:player) }
+
+        it 'renders the not found page' do
+          expect(response).to have_http_status(:not_found)
+        end
+      end
     end
   end
 end
