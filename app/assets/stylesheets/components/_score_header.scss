@@ -1,0 +1,13 @@
+.rank-container,
+.score-container {
+  @extend .d-flex, .flex-column, .gap-0, .gap-md-3;
+}
+
+.rank-container {
+  @extend .flex-md-row-reverse, .align-items-end, .flex-shrink-0;
+}
+
+.score-container {
+  @extend .flex-md-row, .overflow-hidden;
+}
+
