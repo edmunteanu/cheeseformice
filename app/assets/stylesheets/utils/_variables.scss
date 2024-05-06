@@ -13,3 +13,9 @@ $warning: rgb(240 185 65);
 $danger: rgb(220 100 90);
 $light: rgb(240 240 240);
 $dark: rgb(40 40 40);
+
+// Links
+$nav-link-transition: background-color .15s ease-in-out,
+                      border-color .15s ease-in-out,
+                      color .15s ease-in-out,
+                      text-decoration-color 0.15s ease-in-out;
