@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <%= render ScoreHeader.new(player, title: player.name, type: :normal) %>
+    <%= render ScoreHeader.new(player, title: player.name, title_path: player_path(player), type: :normal) %>
 
     <div class="card-separator"></div>
 

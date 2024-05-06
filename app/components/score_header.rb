@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class ScoreHeader < ViewComponent::Base
-  attr_reader :player, :title
+  attr_reader :player, :title, :title_path
 
-  def initialize(player, title:, type:)
+  def initialize(player, title:, type:, title_path: nil)
     super
     @player = player
     @title = title
     @type = type
+    @title_path = title_path
   end
 
   def score

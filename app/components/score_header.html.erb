@@ -1,6 +1,13 @@
 <div class="d-flex justify-content-between gap-3">
   <div class="score-container">
-    <h4 class="text-truncate mb-0"><%= title %></h4>
+    <% if title_path %>
+      <%= link_to title_path, class: 'link-light link-offset-1 link-underline-opacity-50 link-underline-opacity-100-hover' do %>
+        <h4 class="text-truncate mb-0"><%= title %></h4>
+      <% end %>
+    <% else %>
+      <h4 class="text-truncate mb-0"><%= title %></h4>
+    <% end %>
+
     <div class="vr d-none d-md-block"></div>
     <span class="align-self-md-end"><%= t('players.score', score: score) %></span>
   </div>
