@@ -12,8 +12,10 @@
     <span class="align-self-md-end"><%= t('players.score', score: score) %></span>
   </div>
 
-  <div class="rank-container">
-    <h4 class="mb-0"><%= "##{rank}" %></h4>
-    <%== displayed_rank_change %>
-  </div>
+  <% unless player.disqualified? %>
+    <div class="rank-container">
+      <h4 class="mb-0"><%= "##{rank}" %></h4>
+      <%== displayed_rank_change %>
+    </div>
+  <% end %>
 </div>

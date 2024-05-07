@@ -15,6 +15,10 @@ class ScoreHeader < ViewComponent::Base
     number_with_delimiter(player.public_send(:"#{@type}_score"))
   end
 
+  def rank
+    number_with_delimiter(player.public_send(:"#{@type}_rank"))
+  end
+
   def displayed_rank_change
     return "<span class='text-success'>#{I18n.t('score_header.new')}</span>" if rank_change.blank?
 
@@ -25,10 +29,6 @@ class ScoreHeader < ViewComponent::Base
     else
       "<span class='text-danger'><i class='bi bi-chevron-down'></i> #{number_with_delimiter(rank_change.abs)}</span>"
     end
-  end
-
-  def rank
-    number_with_delimiter(player.public_send(:"#{@type}_rank"))
   end
 
   private

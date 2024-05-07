@@ -15,13 +15,17 @@ class Player < ApplicationRecord
   validates :a801_id, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true, length: { maximum: MAX_NAME_LENGTH }
 
-  scope :eligible_for_ranking, -> { where.not(stats_reliability: 2) }
+  scope :qualified, -> { where.not(stats_reliability: 2) }
 
   after_validation :normalize_name
   before_save :update_scores, :log_changes
 
   def to_param
     name.downcase
+  end
+
+  def disqualified?
+    stats_reliability == 2
   end
 
   private
