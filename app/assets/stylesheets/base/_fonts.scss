@@ -1,10 +1,8 @@
-// TODO: Read about font-display and use it in the font-face declaration to transform a
-//   "flash of invisible text (FOIT)" into a "flash of unstyled text (FOUT)". This improves FCP & LCP
-//   See more under https://developer.chrome.com/docs/lighthouse/performance/font-display
 @font-face {
   font-family: Soopafresh;
+  font-display: swap;
   src: url('Soopafresh.woff2') format('woff2'),
-  url('Soopafresh.woff') format('woff');
+       url('Soopafresh.woff') format('woff');
 }
 
 .soopafresh {
