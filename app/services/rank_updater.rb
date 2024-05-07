@@ -31,6 +31,8 @@ class RankUpdater
   # receive a different rank. This means that an older account will be ranked higher. This should not
   # pose a problem, since duplicate scores don't become apparent until around the 200'000th rank.
   def update_rank_sql(score, rank, previous_rank, batch_start_id, batch_end_id)
+    # TODO: Maybe the WITH ranked_players query can be saved in a temp_table which can be reused for every batch
+    #   instead of running it ~12 times for every type of rank?
     <<-SQL.squish
       WITH ranked_players AS (
         SELECT id, #{rank}, RANK() OVER (ORDER BY #{score} DESC, a801_id ASC) AS new_rank

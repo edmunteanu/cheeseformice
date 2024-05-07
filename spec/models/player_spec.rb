@@ -48,7 +48,7 @@ RSpec.describe Player do
   end
 
   describe 'scopes' do
-    describe '.eligible_for_ranking' do
+    describe '.qualified' do
       let!(:players) do
         [
           create(:player, stats_reliability: 0),
@@ -58,7 +58,7 @@ RSpec.describe Player do
       end
 
       it 'returns only the players with stats_reliability 0 and 1' do
-        expect(described_class.eligible_for_ranking).to contain_exactly(players.first, players.second)
+        expect(described_class.qualified).to contain_exactly(players.first, players.second)
       end
     end
   end
