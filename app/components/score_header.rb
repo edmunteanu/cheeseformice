@@ -21,9 +21,9 @@ class ScoreHeader < ViewComponent::Base
   end
 
   def score_change
-    return if previous_day.blank?
+    return if player.previous_day_change_log.blank?
 
-    value = previous_day.public_send(:"#{@type}_score")
+    value = player.previous_day_change_log.public_send(:"#{@type}_score")
 
     return if value.zero?
 
@@ -51,10 +51,6 @@ class ScoreHeader < ViewComponent::Base
   end
 
   private
-
-  def previous_day
-    player.change_logs.previous_day.first
-  end
 
   def rank_change
     current_rank = player.public_send(:"#{@type}_rank")

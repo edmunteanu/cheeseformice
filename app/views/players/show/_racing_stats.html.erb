@@ -5,12 +5,10 @@
     <div class="card-separator"></div>
 
     <div class="row g-3">
-      <%= render PlayerStat.new(player, stat: :racing_finished_maps, col_setup: 'col-6 col-md-3') %>
-      <%= render PlayerStat.new(player, stat: :racing_podiums, col_setup: 'col-6 col-md-3') %>
-      <%= render PlayerStat.new(player, stat: :racing_firsts, col_setup: 'col-6 col-md-3') %>
-      <%= render PlayerStat.new(player, stat: :racing_rounds_played,
-                                        col_setup: 'col-6 col-md-3',
-                                        display_ratio: false) %>
+      <%= render PlayerStat.new(player, stat: :racing_finished_maps, style: 'col-6 col-md-3') %>
+      <%= render PlayerStat.new(player, stat: :racing_podiums, style: 'col-6 col-md-3') %>
+      <%= render PlayerStat.new(player, stat: :racing_firsts, style: 'col-6 col-md-3') %>
+      <%= render PlayerStat.new(player, stat: :racing_rounds_played, style: 'col-6 col-md-3', display_ratio: false) %>
     </div>
   </div>
 </div>
