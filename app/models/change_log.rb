@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ChangeLog < ApplicationRecord
+  include PlayerExtensions::Ratio
+
   belongs_to :player, counter_cache: true
 
   # Hint: If the created_at date of the latest change log is the same as the current date, the change log contains

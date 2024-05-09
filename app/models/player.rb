@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class Player < ApplicationRecord
-  include PlayerCalculators::NormalScore
-  include PlayerCalculators::SurvivorScore
-  include PlayerCalculators::RacingScore
-  include PlayerCalculators::DefilanteScore
-  include PlayerCalculators::Level
+  include PlayerExtensions::Ratio
+  include PlayerExtensions::NormalScore
+  include PlayerExtensions::SurvivorScore
+  include PlayerExtensions::RacingScore
+  include PlayerExtensions::DefilanteScore
+  include PlayerExtensions::Level
 
   MAX_NAME_LENGTH = 100
   TAG_REGEX = /#\d{4}$/
