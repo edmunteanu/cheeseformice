@@ -30,7 +30,7 @@ class ScoreHeader < ViewComponent::Base
     if value.positive?
       "<span class='text-success'>#{number_with_delimiter(value)} <i class='bi bi-chevron-up'></i></span>"
     else
-      "<span class='text-danger'>#{number_with_delimiter(value)} <i class='bi bi-chevron-down'></i></span>"
+      "<span class='text-danger'>#{number_with_delimiter(value.abs)} <i class='bi bi-chevron-down'></i></span>"
     end
   end
 

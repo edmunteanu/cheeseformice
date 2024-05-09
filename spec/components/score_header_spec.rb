@@ -42,7 +42,7 @@ RSpec.describe ScoreHeader, type: :component do
         let(:normal_score) { -100 }
 
         it 'returns the correct message' do
-          message = "<span class='text-danger'>-100 <i class='bi bi-chevron-down'></i></span>"
+          message = "<span class='text-danger'>100 <i class='bi bi-chevron-down'></i></span>"
           expect(score_change).to eq(message)
         end
       end
