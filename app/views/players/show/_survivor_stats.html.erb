@@ -5,34 +5,12 @@
     <div class="card-separator"></div>
 
     <div class="row g-3">
-      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:survivor_shaman_rounds) %></span>
-        <div class="d-flex gap-1">
-          <span><%= number_with_delimiter(player.survivor_shaman_rounds) %></span>
-          <span class="text-muted"><%= display_ratio(player.survivor_shaman_rounds_ratio) %></span>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:survivor_mice_killed) %></span>
-        <div class="d-flex gap-1">
-          <span><%= number_with_delimiter(player.survivor_mice_killed) %></span>
-          <span class="text-muted"><%= display_ratio(player.survivor_mice_killed_ratio) %></span>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:survivor_survived_rounds) %></span>
-        <div class="d-flex gap-1">
-          <span><%= number_with_delimiter(player.survivor_survived_rounds) %></span>
-          <span class="text-muted"><%= display_ratio(player.survivor_survived_rounds_ratio) %></span>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
-        <span class="d-block fw-bold"><%= Player.human_attribute_name(:survivor_rounds_played) %></span>
-        <span><%= number_with_delimiter(player.survivor_rounds_played) %></span>
-      </div>
+      <%= render PlayerStat.new(player, stat: :survivor_shaman_rounds, col_setup: 'col-6 col-md-3') %>
+      <%= render PlayerStat.new(player, stat: :survivor_mice_killed, col_setup: 'col-6 col-md-3') %>
+      <%= render PlayerStat.new(player, stat: :survivor_survived_rounds, col_setup: 'col-6 col-md-3') %>
+      <%= render PlayerStat.new(player, stat: :survivor_rounds_played,
+                                        col_setup: 'col-6 col-md-3',
+                                        display_ratio: false) %>
     </div>
   </div>
 </div>

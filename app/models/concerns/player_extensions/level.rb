@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module PlayerCalculators
+module PlayerExtensions
   module Level
     def current_level
       current_level_and_experience[:current_level]

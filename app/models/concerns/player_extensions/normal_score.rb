@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module PlayerCalculators
+module PlayerExtensions
   module NormalScore
     # These weights have been calculated based on the rounded average ratios of the top 50'000 players sorted
     # by firsts descending: 40% / 20% (hard) / 10% (divine) saves ratio, 40% cheese ratio, 10% firsts ratio
@@ -27,17 +27,6 @@ module PlayerCalculators
         bootcamp * bootcamp_ratio * BOOTCAMP_WEIGHT
       ].sum
     end
-
-    def saved_mice_ratio = normal_ratio(saved_mice)
-    def saved_mice_hard_ratio = normal_ratio(saved_mice_hard)
-    def saved_mice_divine_ratio = normal_ratio(saved_mice_divine)
-    def saved_mice_without_skills_ratio = normal_ratio(saved_mice_without_skills)
-    def saved_mice_hard_without_skills_ratio = normal_ratio(saved_mice_hard_without_skills)
-    def saved_mice_divine_without_skills_ratio = normal_ratio(saved_mice_divine_without_skills)
-    def shaman_cheese_ratio = normal_ratio(shaman_cheese)
-    def cheese_gathered_ratio = normal_ratio(cheese_gathered)
-    def firsts_ratio = normal_ratio(firsts)
-    def bootcamp_ratio = normal_ratio(bootcamp)
 
     private
 
@@ -68,7 +57,5 @@ module PlayerCalculators
         saved_mice_divine_without_skills * SAVED_MICE_DIVINE_WEIGHT
       ].sum * SAVED_MICE_WITHOUT_SKILLS_TOTAL_WEIGHT
     end
-
-    def normal_ratio(stat) = stat.to_f / rounds_played
   end
 end

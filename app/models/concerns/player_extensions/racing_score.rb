@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module PlayerCalculators
+module PlayerExtensions
   module RacingScore
     # These weights have been calculated based on the rounded average ratios of the top 50'000 players sorted
     # by racing firsts descending: 50% finished maps ratio, 20% firsts ratio, 30% podiums ratio
@@ -19,13 +19,5 @@ module PlayerCalculators
         racing_podiums * racing_podiums_ratio * RACING_PODIUMS_WEIGHT
       ].sum
     end
-
-    def racing_finished_maps_ratio = racing_ratio(racing_finished_maps)
-    def racing_firsts_ratio = racing_ratio(racing_firsts)
-    def racing_podiums_ratio = racing_ratio(racing_podiums)
-
-    private
-
-    def racing_ratio(stat) = stat.to_f / racing_rounds_played
   end
 end

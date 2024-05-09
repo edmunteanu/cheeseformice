@@ -1,0 +1,22 @@
+<div class="<%= container_classes %>">
+  <span class="d-block fw-bold"><%= title %></span>
+
+  <div class="d-flex gap-1">
+    <span><%= number_with_delimiter(value) %></span>
+
+    <% if display_ratio? %>
+      <span class="text-muted"><%= display_ratio(ratio) %></span>
+    <% end %>
+  </div>
+  <div class="d-flex gap-1 h-100">
+    <% if display_change? %>
+      <span class="text-success"><%= number_with_delimiter(previous_day_value) %></span>
+
+      <% if display_ratio? %>
+        <span class="text-success"><%= display_ratio(previous_day_ratio) %></span>
+      <% end %>
+
+      <i class="bi bi-chevron-up text-success"></i>
+    <% end %>
+  </div>
+</div>

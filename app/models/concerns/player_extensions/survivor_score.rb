@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module PlayerCalculators
+module PlayerExtensions
   module SurvivorScore
     # These weights have been calculated based on the rounded average ratios of the top 50'000 players sorted
     # by shaman rounds descending: 60% mice killed ratio, 10% shaman rounds ratio, 40% survived rounds ratio
@@ -19,13 +19,5 @@ module PlayerCalculators
         survivor_survived_rounds * survivor_survived_rounds_ratio * SURVIVOR_SURVIVED_ROUNDS_WEIGHT
       ].sum
     end
-
-    def survivor_mice_killed_ratio = survivor_ratio(survivor_mice_killed)
-    def survivor_shaman_rounds_ratio = survivor_ratio(survivor_shaman_rounds)
-    def survivor_survived_rounds_ratio = survivor_ratio(survivor_survived_rounds)
-
-    private
-
-    def survivor_ratio(stat) = stat.to_f / survivor_rounds_played
   end
 end
