@@ -1,7 +1,6 @@
 <% if logs.any? %>
   <div id="changeLogs" class="accordion accordion-flush">
     <%# TODO: Implement quick overview for the last 7 and 30 days totals in addition to day-by-day breakdown %>
-    <%# TODO: Check what happens if the player has no change logs but one exactly at the brink of expiration %>
 
     <% ChangeLog::MAX_AMOUNT.times.each do |index| %>
       <% display_date = Date.current - (index + 1).days %>

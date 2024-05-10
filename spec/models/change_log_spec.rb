@@ -94,12 +94,12 @@ RSpec.describe ChangeLog do
       end
 
       context 'with change logs created in the last month but not today (every day)' do
-        let!(:change_logs) { Array.new(31) { |index| create(:change_log, created_at: (index + 1).days.ago) } }
+        let!(:change_logs) { Array.new(30) { |index| create(:change_log, created_at: (index + 1).days.ago) } }
 
         it 'returns all change logs from the last month' do
-          expect(described_class.count).to eq(31)
-          expect(described_class.previous_month.count).to eq(30)
-          expect(described_class.previous_month).to match_array(change_logs.first(30))
+          expect(described_class.count).to eq(30)
+          expect(described_class.previous_month.count).to eq(29)
+          expect(described_class.previous_month).to match_array(change_logs.first(29))
           expect(described_class.previous_month.first&.created_at&.to_date).to eq(Date.current - 1.day)
         end
       end
@@ -130,7 +130,7 @@ RSpec.describe ChangeLog do
     end
 
     describe '.expired' do
-      let!(:change_logs) { Array.new(2) { |index| create(:change_log, created_at: (index + 30).days.ago) } }
+      let!(:change_logs) { Array.new(2) { |index| create(:change_log, created_at: (index + 29).days.ago) } }
 
       it 'returns only the change logs older than 30 days' do
         expect(described_class.count).to eq(2)

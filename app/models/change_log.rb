@@ -4,6 +4,7 @@ class ChangeLog < ApplicationRecord
   include PlayerExtensions::Ratio
 
   MAX_AMOUNT = 30
+  EXPIRED_AFTER = MAX_AMOUNT - 1
 
   belongs_to :player, counter_cache: true
 
@@ -14,7 +15,7 @@ class ChangeLog < ApplicationRecord
   # TODO: Might not need `previous_week` scope
   scope :previous_week, -> { where('created_at >= ?', Date.current - 1.week).order(created_at: :desc).limit(7) }
   scope(:previous_month, lambda do
-    where('created_at >= ?', Date.current - MAX_AMOUNT.days).order(created_at: :desc).limit(MAX_AMOUNT)
+    where('created_at >= ?', Date.current - EXPIRED_AFTER.days).order(created_at: :desc).limit(MAX_AMOUNT)
   end)
-  scope :expired, -> { where('created_at < ?', Date.current - MAX_AMOUNT.days) }
+  scope :expired, -> { where('created_at < ?', Date.current - EXPIRED_AFTER.days) }
 end
