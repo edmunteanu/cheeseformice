@@ -7,7 +7,7 @@ class PlayerLogs < ViewComponent::Base
 
   def initialize(logs)
     super
-    @logs = logs
+    @logs = logs.to_a
   end
 
   def log_map
