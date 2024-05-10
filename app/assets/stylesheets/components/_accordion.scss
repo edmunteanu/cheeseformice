@@ -1,8 +1,6 @@
 .accordion {
   --bs-accordion-bg: transparent;
-  --bs-accordion-body-padding-x: var(--bs-card-spacer-x);
   --bs-accordion-border-width: 0;
-  --bs-accordion-btn-focus-box-shadow: none;
 
   margin: 0 calc(var(--bs-card-spacer-x) * -1);
 
@@ -10,6 +8,7 @@
     .accordion-button {
       --bs-accordion-active-bg: transparent;
       --bs-accordion-btn-bg: transparent;
+      --bs-accordion-btn-focus-box-shadow: none;
       --bs-accordion-btn-padding-x: var(--bs-card-spacer-x);
       --bs-accordion-btn-padding-y: 0.5rem;
 
@@ -34,6 +33,8 @@
   }
 
   .accordion-body {
+    --bs-accordion-body-padding-x: var(--bs-card-spacer-x);
+
     padding: var(--bs-accordion-body-padding-y) var(--bs-accordion-body-padding-x)
              var(--bs-accordion-body-padding-y) calc(2.25rem + var(--bs-card-spacer-x));
   }
