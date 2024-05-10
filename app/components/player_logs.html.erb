@@ -18,7 +18,20 @@
 
         <div id="<%= display_date %>" class="accordion-collapse collapse" data-bs-parent="#changeLogs">
           <div class="accordion-body">
+            <div class="row g-3">
+              <% Player::NORMAL_ATTRIBUTES.each do |attribute| %>
+                <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
+                  <span class="d-block fw-bold"><%= Player.human_attribute_name(attribute) %></span>
+                  <div class="d-flex gap-1">
+                    <span><%= number_with_delimiter(log.public_send(attribute)) %></span>
 
+                    <% if attribute != :rounds_played %>
+                      <span class="text-muted"><%= display_ratio(log.public_send(:"#{attribute}_ratio")) %></span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       <% else %>

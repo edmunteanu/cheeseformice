@@ -3,6 +3,8 @@
 class PlayerLogs < ViewComponent::Base
   attr_reader :logs
 
+  delegate :display_ratio, to: :helpers
+
   def initialize(logs)
     super
     @logs = logs

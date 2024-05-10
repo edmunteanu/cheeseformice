@@ -1,6 +1,7 @@
 .accordion {
   --bs-accordion-active-bg: transparent;
   --bs-accordion-bg: transparent;
+  --bs-accordion-body-padding-x: 0;
   --bs-accordion-border-width: 0;
   --bs-accordion-btn-focus-box-shadow: none;
 
@@ -12,6 +13,11 @@
     &:last-child .accordion-button {
       padding-bottom: 0;
     }
+  }
+
+  .accordion-body {
+    padding: var(--bs-accordion-body-padding-y) var(--bs-accordion-body-padding-x)
+             var(--bs-accordion-body-padding-y) 2.25rem;
   }
 
   .accordion-button {
