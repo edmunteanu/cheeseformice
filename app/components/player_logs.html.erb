@@ -1,5 +1,8 @@
 <div id="changeLogs" class="accordion accordion-flush">
+  <%# TODO: Take care of players who have no logs in the past 30 days %>
   <%# TODO: Implement quick overview for the last 7 and 30 days totals in addition to day-by-day breakdown %>
+  <%# TODO: Check what happens if the player has no change logs but one exactly at the brink of expiration %>
+
   <% ChangeLog::MAX_AMOUNT.times.each do |index| %>
     <% display_date = Date.current - (index + 1).days %>
     <% log = log_map[display_date + 1.day] %>
@@ -8,7 +11,7 @@
     <div class="accordion-item">
       <% if log.present? %>
         <div class="accordion-header">
-          <button class="accordion-button collapsed gap-3" type="button" data-bs-toggle="collapse"
+          <button class="<%= button_class(log) %>" type="button" data-bs-toggle="collapse"
                   data-bs-target="#<%= display_date %>">
             <span class="fw-bold tabular-numbers"><%= title %></span>
             <span class="vr"></span>
@@ -16,7 +19,7 @@
           </button>
         </div>
 
-        <div id="<%= display_date %>" class="accordion-collapse collapse" data-bs-parent="#changeLogs">
+        <div id="<%= display_date %>" class="<%= body_class(log) %>" data-bs-parent="#changeLogs">
           <div class="accordion-body">
             <div class="row g-3">
               <% Player::NORMAL_ATTRIBUTES.each do |attribute| %>

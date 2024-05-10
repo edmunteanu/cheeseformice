@@ -6,6 +6,21 @@
   --bs-accordion-btn-focus-box-shadow: none;
 
   .accordion-item {
+    .accordion-button {
+      --bs-accordion-btn-bg: transparent;
+      --bs-accordion-btn-padding-x: 0;
+      --bs-accordion-btn-padding-y: 0.5rem;
+
+      &::after {
+        order: -1;
+        margin-left: 0;
+      }
+
+      &[disabled]::after {
+        content: none;
+      }
+    }
+
     &:first-child .accordion-button {
       padding-top: 0;
     }
@@ -18,21 +33,6 @@
   .accordion-body {
     padding: var(--bs-accordion-body-padding-y) var(--bs-accordion-body-padding-x)
              var(--bs-accordion-body-padding-y) 2.25rem;
-  }
-
-  .accordion-button {
-    --bs-accordion-btn-bg: transparent;
-    --bs-accordion-btn-padding-x: 0;
-    --bs-accordion-btn-padding-y: 0.5rem;
-
-    &::after {
-      order: -1;
-      margin-left: 0;
-    }
-
-    &[disabled]::after {
-      content: none;
-    }
   }
 
   .accordion-button-disabled-icon {
