@@ -1,24 +1,58 @@
+<%# TODO: See if this whole HTML can be improved (especially the aggregated data accordion-items) %>
 <% if logs.any? %>
   <div id="changeLogs" class="accordion accordion-flush">
-    <%# TODO: Implement quick overview for the last 7 and 30 days totals in addition to day-by-day breakdown %>
+    <% %i[previous_week previous_month].each do |period| %>
+      <% aggregated = public_send(:"aggregated_logs_#{period}") %>
+      <% target = "aggregated_logs#{period.to_s.camelize}" %>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <button class="<%= button_class(period) %>" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#<%= target %>">
+            <span class="fw-bold"><%= t(period, scope: 'player_logs') %></span>
+            <%== score_change(aggregated[:normal_score]) %>
+          </button>
+        </div>
+
+        <div id="<%= target %>" class="<%= body_class(period) %>" data-bs-parent="#changeLogs">
+          <div class="accordion-body">
+            <div class="row g-3">
+              <% Player::NORMAL_ATTRIBUTES.each do |attribute| %>
+                <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
+                  <span class="d-block fw-bold"><%= Player.human_attribute_name(attribute) %></span>
+                  <div class="d-flex gap-1">
+                    <span><%= number_with_delimiter(aggregated[attribute]) %></span>
+
+                    <% if attribute != :rounds_played %>
+                      <span class="text-muted">
+                        <%= display_ratio(aggregated[attribute].to_f / aggregated[:rounds_played]) %>
+                      </span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
     <% ChangeLog::MAX_AMOUNT.times.each do |index| %>
       <% display_date = Date.current - (index + 1).days %>
       <% log = log_map[display_date + 1.day] %>
-      <% title = display_date.strftime('%d-%m-%Y') %>
+      <% title = display_date.strftime('%d. %B %Y') %>
 
       <div class="accordion-item">
         <% if log.present? %>
           <div class="accordion-header">
-            <button class="<%= button_class(log) %>" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button collapsed gap-3" type="button" data-bs-toggle="collapse"
                     data-bs-target="#<%= display_date %>">
               <span class="fw-bold tabular-numbers"><%= title %></span>
-              <span class="vr"></span>
               <%== score_change(log.normal_score) %>
             </button>
           </div>
 
-          <div id="<%= display_date %>" class="<%= body_class(log) %>" data-bs-parent="#changeLogs">
+          <div id="<%= display_date %>" class="accordion-collapse collapse" data-bs-parent="#changeLogs">
             <div class="accordion-body">
               <div class="row g-3">
                 <% Player::NORMAL_ATTRIBUTES.each do |attribute| %>
@@ -41,8 +75,7 @@
             <button class="accordion-button user-select-text collapsed gap-3" type="button" disabled>
               <i class="bi bi-dash-lg text-muted accordion-button-disabled-icon"></i>
               <span class="fw-bold tabular-numbers cursor-text"><%= title %></span>
-              <span class="vr"></span>
-              <span class="text-muted cursor-text"><%= t('player_logs.no_log') %></span>
+              <span class="text-muted cursor-text ms-auto"><%= t('player_logs.no_log') %></span>
             </button>
           </div>
         <% end %>

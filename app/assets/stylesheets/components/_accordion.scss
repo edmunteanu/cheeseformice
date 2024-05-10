@@ -1,14 +1,16 @@
 .accordion {
-  --bs-accordion-active-bg: transparent;
   --bs-accordion-bg: transparent;
-  --bs-accordion-body-padding-x: 0;
+  --bs-accordion-body-padding-x: var(--bs-card-spacer-x);
   --bs-accordion-border-width: 0;
   --bs-accordion-btn-focus-box-shadow: none;
 
+  margin: 0 calc(var(--bs-card-spacer-x) * -1);
+
   .accordion-item {
     .accordion-button {
+      --bs-accordion-active-bg: transparent;
       --bs-accordion-btn-bg: transparent;
-      --bs-accordion-btn-padding-x: 0;
+      --bs-accordion-btn-padding-x: var(--bs-card-spacer-x);
       --bs-accordion-btn-padding-y: 0.5rem;
 
       &::after {
@@ -25,14 +27,15 @@
       padding-top: 0;
     }
 
-    &:last-child .accordion-button {
-      padding-bottom: 0;
+    &:nth-child(2n) .accordion-button {
+      --bs-accordion-active-bg: #{darken($dark, 3%)};
+      --bs-accordion-btn-bg: #{darken($dark, 3%)};
     }
   }
 
   .accordion-body {
     padding: var(--bs-accordion-body-padding-y) var(--bs-accordion-body-padding-x)
-             var(--bs-accordion-body-padding-y) 2.25rem;
+             var(--bs-accordion-body-padding-y) calc(2.25rem + var(--bs-card-spacer-x));
   }
 
   .accordion-button-disabled-icon {
