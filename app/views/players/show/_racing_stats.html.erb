@@ -7,10 +7,11 @@
     <div class="row g-3">
       <% cols = 'col-6 col-md-3' %>
 
-      <%= render PlayerStat.new(player, stat: :racing_finished_maps, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :racing_podiums, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :racing_firsts, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :racing_rounds_played, style: cols, display_ratio: false) %>
+      <% Player::RACING_ATTRIBUTES.each do |attribute| %>
+        <%= render PlayerStat.new(player, attribute: attribute,
+                                          style: cols,
+                                          display_ratio: attribute != :racing_rounds_played) %>
+      <% end %>
     </div>
   </div>
 </div>

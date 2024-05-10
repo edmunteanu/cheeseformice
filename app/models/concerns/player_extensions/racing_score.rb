@@ -10,6 +10,9 @@ module PlayerExtensions
     RACING_FIRSTS_WEIGHT = 6.3
     RACING_PODIUMS_WEIGHT = 2.8
 
+    # Order matters
+    RACING_ATTRIBUTES = %i[racing_finished_maps racing_podiums racing_firsts racing_rounds_played].freeze
+
     def calculate_racing_score
       return 0 if racing_rounds_played.zero?
 

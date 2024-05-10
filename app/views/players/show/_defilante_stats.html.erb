@@ -7,9 +7,11 @@
     <div class="row g-3">
       <% cols = 'col-6 col-md-4' %>
 
-      <%= render PlayerStat.new(player, stat: :defilante_finished_maps, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :defilante_points, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :defilante_rounds_played, style: cols, display_ratio: false) %>
+      <% Player::DEFILANTE_ATTRIBUTES.each do |attribute| %>
+        <%= render PlayerStat.new(player, attribute: attribute,
+                                          style: cols,
+                                          display_ratio: attribute != :defilante_rounds_played) %>
+      <% end %>
     </div>
   </div>
 </div>

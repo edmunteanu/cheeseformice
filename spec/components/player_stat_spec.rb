@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe PlayerStat, type: :component do
-  let(:component) { described_class.new(player, stat: :cheese_gathered, style: '') }
+  let(:component) { described_class.new(player, attribute: :cheese_gathered, style: '') }
 
   describe '#display_change?' do
     let(:display_change) { component.display_change? }
