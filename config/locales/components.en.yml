@@ -1,5 +1,7 @@
 en:
   player_logs:
     no_log: "No changes"
+    no_logs: "No data to display. This player's profile has either not changed in the last 30 days or the profile
+      is new to CheeseForMice."
   score_header:
     new: "New"
