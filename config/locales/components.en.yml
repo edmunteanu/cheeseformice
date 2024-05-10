@@ -1,3 +1,5 @@
 en:
+  player_logs:
+    no_log: "No changes"
   score_header:
     new: "New"

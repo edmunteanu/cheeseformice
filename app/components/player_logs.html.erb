@@ -1,0 +1,36 @@
+<div id="changeLogs" class="accordion accordion-flush">
+  <%# TODO: Implement quick overview for the last 7 and 30 days totals in addition to day-by-day breakdown %>
+  <% ChangeLog::MAX_AMOUNT.times.each do |index| %>
+    <% display_date = Date.current - (index + 1).days %>
+    <% log = log_map[display_date + 1.day] %>
+    <% title = display_date.strftime('%d-%m-%Y') %>
+
+    <div class="accordion-item">
+      <% if log.present? %>
+        <div class="accordion-header">
+          <button class="accordion-button collapsed gap-3" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#<%= display_date %>">
+            <span class="fw-bold tabular-numbers"><%= title %></span>
+            <span class="vr"></span>
+            <%== score_change(log.normal_score) %>
+          </button>
+        </div>
+
+        <div id="<%= display_date %>" class="accordion-collapse collapse" data-bs-parent="#changeLogs">
+          <div class="accordion-body">
+
+          </div>
+        </div>
+      <% else %>
+        <div class="accordion-header">
+          <button class="accordion-button collapsed gap-3" type="button" disabled>
+            <i class="bi bi-dash-lg text-muted accordion-button-disabled-icon"></i>
+            <span class="fw-bold tabular-numbers"><%= title %></span>
+            <span class="vr"></span>
+            <span class="text-muted"><%= I18n.t('player_logs.no_log') %></span>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

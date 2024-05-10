@@ -1,0 +1,38 @@
+.accordion {
+  --bs-accordion-active-bg: transparent;
+  --bs-accordion-bg: transparent;
+  --bs-accordion-border-width: 0;
+  --bs-accordion-btn-focus-box-shadow: none;
+
+  .accordion-item {
+    &:first-child .accordion-button {
+      padding-top: 0;
+    }
+
+    &:last-child .accordion-button {
+      padding-bottom: 0;
+    }
+  }
+
+  .accordion-button {
+    --bs-accordion-btn-bg: transparent;
+    --bs-accordion-btn-padding-x: 0;
+    --bs-accordion-btn-padding-y: 0.5rem;
+
+    &::after {
+      order: -1;
+      margin-left: 0;
+    }
+
+    &[disabled]::after {
+      content: none;
+    }
+  }
+
+  .accordion-button-disabled-icon {
+    @extend .d-flex, .align-items-center, .justify-content-center;
+
+    height: var(--bs-accordion-btn-icon-width);
+    width: var(--bs-accordion-btn-icon-width);
+  }
+}
