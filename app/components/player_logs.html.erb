@@ -38,11 +38,11 @@
           </div>
         <% else %>
           <div class="accordion-header">
-            <button class="accordion-button collapsed gap-3" type="button" disabled>
+            <button class="accordion-button user-select-text collapsed gap-3" type="button" disabled>
               <i class="bi bi-dash-lg text-muted accordion-button-disabled-icon"></i>
-              <span class="fw-bold tabular-numbers"><%= title %></span>
+              <span class="fw-bold tabular-numbers cursor-text"><%= title %></span>
               <span class="vr"></span>
-              <span class="text-muted"><%= t('player_logs.no_log') %></span>
+              <span class="text-muted cursor-text"><%= t('player_logs.no_log') %></span>
             </button>
           </div>
         <% end %>
