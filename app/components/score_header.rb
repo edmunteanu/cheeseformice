@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ScoreHeader < ViewComponent::Base
-  attr_reader :player, :title, :title_path
+  attr_reader :player, :title, :type, :title_path
 
   def initialize(player, title:, type:, display_score_change: true, title_path: nil)
     super
@@ -10,10 +10,6 @@ class ScoreHeader < ViewComponent::Base
     @type = type
     @display_score_change = display_score_change
     @title_path = title_path
-  end
-
-  def score
-    player.public_send(:"#{@type}_score")
   end
 
   def display_score_change?
@@ -32,10 +28,6 @@ class ScoreHeader < ViewComponent::Base
     else
       "<span class='text-danger'>#{number_with_delimiter(value.abs)} <i class='bi bi-chevron-down'></i></span>"
     end
-  end
-
-  def rank
-    player.public_send(:"#{@type}_rank")
   end
 
   def displayed_rank_change
