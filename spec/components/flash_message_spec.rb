@@ -3,12 +3,36 @@
 require 'rails_helper'
 
 RSpec.describe FlashMessage, type: :component do
-  describe '#alert_class' do
-    it { expect(described_class.new('alert', '').alert_class).to eq('warning') }
-    it { expect(described_class.new('notice', '').alert_class).to eq('success') }
-    it { expect(described_class.new('success', '').alert_class).to eq('success') }
-    it { expect(described_class.new('error', '').alert_class).to eq('danger') }
-    it { expect(described_class.new('whatever', '').alert_class).to eq('info') }
+  describe '#alert_style' do
+    it 'returns the correct style for alert' do
+      expect(described_class.new('alert', '').alert_style)
+        .to eq('alert flash-message show alert-warning fade alert-dismissible')
+    end
+
+    it 'returns the correct style for notice' do
+      expect(described_class.new('notice', '').alert_style)
+        .to eq('alert flash-message show alert-success fade alert-dismissible')
+    end
+
+    it 'returns the correct style for success' do
+      expect(described_class.new('success', '').alert_style)
+        .to eq('alert flash-message show alert-success fade alert-dismissible')
+    end
+
+    it 'returns the correct style for error' do
+      expect(described_class.new('error', '').alert_style)
+        .to eq('alert flash-message show alert-danger fade alert-dismissible')
+    end
+
+    it 'returns the correct style for random' do
+      expect(described_class.new('random', '').alert_style)
+        .to eq('alert flash-message show alert-info fade alert-dismissible')
+    end
+
+    it 'returns the correct style for non-dismissible alert' do
+      expect(described_class.new('alert', '', dismissible: false).alert_style)
+        .to eq('alert flash-message show alert-warning')
+    end
   end
 
   describe '#icon_class' do
@@ -19,7 +43,7 @@ RSpec.describe FlashMessage, type: :component do
     it { expect(described_class.new('whatever', '').icon_class).to eq('bi-info-circle') }
   end
 
-  describe '#dismissable?' do
-    it { expect(described_class.new('alert', '').dismissable?).to be(true) }
+  describe '#dismissible?' do
+    it { expect(described_class.new('alert', '').dismissible?).to be(true) }
   end
 end
