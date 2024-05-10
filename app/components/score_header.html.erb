@@ -10,8 +10,9 @@
     <% end %>
 
     <div class="vr d-none d-md-block"></div>
+
     <div class="d-flex align-self-md-end gap-3">
-      <span><%= t('players.score', score: number_with_delimiter(score)) %></span>
+      <span><%= t('players.score', score: number_with_delimiter(player.public_send(:"#{type}_score"))) %></span>
 
       <% if display_score_change? %>
         <%== score_change %>
@@ -21,7 +22,7 @@
 
   <% unless player.disqualified? %>
     <div class="rank-container">
-      <h4 class="mb-0"><%= "##{number_with_delimiter(rank)}" %></h4>
+      <h4 class="mb-0"><%= "##{number_with_delimiter(player.public_send(:"#{type}_rank"))}" %></h4>
       <%== displayed_rank_change %>
     </div>
   <% end %>

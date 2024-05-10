@@ -60,15 +60,4 @@ RSpec.describe PlayerStat, type: :component do
       end
     end
   end
-
-  describe '#previous_day_ratio' do
-    let(:previous_day_ratio) { component.previous_day_ratio }
-    let(:player) { create(:player) }
-
-    before { create(:change_log, player: player, cheese_gathered: 100, rounds_played: 250) }
-
-    it 'returns the correct value' do
-      expect(previous_day_ratio).to eq(0.4)
-    end
-  end
 end

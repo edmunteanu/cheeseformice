@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PlayerStat < ViewComponent::Base
-  attr_reader :player
+  attr_reader :player, :stat, :style
 
   delegate :display_ratio, to: :helpers
 
@@ -13,24 +13,8 @@ class PlayerStat < ViewComponent::Base
     @display_ratio = display_ratio
   end
 
-  def container_classes
-    [@style, 'd-flex flex-column justify-content-between'].join(' ')
-  end
-
-  def title
-    Player.human_attribute_name(@stat)
-  end
-
-  def value
-    player.public_send(@stat)
-  end
-
   def display_ratio?
     @display_ratio
-  end
-
-  def ratio
-    player.public_send(:"#{@stat}_ratio")
   end
 
   def display_change?
@@ -40,10 +24,6 @@ class PlayerStat < ViewComponent::Base
   def previous_day_value
     return if player.previous_day_change_log.blank?
 
-    player.previous_day_change_log.public_send(@stat)
-  end
-
-  def previous_day_ratio
-    player.previous_day_change_log.public_send(:"#{@stat}_ratio")
+    player.previous_day_change_log.public_send(stat)
   end
 end

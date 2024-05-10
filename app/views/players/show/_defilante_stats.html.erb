@@ -5,11 +5,11 @@
     <div class="card-separator"></div>
 
     <div class="row g-3">
-      <%= render PlayerStat.new(player, stat: :defilante_finished_maps, style: 'col-6 col-md-4') %>
-      <%= render PlayerStat.new(player, stat: :defilante_points, style: 'col-6 col-md-4') %>
-      <%= render PlayerStat.new(player, stat: :defilante_rounds_played,
-                                        style: 'col-6 col-md-4',
-                                        display_ratio: false) %>
+      <% cols = 'col-6 col-md-4' %>
+
+      <%= render PlayerStat.new(player, stat: :defilante_finished_maps, style: cols) %>
+      <%= render PlayerStat.new(player, stat: :defilante_points, style: cols) %>
+      <%= render PlayerStat.new(player, stat: :defilante_rounds_played, style: cols, display_ratio: false) %>
     </div>
   </div>
 </div>

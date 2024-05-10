@@ -1,17 +1,25 @@
 # frozen_string_literal: true
 
 class FlashMessage < ViewComponent::Base
-  attr_reader :alert_class, :icon_class, :message
+  attr_reader :icon_class, :message
 
-  def initialize(type, message, dismissable: true)
+  def initialize(type, message, dismissible: true)
     super
     @alert_class, @icon_class = infer_alert_and_icon(type)
     @message = message
-    @dismissable = dismissable
+    @dismissible = dismissible
   end
 
-  def dismissable?
-    @dismissable
+  def alert_style
+    [
+      'alert flash-message show',
+      "alert-#{@alert_class}",
+      dismissible? ? 'fade alert-dismissible' : nil
+    ].compact_blank.join(' ')
+  end
+
+  def dismissible?
+    @dismissible
   end
 
   private
