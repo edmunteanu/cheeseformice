@@ -46,7 +46,7 @@
           <div class="accordion-header">
             <button class="accordion-button collapsed gap-3" type="button" data-bs-toggle="collapse"
                     data-bs-target="#<%= display_date %>">
-              <span class="fw-bold tabular-numbers"><%= title %></span>
+              <span class="fw-bold"><%= title %></span>
               <%== score_change(log.normal_score) %>
             </button>
           </div>
@@ -73,7 +73,7 @@
           <div class="accordion-header">
             <button class="accordion-button user-select-text collapsed gap-3" type="button" disabled>
               <i class="bi bi-dash-lg text-muted accordion-button-disabled-icon"></i>
-              <span class="fw-bold tabular-numbers cursor-text"><%= title %></span>
+              <span class="fw-bold cursor-text"><%= title %></span>
               <span class="text-muted cursor-text ms-auto"><%= t('player_logs.no_log') %></span>
             </button>
           </div>
