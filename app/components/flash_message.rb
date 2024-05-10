@@ -15,7 +15,7 @@ class FlashMessage < ViewComponent::Base
       'alert flash-message show',
       "alert-#{@alert_class}",
       dismissible? ? 'fade alert-dismissible' : nil
-    ].compact_blank.join(' ')
+    ].compact.join(' ')
   end
 
   def dismissible?

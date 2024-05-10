@@ -1,0 +1,23 @@
+$utilities: map-merge(
+  $utilities,
+  (
+    "cursor": (
+      property: cursor,
+      class: cursor,
+      responsive: true,
+      values: text,
+    )
+  )
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "user-select": map-merge(
+      map-get($utilities, "user-select"),
+      (
+        values: all auto text none
+      ),
+    ),
+  )
+);

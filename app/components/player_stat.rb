@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class PlayerStat < ViewComponent::Base
-  attr_reader :player, :stat, :style
+  attr_reader :player, :attribute, :style
 
   delegate :display_ratio, to: :helpers
 
-  def initialize(player, stat:, style:, display_ratio: true)
+  def initialize(player, attribute:, style:, display_ratio: true)
     super
     @player = player
-    @stat = stat
+    @attribute = attribute
     @style = style
     @display_ratio = display_ratio
   end
@@ -24,6 +24,6 @@ class PlayerStat < ViewComponent::Base
   def previous_day_value
     return if player.previous_day_change_log.blank?
 
-    player.previous_day_change_log.public_send(stat)
+    player.previous_day_change_log.public_send(attribute)
   end
 end

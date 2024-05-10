@@ -17,6 +17,11 @@ module PlayerExtensions
     FIRSTS_WEIGHT = 16
     BOOTCAMP_WEIGHT = 2
 
+    # Order matters
+    NORMAL_ATTRIBUTES = %i[saved_mice saved_mice_hard saved_mice_divine saved_mice_without_skills
+                           saved_mice_hard_without_skills saved_mice_divine_without_skills shaman_cheese
+                           firsts cheese_gathered bootcamp rounds_played].freeze
+
     def calculate_normal_score
       return 0 if rounds_played.zero?
 

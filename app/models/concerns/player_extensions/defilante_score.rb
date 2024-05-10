@@ -9,6 +9,9 @@ module PlayerExtensions
     DEFILANTE_FINISHED_MAPS_WEIGHT = 1
     DEFILANTE_POINTS_WEIGHT = 0.015
 
+    # Order matters
+    DEFILANTE_ATTRIBUTES = %i[defilante_finished_maps defilante_points defilante_rounds_played].freeze
+
     def calculate_defilante_score
       return 0 if defilante_rounds_played.zero?
 

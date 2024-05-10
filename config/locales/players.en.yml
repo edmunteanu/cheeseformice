@@ -10,7 +10,7 @@ en:
         normal: "Normal"
         racing: "Racing"
         survivor: "Survivor"
-      change_logs: "Last 30 days"
+      change_logs: "Performance history (last 30 days)"
       disqualified: "Disqualified"
       level: "Level"
       mouse: "Mouse"

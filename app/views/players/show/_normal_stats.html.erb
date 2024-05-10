@@ -7,17 +7,11 @@
     <div class="row g-3">
       <% cols = 'col-6 col-md-4' %>
 
-      <%= render PlayerStat.new(player, stat: :saved_mice, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :saved_mice_hard, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :saved_mice_divine, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :saved_mice_without_skills, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :saved_mice_hard_without_skills, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :saved_mice_divine_without_skills, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :shaman_cheese, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :firsts, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :cheese_gathered, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :bootcamp, style: cols) %>
-      <%= render PlayerStat.new(player, stat: :rounds_played, style: cols, display_ratio: false) %>
+      <% Player::NORMAL_ATTRIBUTES.each do |attribute| %>
+        <%= render PlayerStat.new(player, attribute: attribute,
+                                          style: cols,
+                                          display_ratio: attribute != :rounds_played) %>
+      <% end %>
     </div>
   </div>
 </div>

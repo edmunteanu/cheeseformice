@@ -10,6 +10,10 @@ module PlayerExtensions
     SURVIVOR_SHAMAN_ROUNDS_WEIGHT = 16
     SURVIVOR_SURVIVED_ROUNDS_WEIGHT = 1
 
+    # Order matters
+    SURVIVOR_ATTRIBUTES = %i[survivor_shaman_rounds survivor_mice_killed survivor_survived_rounds
+                             survivor_rounds_played].freeze
+
     def calculate_survivor_score
       return 0 if survivor_rounds_played.zero?
 
