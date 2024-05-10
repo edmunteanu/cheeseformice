@@ -28,6 +28,7 @@ gem 'view_component'
 
 group :test do
   gem 'capybara'
+  gem 'db-query-matchers'
   gem 'faker'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'

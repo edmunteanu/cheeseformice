@@ -5,12 +5,10 @@
     <div class="card-separator"></div>
 
     <div class="row g-3">
-      <%= render PlayerStat.new(player, stat: :survivor_shaman_rounds, col_setup: 'col-6 col-md-3') %>
-      <%= render PlayerStat.new(player, stat: :survivor_mice_killed, col_setup: 'col-6 col-md-3') %>
-      <%= render PlayerStat.new(player, stat: :survivor_survived_rounds, col_setup: 'col-6 col-md-3') %>
-      <%= render PlayerStat.new(player, stat: :survivor_rounds_played,
-                                        col_setup: 'col-6 col-md-3',
-                                        display_ratio: false) %>
+      <%= render PlayerStat.new(player, stat: :survivor_shaman_rounds, style: 'col-6 col-md-3') %>
+      <%= render PlayerStat.new(player, stat: :survivor_mice_killed, style: 'col-6 col-md-3') %>
+      <%= render PlayerStat.new(player, stat: :survivor_survived_rounds, style: 'col-6 col-md-3') %>
+      <%= render PlayerStat.new(player, stat: :survivor_rounds_played, style: 'col-6 col-md-3', display_ratio: false) %>
     </div>
   </div>
 </div>

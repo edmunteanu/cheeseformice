@@ -5,16 +5,16 @@ class PlayerStat < ViewComponent::Base
 
   delegate :display_ratio, to: :helpers
 
-  def initialize(player, stat:, col_setup:, display_ratio: true)
+  def initialize(player, stat:, style:, display_ratio: true)
     super
     @player = player
     @stat = stat
-    @col_setup = col_setup
+    @style = style
     @display_ratio = display_ratio
   end
 
   def container_classes
-    [@col_setup, 'd-flex flex-column justify-content-between'].join(' ')
+    [@style, 'd-flex flex-column justify-content-between'].join(' ')
   end
 
   def title
@@ -38,20 +38,12 @@ class PlayerStat < ViewComponent::Base
   end
 
   def previous_day_value
-    return if previous_day.blank?
+    return if player.previous_day_change_log.blank?
 
-    previous_day.public_send(@stat)
+    player.previous_day_change_log.public_send(@stat)
   end
 
   def previous_day_ratio
-    return if previous_day.blank?
-
-    previous_day.public_send(:"#{@stat}_ratio")
-  end
-
-  private
-
-  def previous_day
-    player.change_logs.previous_day.first
+    player.previous_day_change_log.public_send(:"#{@stat}_ratio")
   end
 end

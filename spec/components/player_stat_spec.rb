@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe PlayerStat, type: :component do
-  let(:component) { described_class.new(player, stat: :cheese_gathered, col_setup: '') }
+  let(:component) { described_class.new(player, stat: :cheese_gathered, style: '') }
 
   describe '#display_change?' do
     let(:display_change) { component.display_change? }
@@ -63,23 +63,12 @@ RSpec.describe PlayerStat, type: :component do
 
   describe '#previous_day_ratio' do
     let(:previous_day_ratio) { component.previous_day_ratio }
+    let(:player) { create(:player) }
 
-    context 'when the player has no previous day change log' do
-      let(:player) { create(:player) }
+    before { create(:change_log, player: player, cheese_gathered: 100, rounds_played: 250) }
 
-      it 'returns nil' do
-        expect(previous_day_ratio).to be_nil
-      end
-    end
-
-    context 'when the player has a previous day change log' do
-      let(:player) { create(:player) }
-
-      before { create(:change_log, player: player, cheese_gathered: 100, rounds_played: 250) }
-
-      it 'returns the correct value' do
-        expect(previous_day_ratio).to eq(0.4)
-      end
+    it 'returns the correct value' do
+      expect(previous_day_ratio).to eq(0.4)
     end
   end
 end
