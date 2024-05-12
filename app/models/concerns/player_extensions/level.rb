@@ -28,8 +28,12 @@ module PlayerExtensions
       level = 0
       experience_left = experience
 
-      while experience_left >= experience_needed_for(level)
-        experience_left -= experience_needed_for(level)
+      loop do
+        experience_needed = experience_needed_for(level)
+
+        break if experience_left < experience_needed
+
+        experience_left -= experience_needed
         level += 1
       end
 
