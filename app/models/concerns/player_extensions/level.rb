@@ -20,8 +20,11 @@ module PlayerExtensions
 
     private
 
-    # TODO: Memoize this, since it's called two times
     def current_level_and_experience
+      @current_level_and_experience ||= calculate_level_and_experience
+    end
+
+    def calculate_level_and_experience
       level = 0
       experience_left = experience
 
