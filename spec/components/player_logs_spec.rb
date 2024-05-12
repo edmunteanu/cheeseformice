@@ -6,6 +6,38 @@ RSpec.describe PlayerLogs, type: :component do
   let(:component) { described_class.new(logs) }
   let(:logs) { create_list(:change_log, 1) }
 
+  describe '#aggregated_logs_previous_week' do
+    let(:aggregated_logs) { component.aggregated_logs_previous_week }
+    let(:logs) do
+      [
+        create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 1.day.ago),
+        create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 2.days.ago),
+        create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 3.days.ago),
+        create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 14.days.ago)
+      ]
+    end
+
+    it 'returns the correct aggregated data from the logs of the previous week' do
+      expect(aggregated_logs).to match(a_hash_including(firsts: 75, cheese_gathered: 225, rounds_played: 300))
+    end
+  end
+
+  describe '#aggregated_logs_previous_month' do
+    let(:aggregated_logs) { component.aggregated_logs_previous_month }
+    let(:logs) do
+      [
+        create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 1.day.ago),
+        create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 2.days.ago),
+        create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 3.days.ago),
+        create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 14.days.ago)
+      ]
+    end
+
+    it 'returns the correct aggregated data from all the logs' do
+      expect(aggregated_logs).to match(a_hash_including(firsts: 100, cheese_gathered: 300, rounds_played: 400))
+    end
+  end
+
   describe '#button_class' do
     context 'when the period is previous week' do
       let(:period) { :previous_week }
