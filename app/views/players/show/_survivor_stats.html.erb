@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <%= render ScoreHeader.new(player, title: t('players.show.categories.survivor'), type: :survivor) %>
+    <%= render ScoreHeader.new(player, previous_day, title: t('players.show.categories.survivor'), type: :survivor) %>
 
     <div class="card-separator"></div>
 
@@ -8,9 +8,9 @@
       <% cols = 'col-6 col-md-3' %>
 
       <% Player::SURVIVOR_ATTRIBUTES.each do |attribute| %>
-        <%= render PlayerStat.new(player, attribute: attribute,
-                                          style: cols,
-                                          display_ratio: attribute != :survivor_rounds_played) %>
+        <%= render PlayerStat.new(player, previous_day, attribute: attribute,
+                                                        style: cols,
+                                                        display_ratio: attribute != :survivor_rounds_played) %>
       <% end %>
     </div>
   </div>
