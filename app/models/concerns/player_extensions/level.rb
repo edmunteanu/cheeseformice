@@ -21,11 +21,19 @@ module PlayerExtensions
     private
 
     def current_level_and_experience
+      @current_level_and_experience ||= calculate_level_and_experience
+    end
+
+    def calculate_level_and_experience
       level = 0
       experience_left = experience
 
-      while experience_left >= experience_needed_for(level)
-        experience_left -= experience_needed_for(level)
+      loop do
+        experience_needed = experience_needed_for(level)
+
+        break if experience_left < experience_needed
+
+        experience_left -= experience_needed
         level += 1
       end
 
@@ -37,13 +45,17 @@ module PlayerExtensions
 
       experience = 32
 
-      (2..level).each do |l|
-        experience += 2 * l if l.between?(2, 29)
-        experience += 10 * l if l.between?(30, 59)
-        experience += 15 * l if l >= 60
-      end
+      experience += sum_experience(level, factor: 2, tier_from: 2, tier_to: 29) if level >= 2
+      experience += sum_experience(level, factor: 10, tier_from: 30, tier_to: 59) if level >= 30
+      experience += sum_experience(level, factor: 15, tier_from: 60) if level >= 60
 
       experience
+    end
+
+    def sum_experience(level, factor:, tier_from:, tier_to: nil)
+      level_amount = [level, tier_to].compact.min - tier_from + 1
+      level_sum = [level, tier_to].compact.min + tier_from
+      factor * level_amount * level_sum / 2
     end
   end
 end
