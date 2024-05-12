@@ -3,23 +3,23 @@
 class ScoreHeader < ViewComponent::Base
   attr_reader :player, :title, :type, :title_path
 
-  def initialize(player, title:, type:, display_score_change: true, title_path: nil)
+  def initialize(player, previous_day = nil, title:, type:, title_path: nil)
     super
     @player = player
+    @previous_day = previous_day
     @title = title
     @type = type
-    @display_score_change = display_score_change
     @title_path = title_path
   end
 
   def display_score_change?
-    @display_score_change && score_change.present?
+    score_change.present?
   end
 
   def score_change
-    return if player.previous_day_change_log.blank?
+    return if @previous_day.blank?
 
-    value = player.previous_day_change_log.public_send(:"#{@type}_score")
+    value = @previous_day.public_send(:"#{@type}_score")
 
     return if value.zero?
 

@@ -4,39 +4,6 @@ require 'rails_helper'
 
 RSpec.describe ChangeLog do
   describe 'scopes' do
-    describe '.previous_day' do
-      context 'with no change logs created yesterday or today' do
-        before { create(:change_log, created_at: 2.days.ago) }
-
-        it 'does not return any change logs' do
-          expect(described_class.count).to eq(1)
-          expect(described_class.previous_day).to be_empty
-        end
-      end
-
-      context 'with change logs created yesterday but not today' do
-        let!(:change_logs) { Array.new(2) { |index| create(:change_log, created_at: (index + 1).days.ago) } }
-
-        it 'returns the change log from yesterday' do
-          expect(described_class.count).to eq(2)
-          expect(described_class.previous_day.count).to eq(1)
-          expect(described_class.previous_day).to contain_exactly(change_logs[0])
-          expect(described_class.previous_day.first&.created_at&.to_date).to eq(Date.current - 1.day)
-        end
-      end
-
-      context 'with change logs created yesterday and today' do
-        let!(:change_logs) { Array.new(2) { |index| create(:change_log, created_at: index.days.ago) } }
-
-        it 'returns the change log from today and omits the one from yesterday' do
-          expect(described_class.count).to eq(2)
-          expect(described_class.previous_day.count).to eq(1)
-          expect(described_class.previous_day).to contain_exactly(change_logs[0])
-          expect(described_class.previous_day.first&.created_at&.to_date).to eq(Date.current)
-        end
-      end
-    end
-
     describe '.previous_month' do
       context 'with no change logs created in the last month' do
         before { create(:change_log, created_at: 31.days.ago) }

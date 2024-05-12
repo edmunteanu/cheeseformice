@@ -15,14 +15,12 @@
   </div>
 
   <div class="player-stats col-12 col-lg-9">
-    <%= render 'players/show/normal_stats', player: @player %>
-    <%= render 'players/show/racing_stats', player: @player %>
-    <%= render 'players/show/survivor_stats', player: @player %>
-    <%= render 'players/show/defilante_stats', player: @player %>
+    <%= render 'players/show/normal_stats', player: @player, previous_day: @previous_day %>
+    <%= render 'players/show/racing_stats', player: @player, previous_day: @previous_day %>
+    <%= render 'players/show/survivor_stats', player: @player, previous_day: @previous_day %>
+    <%= render 'players/show/defilante_stats', player: @player, previous_day: @previous_day %>
   </div>
 </div>
-
-<%# TODO: Implement nav-pills to switch between ChangeLogs for Normal, Racing, Survivor, Defilante %>
 
 <div class="row g-3">
   <div class="col-12">
@@ -32,7 +30,7 @@
 
         <div class="card-separator"></div>
 
-        <%= render PlayerLogs.new(@player.change_logs.previous_month) %>
+        <%= render PlayerLogs.new(@previous_month) %>
       </div>
     </div>
   </div>

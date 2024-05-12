@@ -3,22 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe ScoreHeader, type: :component do
-  let(:component) { described_class.new(player, title: player.name, type: :normal) }
+  let(:component) { described_class.new(player, previous_day, title: player.name, type: :normal) }
+  let(:player) { create(:player) }
+  let(:previous_day) { player.change_logs.previous_month.first }
 
   describe '#score_change' do
     let(:score_change) { component.score_change }
 
     context 'when the player has no previous day change log' do
-      let(:player) { create(:player) }
-
       it 'does not return anything' do
         expect(score_change).to be_nil
       end
     end
 
     context 'when the player has a previous day change log' do
-      let(:player) { create(:player) }
-
       before { create(:change_log, player: player, normal_score: normal_score) }
 
       context 'when the score change is zero' do

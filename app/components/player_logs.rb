@@ -51,10 +51,8 @@ class PlayerLogs < ViewComponent::Base
     attributes = %i[normal_score] + Player::NORMAL_ATTRIBUTES
     aggregated = attributes.index_with { |_attr| 0 }
 
-    logs.each do |log|
-      attributes.each do |attr|
-        aggregated[attr] += log.public_send(attr)
-      end
+    attributes.each do |attr|
+      aggregated[attr] = logs.sum { |log| log.public_send(attr) }
     end
 
     aggregated

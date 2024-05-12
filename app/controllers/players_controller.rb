@@ -14,6 +14,8 @@ class PlayersController < AuthenticatedController
 
   def show
     @player = Player.find_by!(name: params[:id])
+    @previous_month = @player.change_logs.previous_month.to_a
+    @previous_day = @previous_month.find { |logs| logs.created_at.to_date > 1.day.ago }
   end
 
   private
