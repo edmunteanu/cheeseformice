@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe PlayerUpdater, type: :service do
+RSpec.describe PlayerUpdateService, type: :service do
   describe '#call' do
     subject(:update_players) { described_class.new.call }
 
@@ -35,7 +35,13 @@ RSpec.describe PlayerUpdater, type: :service do
     let(:firsts) { 139 }
 
     before do
-      allow(A801::Player).to receive(:where).and_return(mock_relation)
+      allow(A801::Player).to receive(:where).with(updatedLast7days: true,
+                                                  cheese_gathered: described_class::MIN_CHEESE_GATHERED..)
+                                            .and_return(mock_relation)
+      allow(mock_relation).to receive(:or).and_return(mock_relation)
+      allow(A801::Player).to receive(:where).with(updatedLast7days: true,
+                                                  bootcamp: described_class::MIN_BOOTCAMP_GATHERED..)
+                                            .and_return(mock_relation)
       allow(mock_relation).to receive(:in_batches).and_yield(mock_players)
     end
 

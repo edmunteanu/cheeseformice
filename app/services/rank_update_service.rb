@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RankUpdater
+class RankUpdateService
   def initialize(batch_size: 200_000)
     @batch_size = batch_size
   end

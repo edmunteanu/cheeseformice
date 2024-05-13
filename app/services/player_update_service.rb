@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-class MultithreadedMutator
-  MAX_POOL_SIZE = 9
+class PlayerUpdateService
+  include Utils::PlayerMapper
 
-  def initialize(batch_size: 1000)
+  def initialize(batch_size: ENV.fetch('UPDATER_BATCH_SIZE', 1000).to_i)
     @batch_size = batch_size
   end
 
+  MAX_POOL_SIZE = 9
   def call
     records.in_batches(of: @batch_size) do |batch|
       threads = []
@@ -21,11 +22,12 @@ class MultithreadedMutator
 
   private
 
-  # :nocov:
+  MIN_CHEESE_GATHERED = 1000
+  MIN_BOOTCAMP_GATHERED = 250
   def records
-    raise NotImplementedError, 'This method must be implemented in a subclass'
+    A801::Player.where(updatedLast7days: true, cheese_gathered: MIN_CHEESE_GATHERED..)
+                .or(A801::Player.where(updatedLast7days: true, bootcamp: MIN_BOOTCAMP_GATHERED..))
   end
-  # :nocov:
 
   def start_threads(threads, batch, slice_size)
     batch.each_slice(slice_size) do |slice|
@@ -33,9 +35,10 @@ class MultithreadedMutator
     end
   end
 
-  # :nocov:
-  def handle_record(record)
-    raise NotImplementedError, 'This method must be implemented in a subclass'
+  def handle_record(a801_player)
+    Player.find_or_initialize_by(a801_id: a801_player.id).tap do |player|
+      player.assign_attributes(map_player(a801_player))
+      player.save! if player.new_record? || player.changed?
+    end
   end
-  # :nocov:
 end
