@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe RankUpdater, type: :service do
+RSpec.describe RankUpdateService, type: :service do
   describe '#call' do
     subject(:update_ranks) { described_class.new.call }
 

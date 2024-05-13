@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PlayerUpdater
+class PlayerUpdateService
   include Utils::PlayerMapper
 
   def initialize(batch_size: ENV.fetch('UPDATER_BATCH_SIZE', 1000).to_i)

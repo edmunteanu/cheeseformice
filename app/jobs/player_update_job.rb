@@ -4,7 +4,7 @@ class PlayerUpdateJob < ApplicationJob
   retry_on StandardError, wait: :polynomially_longer, attempts: 5
 
   def perform
-    PlayerUpdater.new.call
-    RankUpdater.new.call
+    PlayerUpdateService.new.call
+    RankUpdateService.new.call
   end
 end

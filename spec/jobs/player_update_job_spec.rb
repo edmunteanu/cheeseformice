@@ -6,8 +6,8 @@ RSpec.describe PlayerUpdateJob do
   describe '#perform' do
     context 'when the update is successful' do
       before do
-        allow(PlayerUpdater).to receive(:new).and_return(double(call: nil))
-        allow(RankUpdater).to receive(:new).and_return(double(call: nil))
+        allow(PlayerUpdateService).to receive(:new).and_return(double(call: nil))
+        allow(RankUpdateService).to receive(:new).and_return(double(call: nil))
       end
 
       it 'performs the job' do
@@ -18,7 +18,7 @@ RSpec.describe PlayerUpdateJob do
     end
 
     context 'when the player updater raises an error' do
-      before { allow(PlayerUpdater).to receive(:new).and_raise(StandardError) }
+      before { allow(PlayerUpdateService).to receive(:new).and_raise(StandardError) }
 
       it 'retries the job' do
         assert_performed_jobs 5, only: described_class do
@@ -29,8 +29,8 @@ RSpec.describe PlayerUpdateJob do
 
     context 'when the rank updater raises an error' do
       before do
-        allow(PlayerUpdater).to receive(:new).and_return(double(call: nil))
-        allow(RankUpdater).to receive(:new).and_raise(StandardError)
+        allow(PlayerUpdateService).to receive(:new).and_return(double(call: nil))
+        allow(RankUpdateService).to receive(:new).and_raise(StandardError)
       end
 
       it 'retries the job' do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe PlayerUpdater, type: :service do
+RSpec.describe PlayerUpdateService, type: :service do
   describe '#call' do
     subject(:update_players) { described_class.new.call }
 

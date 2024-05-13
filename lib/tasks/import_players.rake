@@ -10,7 +10,7 @@ namespace :players do
     A801::Player.where(cheese_gathered: ...1000, bootcamp: 250..).in_batches.each_with_index do |batch, batch_index|
       puts "Processing batch #{batch_index + 1}"
       threads = []
-      pool_size = [ActiveRecord::Base.connection_pool.size - 1, PlayerUpdater::MAX_POOL_SIZE].min
+      pool_size = [ActiveRecord::Base.connection_pool.size - 1, PlayerUpdateService::MAX_POOL_SIZE].min
       slice_size = batch.count < pool_size ? batch.count : (batch.count / pool_size.to_f).ceil
 
       batch.each_slice(slice_size) do |slice|
