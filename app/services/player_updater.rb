@@ -4,11 +4,13 @@ class PlayerUpdater < MultithreadedMutator
   include Utils::PlayerMapper
 
   MIN_CHEESE_GATHERED = 1000
+  MIN_BOOTCAMP_GATHERED = 250
 
   private
 
   def records
     A801::Player.where(updatedLast7days: true, cheese_gathered: MIN_CHEESE_GATHERED..)
+                .or(A801::Player.where(updatedLast7days: true, bootcamp: MIN_BOOTCAMP_GATHERED..))
   end
 
   def handle_record(a801_player)
