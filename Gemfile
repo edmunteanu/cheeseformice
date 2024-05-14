@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(File.join(__dir__, '.ruby-version')).strip
 
+gem 'blazer'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'devise'
