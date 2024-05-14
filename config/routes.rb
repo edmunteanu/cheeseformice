@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get '/500', to: 'errors#internal_server_error'
 
   authenticate :user, ->(user) { user.admin? } do
-    mount GoodJob::Engine => '/good_job'
+    mount GoodJob::Engine, at: '/good_job'
+    mount Blazer::Engine, at: '/blazer'
   end
 
   authenticated :user do
