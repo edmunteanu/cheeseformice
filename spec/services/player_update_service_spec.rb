@@ -92,5 +92,28 @@ RSpec.describe PlayerUpdateService, type: :service do
         expect(existing_player.title).to eq(title)
       end
     end
+
+    context 'when the A801 player has null values for stat attributes' do
+      let(:rounds_played) { nil }
+      let(:shaman_cheese) { nil }
+      let(:saved_mice) { nil }
+      let(:saved_mice_divine) { nil }
+      let(:cheese_gathered) { nil }
+      let(:firsts) { nil }
+
+      it 'creates the player nonetheless and sets the value to 0' do
+        expect { update_players }.to change(Player, :count).by(1)
+                                                           .and(not_change(ChangeLog, :count))
+                                                           .and(not_change { existing_player.reload })
+
+        created_player = Player.last
+        expect(created_player.rounds_played).to eq(0)
+        expect(created_player.shaman_cheese).to eq(0)
+        expect(created_player.saved_mice).to eq(0)
+        expect(created_player.saved_mice_divine).to eq(0)
+        expect(created_player.cheese_gathered).to eq(0)
+        expect(created_player.firsts).to eq(0)
+      end
+    end
   end
 end
