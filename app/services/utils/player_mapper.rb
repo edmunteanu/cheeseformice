@@ -33,45 +33,47 @@ module Utils
       }
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def map_normal_stats(a801_player)
       {
-        rounds_played: a801_player.round_played,
-        shaman_cheese: a801_player.shaman_cheese,
-        saved_mice: a801_player.saved_mice,
-        saved_mice_hard: a801_player.saved_mice_hard,
-        saved_mice_divine: a801_player.saved_mice_divine,
-        saved_mice_without_skills: a801_player.saved_mice_ns,
-        saved_mice_hard_without_skills: a801_player.saved_mice_hard_ns,
-        saved_mice_divine_without_skills: a801_player.saved_mice_divine_ns,
-        cheese_gathered: a801_player.cheese_gathered,
-        firsts: a801_player.first,
-        bootcamp: a801_player.bootcamp
+        rounds_played: a801_player.round_played || 0,
+        shaman_cheese: a801_player.shaman_cheese || 0,
+        saved_mice: a801_player.saved_mice || 0,
+        saved_mice_hard: a801_player.saved_mice_hard || 0,
+        saved_mice_divine: a801_player.saved_mice_divine || 0,
+        saved_mice_without_skills: a801_player.saved_mice_ns || 0,
+        saved_mice_hard_without_skills: a801_player.saved_mice_hard_ns || 0,
+        saved_mice_divine_without_skills: a801_player.saved_mice_divine_ns || 0,
+        cheese_gathered: a801_player.cheese_gathered || 0,
+        firsts: a801_player.first || 0,
+        bootcamp: a801_player.bootcamp || 0
       }
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     def map_survivor_stats(a801_player)
       {
-        survivor_rounds_played: a801_player.survivor_round_played,
-        survivor_mice_killed: a801_player.survivor_mouse_killed,
-        survivor_shaman_rounds: a801_player.survivor_shaman_count,
-        survivor_survived_rounds: a801_player.survivor_survivor_count
+        survivor_rounds_played: a801_player.survivor_round_played || 0,
+        survivor_mice_killed: a801_player.survivor_mouse_killed || 0,
+        survivor_shaman_rounds: a801_player.survivor_shaman_count || 0,
+        survivor_survived_rounds: a801_player.survivor_survivor_count || 0
       }
     end
 
     def map_racing_stats(a801_player)
       {
-        racing_rounds_played: a801_player.racing_round_played,
-        racing_finished_maps: a801_player.racing_finished_map,
-        racing_firsts: a801_player.racing_first,
-        racing_podiums: a801_player.racing_podium
+        racing_rounds_played: a801_player.racing_round_played || 0,
+        racing_finished_maps: a801_player.racing_finished_map || 0,
+        racing_firsts: a801_player.racing_first || 0,
+        racing_podiums: a801_player.racing_podium || 0
       }
     end
 
     def map_defilante_stats(a801_player)
       {
-        defilante_rounds_played: a801_player.defilante_round_played,
-        defilante_finished_maps: a801_player.defilante_finished_map,
-        defilante_points: a801_player.defilante_points
+        defilante_rounds_played: a801_player.defilante_round_played || 0,
+        defilante_finished_maps: a801_player.defilante_finished_map || 0,
+        defilante_points: a801_player.defilante_points || 0
       }
     end
   end
