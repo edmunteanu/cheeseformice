@@ -7,7 +7,9 @@ module PlayerExtensions
     # These ratios represent the baseline for the scoring. This means that the three main score categories
     # (saves, cheese, firsts) will return roughly the same amount of points at baseline ratios, with the saves
     # receiving a slight boost due to the consideration of saves without skills. The bootcamp score is given a
-    # weight based on the top bootcamp players' scores to ensure that they are not completely disregarded.
+    # weight based on the top bootcamp players' scores to ensure that they are not completely disregarded. The
+    # bootcamp ratio is not used in the calculation though, as it is possible to collect bootcamp without
+    # collecting rounds.
     SAVED_MICE_WEIGHT = 1
     SAVED_MICE_HARD_WEIGHT = 1.1
     SAVED_MICE_DIVINE_WEIGHT = 1.3
@@ -29,7 +31,7 @@ module PlayerExtensions
         total_saved_mice_score,
         cheese_gathered * cheese_gathered_ratio * CHEESE_GATHERED_WEIGHT,
         firsts * firsts_ratio * FIRSTS_WEIGHT,
-        bootcamp * bootcamp_ratio * BOOTCAMP_WEIGHT
+        bootcamp * BOOTCAMP_WEIGHT
       ].sum
     end
 
