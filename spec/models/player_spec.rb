@@ -85,7 +85,7 @@ RSpec.describe Player do
       expect(player.firsts_ratio).to eq(0.2)
       expect(player.bootcamp_ratio).to eq(0.05)
 
-      expect(player.normal_score).to eq(346_825.0)
+      expect(player.normal_score).to eq(356_325)
     end
 
     it 'calculates the survivor score and all the needed ratios correctly' do

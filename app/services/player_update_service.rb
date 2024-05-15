@@ -23,10 +23,8 @@ class PlayerUpdateService
   private
 
   MIN_CHEESE_GATHERED = 1000
-  MIN_BOOTCAMP_GATHERED = 250
   def records
     A801::Player.where(updatedLast7days: true, cheese_gathered: MIN_CHEESE_GATHERED..)
-                .or(A801::Player.where(updatedLast7days: true, bootcamp: MIN_BOOTCAMP_GATHERED..))
   end
 
   def start_threads(threads, batch, slice_size)

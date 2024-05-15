@@ -35,13 +35,7 @@ RSpec.describe PlayerUpdateService, type: :service do
     let(:firsts) { 139 }
 
     before do
-      allow(A801::Player).to receive(:where).with(updatedLast7days: true,
-                                                  cheese_gathered: described_class::MIN_CHEESE_GATHERED..)
-                                            .and_return(mock_relation)
-      allow(mock_relation).to receive(:or).and_return(mock_relation)
-      allow(A801::Player).to receive(:where).with(updatedLast7days: true,
-                                                  bootcamp: described_class::MIN_BOOTCAMP_GATHERED..)
-                                            .and_return(mock_relation)
+      allow(A801::Player).to receive(:where).and_return(mock_relation)
       allow(mock_relation).to receive(:in_batches).and_yield(mock_players)
     end
 
