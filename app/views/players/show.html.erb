@@ -24,14 +24,6 @@
 
 <div class="row g-3">
   <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="text-center mb-0"><%= t('.change_logs') %></h4>
-
-        <div class="card-separator"></div>
-
-        <%= render PlayerLogs.new(@previous_month_logs) %>
-      </div>
-    </div>
+    <%= render 'players/show/logs', previous_month_logs: @previous_month_logs %>
   </div>
 </div>
