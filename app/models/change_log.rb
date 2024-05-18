@@ -9,7 +9,7 @@ class ChangeLog < ApplicationRecord
   belongs_to :player, counter_cache: true
 
   scope(:previous_month, lambda do
-    where('created_at >= ?', Date.current - EXPIRED_AFTER.days).order(created_at: :desc).limit(MAX_AMOUNT)
+    where('created_at >= ?', EXPIRED_AFTER.days.ago.to_date).order(created_at: :desc).limit(MAX_AMOUNT)
   end)
-  scope :expired, -> { where('created_at < ?', Date.current - EXPIRED_AFTER.days) }
+  scope :expired, -> { where('created_at < ?', EXPIRED_AFTER.days.ago.to_date) }
 end
