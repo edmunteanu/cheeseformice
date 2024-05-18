@@ -39,7 +39,7 @@
     <% ChangeLog::MAX_AMOUNT.times.each do |index| %>
       <% display_date = Date.current - (index + 1).days %>
       <% log = log_map[display_date + 1.day] %>
-      <% title = display_date.strftime('%d. %B %Y') %>
+      <% title = l(display_date, format: :long) %>
 
       <div class="accordion-item">
         <% if log.present? %>
