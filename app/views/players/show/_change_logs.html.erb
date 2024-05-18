@@ -33,7 +33,7 @@
       </ul>
 
       <span class="order-0 order-lg-1 text-muted py-2 py-lg-0">
-        <%= t('players.show.last_update', date_time: l(player.updated_at, format: :long)) %>
+        <%= t('players.show.last_update', time_ago: time_ago_in_words(player.updated_at)) %>
       </span>
     </div>
 
