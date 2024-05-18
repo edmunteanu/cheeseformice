@@ -1,0 +1,15 @@
+.nav-underline {
+  .nav-link {
+    --bs-nav-link-color: #{$navbar-light-color};
+    --bs-nav-link-hover-color: #{$navbar-light-hover-color};
+
+    &.active {
+      border-bottom-color: var(--bs-link-color);
+      font-weight: normal;
+    }
+
+    &:hover {
+      border-bottom-color: var(--bs-link-color);
+    }
+  }
+}

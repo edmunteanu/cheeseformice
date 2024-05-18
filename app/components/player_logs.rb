@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 class PlayerLogs < ViewComponent::Base
-  attr_reader :previous_month_logs
+  attr_reader :previous_month_logs, :type
 
   delegate :display_ratio, to: :helpers
 
-  def initialize(previous_month_logs)
+  def initialize(previous_month_logs, type:)
     super
     @previous_month_logs = previous_month_logs
+    @type = type
+  end
+
+  def accordion_id
+    "#{type}ChangeLogs"
   end
 
   def previous_week_aggregated_log
@@ -21,7 +26,7 @@ class PlayerLogs < ViewComponent::Base
   end
 
   def log_map
-    previous_month_logs.index_by { |log| log.created_at.to_date }
+    @log_map ||= previous_month_logs.index_by { |log| log.created_at.to_date }
   end
 
   def button_class(period)
@@ -45,10 +50,22 @@ class PlayerLogs < ViewComponent::Base
     ].compact.join(' ')
   end
 
+  def player_score
+    :"#{type}_score"
+  end
+
+  def player_attributes
+    Player.const_get("#{type.upcase}_ATTRIBUTES")
+  end
+
+  def player_rounds_played
+    type == :normal ? :rounds_played : :"#{type}_rounds_played"
+  end
+
   private
 
   def aggregate_log_data(logs)
-    attributes = %i[normal_score] + Player::NORMAL_ATTRIBUTES
+    attributes = [player_score] + player_attributes
     aggregated = attributes.index_with { |_attr| 0 }
 
     attributes.each do |attr|

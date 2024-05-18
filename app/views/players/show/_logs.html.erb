@@ -4,6 +4,52 @@
 
     <div class="card-separator"></div>
 
-    <%= render PlayerLogs.new(@previous_month_logs) %>
+    <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between mb-3">
+      <ul class="nav nav-underline order-1 order-lg-0" id="changeLogs">
+        <li class="nav-item">
+          <button id="normalTab" class="nav-link active" type="button" data-bs-toggle="tab"
+                  data-bs-target="#normalTabPane">
+            Normal
+          </button>
+        </li>
+        <li class="nav-item">
+          <button id="racingTab" class="nav-link" type="button" data-bs-toggle="tab"
+                  data-bs-target="#racingTabPane">
+            Racing
+          </button>
+        </li>
+        <li class="nav-item">
+          <button id="survivorTab" class="nav-link" type="button" data-bs-toggle="tab"
+                  data-bs-target="#survivorTabPane">
+            Survivor
+          </button>
+        </li>
+        <li class="nav-item">
+          <button id="defilanteTab" class="nav-link" type="button" data-bs-toggle="tab"
+                  data-bs-target="#defilanteTabPane">
+            Defilante
+          </button>
+        </li>
+      </ul>
+
+      <span class="order-0 order-lg-1 text-muted mb-2 mb-lg-0">
+        <%= t('players.show.last_update', date_time: player.updated_at.strftime('%d. %B %Y, %H:%M')) %>
+      </span>
+    </div>
+
+    <div id="changeLogTypes" class="tab-content">
+      <div id="normalTabPane" class="tab-pane fade show active" role="tabpanel">
+        <%= render PlayerLogs.new(@previous_month_logs, type: :normal) %>
+      </div>
+      <div id="racingTabPane" class="tab-pane fade" role="tabpanel">
+        <%= render PlayerLogs.new(@previous_month_logs, type: :racing) %>
+      </div>
+      <div id="survivorTabPane" class="tab-pane fade" role="tabpanel">
+        <%= render PlayerLogs.new(@previous_month_logs, type: :survivor) %>
+      </div>
+      <div id="defilanteTabPane" class="tab-pane fade" role="tabpanel">
+        <%= render PlayerLogs.new(@previous_month_logs, type: :defilante) %>
+      </div>
+    </div>
   </div>
 </div>
