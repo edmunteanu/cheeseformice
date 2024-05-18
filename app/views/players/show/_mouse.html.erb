@@ -6,7 +6,7 @@
 
     <div class="mb-3">
       <span class="d-block fw-bold"><%= t('players.show.registration_date') %></span>
-      <span><%= player.registration_date.strftime('%B %Y') %></span>
+      <span><%= l(player.registration_date, format: :short) %></span>
     </div>
 
     <%# TODO: Create a translation file with all the titles with the title code as the key, then use the following
