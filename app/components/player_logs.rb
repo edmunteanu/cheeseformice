@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
 class PlayerLogs < ViewComponent::Base
-  attr_reader :logs
+  attr_reader :previous_month_logs
 
   delegate :display_ratio, to: :helpers
 
-  def initialize(logs)
+  def initialize(previous_month_logs)
     super
-    @logs = logs.to_a
+    @previous_month_logs = previous_month_logs
   end
 
-  def aggregated_logs_previous_week
-    logs_previous_week = logs.select { |log| log.created_at.to_date > 1.week.ago }
+  def previous_week_aggregated_log
+    previous_week_logs = previous_month_logs.select { |log| log.created_at.to_date > 1.week.ago }
 
-    aggregate_log_data(logs_previous_week)
+    aggregate_log_data(previous_week_logs)
   end
 
-  def aggregated_logs_previous_month
-    aggregate_log_data(logs)
+  def previous_month_aggregated_log
+    aggregate_log_data(previous_month_logs)
   end
 
   def log_map
-    logs.index_by { |log| log.created_at.to_date }
+    previous_month_logs.index_by { |log| log.created_at.to_date }
   end
 
   def button_class(period)

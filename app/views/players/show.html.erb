@@ -15,10 +15,10 @@
   </div>
 
   <div class="player-stats col-12 col-lg-9">
-    <%= render 'players/show/normal_stats', player: @player, previous_day: @previous_day %>
-    <%= render 'players/show/racing_stats', player: @player, previous_day: @previous_day %>
-    <%= render 'players/show/survivor_stats', player: @player, previous_day: @previous_day %>
-    <%= render 'players/show/defilante_stats', player: @player, previous_day: @previous_day %>
+    <%= render 'players/show/normal_stats', player: @player, previous_day_log: @previous_day_log %>
+    <%= render 'players/show/racing_stats', player: @player, previous_day_log: @previous_day_log %>
+    <%= render 'players/show/survivor_stats', player: @player, previous_day_log: @previous_day_log %>
+    <%= render 'players/show/defilante_stats', player: @player, previous_day_log: @previous_day_log %>
   </div>
 </div>
 
@@ -30,7 +30,7 @@
 
         <div class="card-separator"></div>
 
-        <%= render PlayerLogs.new(@previous_month) %>
+        <%= render PlayerLogs.new(@previous_month_logs) %>
       </div>
     </div>
   </div>

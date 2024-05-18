@@ -1,8 +1,8 @@
-<% if logs.any? %>
+<% if previous_month_logs.any? %>
   <div id="changeLogs" class="accordion accordion-flush">
     <% %i[previous_week previous_month].each do |period| %>
-      <% aggregated = public_send(:"aggregated_logs_#{period}") %>
-      <% target = "aggregated_logs#{period.to_s.camelize}" %>
+      <% aggregated = public_send(:"#{period}_aggregated_log") %>
+      <% target = "#{period}_aggregated_log" %>
 
       <div class="accordion-item">
         <div class="accordion-header">
