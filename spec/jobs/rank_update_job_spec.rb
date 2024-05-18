@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe PlayerUpdateJob do
+RSpec.describe RankUpdateJob do
   describe '#perform' do
     context 'when the update is successful' do
       before do
-        allow(PlayerUpdateService).to receive(:new).and_return(double(call: nil))
-        allow(RankUpdateJob).to receive(:perform_later).and_call_original
+        allow(RankUpdateService).to receive(:new).and_return(double(call: nil))
+        allow(LogDeletionJob).to receive(:perform_later).and_call_original
       end
 
       it 'performs the job' do
@@ -15,13 +15,13 @@ RSpec.describe PlayerUpdateJob do
           described_class.perform_later
         end
 
-        expect(PlayerUpdateService).to have_received(:new)
-        expect(RankUpdateJob).to have_received(:perform_later)
+        expect(RankUpdateService).to have_received(:new)
+        expect(LogDeletionJob).to have_received(:perform_later)
       end
     end
 
-    context 'when the update raises an error' do
-      before { allow(PlayerUpdateService).to receive(:new).and_raise(StandardError) }
+    context 'when the updater update raises an error' do
+      before { allow(RankUpdateService).to receive(:new).and_raise(StandardError) }
 
       it 'retries the job' do
         assert_performed_jobs 5, only: described_class do
