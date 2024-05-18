@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-class PlayerUpdateJob < ApplicationJob
+class LogDeletionJob < ApplicationJob
   retry_on StandardError, wait: :polynomially_longer, attempts: 5
 
   def perform
-    PlayerUpdateService.new.call
-
-    RankUpdateJob.perform_later
+    ChangeLog.expired.destroy_all
   end
 end
