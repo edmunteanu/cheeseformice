@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe PlayerLogs, type: :component do
-  let(:component) { described_class.new(logs) }
+  let(:component) { described_class.new(logs, type: :normal) }
   let(:logs) { create_list(:change_log, 1) }
 
-  describe '#aggregated_logs_previous_week' do
-    let(:aggregated_logs) { component.aggregated_logs_previous_week }
+  describe '#previous_week_aggregated_log' do
+    let(:aggregated_logs) { component.previous_week_aggregated_log }
     let(:logs) do
       [
         create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 1.day.ago),
@@ -22,8 +22,8 @@ RSpec.describe PlayerLogs, type: :component do
     end
   end
 
-  describe '#aggregated_logs_previous_month' do
-    let(:aggregated_logs) { component.aggregated_logs_previous_month }
+  describe '#previous_month_aggregated_log' do
+    let(:aggregated_logs) { component.previous_month_aggregated_log }
     let(:logs) do
       [
         create(:change_log, firsts: 25, cheese_gathered: 75, rounds_played: 100, created_at: 1.day.ago),

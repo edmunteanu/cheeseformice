@@ -15,7 +15,7 @@
 
       <% if display_ratio? %>
         <span class="text-success">
-          <%= display_ratio(previous_day.public_send(:"#{attribute}_ratio")) %>
+          <%= display_ratio(previous_day_log.public_send(:"#{attribute}_ratio")) %>
         </span>
       <% end %>
 

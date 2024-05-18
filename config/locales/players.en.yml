@@ -12,6 +12,7 @@ en:
         survivor: "Survivor"
       change_logs: "Performance history (last 30 days)"
       disqualified: "Disqualified"
+      last_update: "Last update: %{date_time}"
       level: "Level"
       mouse: "Mouse"
       registration_date: "Registration date"
