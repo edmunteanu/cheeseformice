@@ -4,3 +4,26 @@ inherit_gem:
 
 plugins:
   - rubocop-rspec
+
+RSpec/ExampleLength:
+  Max: 10
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
+  Exclude:
+    - 'spec/system/**/*'
+    - 'spec/requests/**/*'
+    - 'spec/views/**/*'
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/VerifiedDoubles:
+  Enabled: false

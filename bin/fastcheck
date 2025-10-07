@@ -24,4 +24,4 @@ echo 'Executing eslint'
 yarn eslint app/javascript
 
 echo 'Executing erb-lint'
-bundle exec erblint --config .erb-lint.yml --lint-all
+bundle exec erb_lint --config .erb-lint.yml --lint-all
