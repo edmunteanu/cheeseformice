@@ -3,8 +3,6 @@ SECRET_KEY_BASE: 'bin/rails secret'
 APP_HOST: 'cheeseformice.localhost'
 APP_PORT: '3000'
 
-LOGRAGE_ENABLED: 'false'
-
 # A801 API credentials
 A801_DATABASE_HOST: 'contact_a801'
 A801_DATABASE_PORT: 'contact_a801'
