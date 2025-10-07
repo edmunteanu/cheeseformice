@@ -5,10 +5,10 @@ echo 'Executing Zeitwerk check'
 bin/rails zeitwerk:check
 
 echo 'Executing rubocop'
-if ! bundle exec rubocop -D -c .rubocop.yml --fail-fast
+if ! bin/rubocop
 then
   echo 'Rubocop detected issues!'
-  bundle exec rubocop -A -D -c .rubocop.yml
+  bin/rubocop -a
 
   echo 'Tried to auto correct the issues, but must be reviewed manually, commit aborted'
   exit 1

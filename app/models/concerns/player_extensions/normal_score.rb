@@ -38,12 +38,12 @@ module PlayerExtensions
     private
 
     def total_saved_mice_score
-      [saved_mice_score, saved_mice_without_skills_score].sum * [saved_mice_ratio, saved_mice_without_skills_ratio].sum
+      [ saved_mice_score, saved_mice_without_skills_score ].sum * [ saved_mice_ratio, saved_mice_without_skills_ratio ].sum
     end
 
     def saved_mice_score
       [
-        chain_subtraction([saved_mice, saved_mice_hard, saved_mice_divine]) * SAVED_MICE_WEIGHT,
+        chain_subtraction([ saved_mice, saved_mice_hard, saved_mice_divine ]) * SAVED_MICE_WEIGHT,
         saved_mice_hard * SAVED_MICE_HARD_WEIGHT,
         saved_mice_divine * SAVED_MICE_DIVINE_WEIGHT
       ].sum * SAVED_MICE_TOTAL_WEIGHT
@@ -58,7 +58,7 @@ module PlayerExtensions
     def saved_mice_without_skills_score
       [
         chain_subtraction(
-          [saved_mice_without_skills, saved_mice_hard_without_skills, saved_mice_divine_without_skills]
+          [ saved_mice_without_skills, saved_mice_hard_without_skills, saved_mice_divine_without_skills ]
         ) * SAVED_MICE_WEIGHT,
         saved_mice_hard_without_skills * SAVED_MICE_HARD_WEIGHT,
         saved_mice_divine_without_skills * SAVED_MICE_DIVINE_WEIGHT

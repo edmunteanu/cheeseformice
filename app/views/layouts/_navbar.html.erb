@@ -1,9 +1,9 @@
 <div class="navbar navbar-expand-md bg-dark">
   <div class="container-fluid">
-    <%= link_to root_path, class: 'navbar-brand d-flex align-items-center gap-2' do %>
-      <%= image_tag 'logo.webp', alt: t('navbar.brand_alt') %>
-      <span class="d-md-none text-primary soopafresh"><%= t('navbar.brand_short') %></span>
-      <span class="d-none d-md-inline-block text-primary soopafresh"><%= t('navbar.brand') %></span>
+    <%= link_to root_path, class: "navbar-brand d-flex align-items-center gap-2" do %>
+      <%= image_tag "logo.webp", alt: t("navbar.brand_alt") %>
+      <span class="d-md-none text-primary soopafresh"><%= t("navbar.brand_short") %></span>
+      <span class="d-none d-md-inline-block text-primary soopafresh"><%= t("navbar.brand") %></span>
     <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -13,34 +13,34 @@
     <div id="navbarContent" class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto mt-2 mt-md-0">
         <li class="nav-item">
-          <%= link_to leaderboard_path, class: 'nav-link d-flex align-items-center gap-2' do %>
+          <%= link_to leaderboard_path, class: "nav-link d-flex align-items-center gap-2" do %>
             <i class="bi bi-trophy-fill"></i>
-            <span><%= t('navbar.leaderboard') %></span>
+            <span><%= t("navbar.leaderboard") %></span>
           <% end %>
         </li>
 
         <% if user_signed_in? %>
           <% if current_user.admin? %>
             <li class="nav-item">
-              <%= link_to good_job_path, class: 'nav-link d-flex align-items-center gap-2' do %>
+              <%= link_to good_job_path, class: "nav-link d-flex align-items-center gap-2" do %>
                 <i class="bi bi-database-fill-gear"></i>
-                <span><%= t('navbar.jobs') %></span>
+                <span><%= t("navbar.jobs") %></span>
               <% end %>
             </li>
 
             <li class="nav-item">
-              <%= link_to blazer_path, class: 'nav-link d-flex align-items-center gap-2' do %>
+              <%= link_to blazer_path, class: "nav-link d-flex align-items-center gap-2" do %>
                 <i class="bi bi-pie-chart-fill"></i>
-                <span><%= t('navbar.blazer') %></span>
+                <span><%= t("navbar.blazer") %></span>
               <% end %>
             </li>
           <% end %>
 
           <li class="nav-item">
             <%= button_to destroy_user_session_path, method: :delete,
-                                                     class: 'nav-link d-flex align-items-center gap-2' do %>
+                                                     class: "nav-link d-flex align-items-center gap-2" do %>
               <i class="bi bi-box-arrow-right"></i>
-              <span><%= t('navbar.logout') %></span>
+              <span><%= t("navbar.logout") %></span>
             <% end %>
           </li>
         <% end %>

@@ -3,7 +3,7 @@
 class PlayerUpdateService
   include Utils::PlayerMapper
 
-  def initialize(batch_size: ENV.fetch('UPDATER_BATCH_SIZE', 1000).to_i)
+  def initialize(batch_size: ENV.fetch("UPDATER_BATCH_SIZE", 1000).to_i)
     @batch_size = batch_size
   end
 
@@ -11,7 +11,7 @@ class PlayerUpdateService
   def call
     records.in_batches(of: @batch_size) do |batch|
       threads = []
-      pool_size = [ActiveRecord::Base.connection_pool.size - 1, MAX_POOL_SIZE].min
+      pool_size = [ ActiveRecord::Base.connection_pool.size - 1, MAX_POOL_SIZE ].min
       slice_size = batch.count < pool_size ? batch.count : (batch.count / pool_size.to_f).ceil
 
       start_threads(threads, batch, slice_size)

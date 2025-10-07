@@ -2,16 +2,16 @@
   <div class="card sign-in-card">
     <div class="card-body">
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <%= f.input :email, required: true, input_html: { autocomplete: 'email' } %>
-        <%= f.input :password, required: true, input_html: { autocomplete: 'current-password' } %>
+        <%= f.input :email, required: true, input_html: { autocomplete: "email" } %>
+        <%= f.input :password, required: true, input_html: { autocomplete: "current-password" } %>
 
         <% if devise_mapping.rememberable? %>
           <%= f.input :remember_me, as: :boolean %>
         <% end %>
 
-        <%= f.button :submit, t('.sign_in'), class: 'mt-4 w-100' %>
+        <%= f.button :submit, t(".sign_in"), class: "mt-4 w-100" %>
 
-        <%= render 'devise/shared/links' %>
+        <%= render "devise/shared/links" %>
       <% end %>
     </div>
   </div>

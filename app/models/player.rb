@@ -36,7 +36,7 @@ class Player < ApplicationRecord
 
     prefix, first_alpha, remainder = name.partition(/[A-Za-z]/)
     normalized_name = prefix + first_alpha.upcase + remainder.downcase
-    normalized_name += '#0000' unless normalized_name.match?(TAG_REGEX)
+    normalized_name += "#0000" unless normalized_name.match?(TAG_REGEX)
 
     self.name = normalized_name
   end

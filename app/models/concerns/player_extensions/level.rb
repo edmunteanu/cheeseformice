@@ -53,8 +53,8 @@ module PlayerExtensions
     end
 
     def sum_experience(level, factor:, tier_from:, tier_to: nil)
-      level_amount = [level, tier_to].compact.min - tier_from + 1
-      level_sum = [level, tier_to].compact.min + tier_from
+      level_amount = [ level, tier_to ].compact.min - tier_from + 1
+      level_sum = [ level, tier_to ].compact.min + tier_from
       factor * level_amount * level_sum / 2
     end
   end
