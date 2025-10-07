@@ -1,0 +1,101 @@
+name: CI
+
+on: push
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    env:
+      SECRET_KEY_BASE: test
+      APP_HOST: cheeseformice.localhost
+      APP_PORT: 3000
+      A801_DATABASE_HOST: test
+      A801_DATABASE_PORT: test
+      A801_DATABASE_NAME: test
+      A801_DATABASE_USERNAME: test
+      A801_DATABASE_PASSWORD: test
+      DEVISE_SECRET_KEY: test
+      DEVISE_PEPPER: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run linters
+        run: bin/fastcheck
+
+  test:
+    runs-on: ubuntu-24.04
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432
+      SECRET_KEY_BASE: test
+      APP_HOST: cheeseformice.localhost
+      APP_PORT: 3000
+      A801_DATABASE_HOST: test
+      A801_DATABASE_PORT: test
+      A801_DATABASE_NAME: test
+      A801_DATABASE_USERNAME: test
+      A801_DATABASE_PASSWORD: test
+      DEVISE_SECRET_KEY: test
+      DEVISE_PEPPER: test
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: Install JS dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Precompile assets
+        run: bundle exec rake assets:precompile
+
+      - name: Prepare database
+        run: bin/rails db:create db:schema:load
+
+      - name: Run tests
+        run: bin/check
+
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: ${{ github.workspace }}/tmp/screenshots
+          if-no-files-found: ignore
