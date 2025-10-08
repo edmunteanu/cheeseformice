@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Pagy::DEFAULT[:items] = 20
 Pagy::DEFAULT[:size] = [ 1, 1, 1, 1 ]
 

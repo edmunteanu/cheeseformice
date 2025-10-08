@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class FlashMessage < ViewComponent::Base
   attr_reader :icon_class, :message
 

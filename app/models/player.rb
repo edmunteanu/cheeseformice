@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Player < ApplicationRecord
   include PlayerExtensions::Ratio
   include PlayerExtensions::NormalScore

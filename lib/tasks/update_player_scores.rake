@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # require Rails.root.join('app/services/utils/player_mapper')
 
 namespace :players do

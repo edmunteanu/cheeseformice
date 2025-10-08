@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateUpdateLogs < ActiveRecord::Migration[7.1]
   def change
     create_table :update_logs do |t|

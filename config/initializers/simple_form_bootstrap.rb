@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # rubocop:disable Metrics/BlockLength
 SimpleForm.setup do |config|
   config.button_class = "btn btn-primary"

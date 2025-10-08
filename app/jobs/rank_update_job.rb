@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RankUpdateJob < ApplicationJob
   retry_on StandardError, wait: :polynomially_longer, attempts: 5
 

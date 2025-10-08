@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Devise.setup do |config|
   config.secret_key = ENV.fetch("DEVISE_SECRET_KEY")
 

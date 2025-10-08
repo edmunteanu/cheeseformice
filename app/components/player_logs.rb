@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PlayerLogs < ViewComponent::Base
   attr_reader :previous_month_logs, :type
 

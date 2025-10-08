@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module PlayerExtensions
   module RacingScore
     # These weights have been calculated based on the rounded average ratios of the top 50'000 players sorted

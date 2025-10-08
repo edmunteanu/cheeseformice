@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ChangeLog < ApplicationRecord
   include PlayerExtensions::Ratio
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddChangeLogCounterCache < ActiveRecord::Migration[7.1]
   def up
     add_column :players, :change_logs_count, :integer

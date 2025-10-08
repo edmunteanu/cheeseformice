@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ScoreHeader < ViewComponent::Base
   attr_reader :player, :title, :type, :title_path
 
