@@ -1,6 +1,0 @@
-
-[qgtunnel.A801_DB]
-accept = "127.0.0.1:3306"
-connect = "api.atelier801.com:3306"
-encrypted = false
-transparent = true
