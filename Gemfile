@@ -12,6 +12,7 @@ gem "figaro"
 gem "good_job"
 gem "jbuilder"
 gem "jsbundling-rails"
+gem 'kamal'
 gem "mysql2"
 gem "pagy", "~> 8.6"
 gem "pg"
