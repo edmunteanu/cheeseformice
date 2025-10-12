@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - main
-      - feature/update-ruby-and-rails
 
 jobs:
   deploy:
-    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feature/update-ruby-and-rails') }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
 
     env:
