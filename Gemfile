@@ -24,7 +24,7 @@ gem "sprockets-rails"
 gem "stimulus-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[windows jruby]
-gem "view_component", "~> 3.23"
+gem "view_component", "~> 4.0"
 
 group :test do
   gem "capybara"
