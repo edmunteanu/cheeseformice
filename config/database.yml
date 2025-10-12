@@ -2,16 +2,16 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch('RAILS_MAX_THREADS', 5) %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 3) %>
 a801: &a801
   adapter: mysql2
   encoding: utf8mb4
-  pool: <%= ENV.fetch('RAILS_MAX_THREADS', 5) %>
-  host: <%= ENV.fetch('A801_DATABASE_HOST') %>
-  port: <%= ENV.fetch('A801_DATABASE_PORT') %>
-  database: <%= ENV.fetch('A801_DATABASE_NAME') %>
-  username: <%= ENV.fetch('A801_DATABASE_USERNAME') %>
-  password: <%= ENV.fetch('A801_DATABASE_PASSWORD') %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 3) %>
+  host: <%= Rails.application.credentials.dig(:a801_database, :host) %>
+  port: <%= Rails.application.credentials.dig(:a801_database, :port) %>
+  database: <%= Rails.application.credentials.dig(:a801_database, :name) %>
+  username: <%= Rails.application.credentials.dig(:a801_database, :username) %>
+  password: <%= Rails.application.credentials.dig(:a801_database, :password) %>
   database_tasks: false
   # connect_timeout is deliberately left empty to force the mysql2 adapter to use nil as the timeout. For more
   # information, refer to https://devcenter.heroku.com/articles/quotaguardstatic#setting-up-mysql-access-from-rails
@@ -35,6 +35,6 @@ test:
 production:
   primary:
     <<: *default
-    database: cheeseformice_production
+    url: <%= Rails.application.credentials[:database_url] %>
   a801:
     <<: *a801

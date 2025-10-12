@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module PlayerHelper
   def display_ratio(ratio)
     return unless ratio.present? && ratio.positive?

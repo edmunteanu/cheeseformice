@@ -3,27 +3,27 @@
 
   <% if @player.disqualified? %>
     <div class="disqualified-badge">
-      <span class="text-danger fw-bold"><%= t('players.show.disqualified') %></span>
+      <span class="text-danger fw-bold"><%= t("players.show.disqualified") %></span>
     </div>
   <% end %>
 </div>
 
 <div class="row g-3 mb-4 mb-md-5">
   <div class="player-misc col-12 col-lg-3 d-flex flex-column">
-    <%= render 'players/show/mouse', player: @player %>
-    <%= render 'players/show/badges', player: @player %>
+    <%= render "players/show/mouse", player: @player %>
+    <%= render "players/show/badges", player: @player %>
   </div>
 
   <div class="player-stats col-12 col-lg-9">
-    <%= render 'players/show/normal_stats', player: @player, previous_day_log: @previous_day_log %>
-    <%= render 'players/show/racing_stats', player: @player, previous_day_log: @previous_day_log %>
-    <%= render 'players/show/survivor_stats', player: @player, previous_day_log: @previous_day_log %>
-    <%= render 'players/show/defilante_stats', player: @player, previous_day_log: @previous_day_log %>
+    <%= render "players/show/normal_stats", player: @player, previous_day_log: @previous_day_log %>
+    <%= render "players/show/racing_stats", player: @player, previous_day_log: @previous_day_log %>
+    <%= render "players/show/survivor_stats", player: @player, previous_day_log: @previous_day_log %>
+    <%= render "players/show/defilante_stats", player: @player, previous_day_log: @previous_day_log %>
   </div>
 </div>
 
 <div class="row g-3">
   <div class="col-12">
-    <%= render 'players/show/change_logs', player: @player, previous_month_logs: @previous_month_logs %>
+    <%= render "players/show/change_logs", player: @player, previous_month_logs: @previous_month_logs %>
   </div>
 </div>

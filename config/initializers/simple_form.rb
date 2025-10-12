@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 SimpleForm.setup do |config|
   config.wrappers :default, class: :input, hint_class: :field_with_hint, error_class: :field_with_errors,
                             valid_class: :field_without_errors do |b|
@@ -18,9 +16,9 @@ SimpleForm.setup do |config|
 
   config.default_wrapper = :default
   config.boolean_style = :nested
-  config.button_class = 'btn'
+  config.button_class = "btn"
   config.error_notification_tag = :div
-  config.error_notification_class = 'error_notification'
+  config.error_notification_class = "error_notification"
   config.browser_validations = false
-  config.boolean_label_class = 'checkbox'
+  config.boolean_label_class = "checkbox"
 end

@@ -1,19 +1,5 @@
-SECRET_KEY_BASE: 'bin/rails secret'
-
 APP_HOST: 'cheeseformice.localhost'
 APP_PORT: '3000'
-
-LOGRAGE_ENABLED: 'false'
-
-# A801 API credentials
-A801_DATABASE_HOST: 'contact_a801'
-A801_DATABASE_PORT: 'contact_a801'
-A801_DATABASE_NAME: 'contact_a801'
-A801_DATABASE_USERNAME: 'contact_a801'
-A801_DATABASE_PASSWORD: 'contact_a801'
-
-DEVISE_SECRET_KEY: 'bin/rails secret'
-DEVISE_PEPPER: 'bin/rails secret'
 
 test:
   # SELENIUM_DRIVER: 'selenium_chrome'

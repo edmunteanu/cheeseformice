@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'spec_helper'
@@ -28,7 +26,7 @@ RSpec.configure do |config|
   config.include ActiveJob::TestHelper
   config.include Devise::Test::IntegrationHelpers, type: :request
 
-  config.fixture_paths = [Rails.root.join('spec/fixtures')]
+  config.fixture_paths = [ Rails.root.join('spec/fixtures') ]
 
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!

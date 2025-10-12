@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class FlashMessage < ViewComponent::Base
   attr_reader :icon_class, :message
 
@@ -12,10 +10,10 @@ class FlashMessage < ViewComponent::Base
 
   def alert_style
     [
-      'alert flash-message show',
+      "alert flash-message show",
       "alert-#{@alert_class}",
-      dismissible? ? 'fade alert-dismissible' : nil
-    ].compact.join(' ')
+      dismissible? ? "fade alert-dismissible" : nil
+    ].compact.join(" ")
   end
 
   def dismissible?
@@ -26,11 +24,11 @@ class FlashMessage < ViewComponent::Base
 
   def infer_alert_and_icon(type)
     case type
-    when 'alert'
+    when "alert"
       %w[warning bi-exclamation-circle]
-    when 'notice', 'success'
+    when "notice", "success"
       %w[success bi-check-circle]
-    when 'error'
+    when "error"
       %w[danger bi-exclamation-circle]
     else
       %w[info bi-info-circle]

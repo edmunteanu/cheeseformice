@@ -33,6 +33,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials/*.key
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
@@ -44,3 +45,6 @@
 
 # Ignore simplecov coverage reports
 /coverage
+
+# Ignore kamal secrets
+/.kamal/secrets

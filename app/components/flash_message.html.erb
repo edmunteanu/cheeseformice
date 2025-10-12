@@ -1,6 +1,6 @@
 <div class="<%= alert_style %>"
-     data-controller='flash-dismiss' data-action='animationend->flash-dismiss#dismissAlert'>
-  <i class="<%= ['bi', icon_class, 'me-3'].join(' ') %>"></i>
+     data-controller="flash-dismiss" data-action="animationend->flash-dismiss#dismissAlert">
+  <i class="<%= [ "bi", icon_class, "me-3" ].join(" ") %>"></i>
   <div><%= raw message %></div>
 
   <% if dismissible? %>

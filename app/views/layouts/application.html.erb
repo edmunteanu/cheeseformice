@@ -2,32 +2,32 @@
 <html class="h-100" lang="en" data-bs-theme="dark">
   <head>
     <meta charset="utf-8">
-    <title><%= content_for?(:title) ? yield(:title) : t('meta.title') %></title>
-    <meta name="description" content="<%= t('meta.description') %>">
+    <title><%= content_for?(:title) ? yield(:title) : t("meta.title") %></title>
+    <meta name="description" content="<%= t("meta.description") %>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <%# Turbo 8 %>
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
     <meta name="view-transition" content="same-origin">
 
-    <%= render 'layouts/favicon' %>
+    <%= render "layouts/favicon" %>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', type: 'module' %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body class="d-flex flex-column h-100">
-    <%= render 'layouts/navbar' %>
+    <%= render "layouts/navbar" %>
 
     <div class="flex-grow-1 position-relative">
       <div class="container py-4 py-md-5 h-100">
         <%= yield %>
       </div>
       <div class="flash-messages-container">
-        <%= render partial: 'layouts/flash_messages', flash: flash %>
+        <%= render partial: "layouts/flash_messages", flash: flash %>
       </div>
     </div>
   </body>

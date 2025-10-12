@@ -8,7 +8,7 @@
         <div class="accordion-header">
           <button class="<%= button_class(period) %>" type="button" data-bs-toggle="collapse"
                   data-bs-target="#<%= target %>">
-            <span class="fw-bold"><%= t(period, scope: 'player_logs') %></span>
+            <span class="fw-bold"><%= t(period, scope: "player_logs") %></span>
             <%== score_change(aggregated[player_score]) %>
           </button>
         </div>
@@ -74,7 +74,7 @@
             <button class="accordion-button user-select-text collapsed gap-3" type="button" disabled>
               <i class="bi bi-dash-lg text-muted accordion-button-disabled-icon"></i>
               <span class="fw-bold cursor-text"><%= title %></span>
-              <span class="text-muted cursor-text ms-auto"><%= t('player_logs.no_log') %></span>
+              <span class="text-muted cursor-text ms-auto"><%= t("player_logs.no_log") %></span>
             </button>
           </div>
         <% end %>
@@ -83,6 +83,6 @@
   </div>
 <% else %>
   <div class="d-flex flex-column justify-content-center">
-    <span class="text-center"><%= t('player_logs.no_logs') %></span>
+    <span class="text-center"><%= t("player_logs.no_logs") %></span>
   </div>
 <% end %>

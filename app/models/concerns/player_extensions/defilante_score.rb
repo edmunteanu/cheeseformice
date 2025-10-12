@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module PlayerExtensions
   module DefilanteScore
     # These weights have been calculated based on the rounded average ratios of the top 25'000 players sorted

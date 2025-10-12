@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RankUpdateService
   def initialize(batch_size: 200_000)
     @batch_size = batch_size
@@ -19,7 +17,7 @@ class RankUpdateService
 
     while last_id < max_id
       batch_start_id = last_id + 1
-      batch_end_id = [last_id + @batch_size, max_id].min
+      batch_end_id = [ last_id + @batch_size, max_id ].min
 
       ActiveRecord::Base.connection.execute(update_rank_sql(score, rank, previous_rank, batch_start_id, batch_end_id))
 

@@ -1,20 +1,18 @@
-# frozen_string_literal: true
-
 Devise.setup do |config|
-  config.secret_key = ENV.fetch('DEVISE_SECRET_KEY')
+  config.secret_key = Rails.application.credentials.dig(:devise, :secret_key)
 
   # ==> ORM configuration
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
-  config.case_insensitive_keys = [:email]
-  config.strip_whitespace_keys = [:email]
+  config.case_insensitive_keys = [ :email ]
+  config.strip_whitespace_keys = [ :email ]
   config.paranoid = true
-  config.skip_session_storage = [:http_auth]
+  config.skip_session_storage = [ :http_auth ]
 
   # ==> Configuration for :database_authenticatable
   config.stretches = Rails.env.test? ? 1 : 10
-  config.pepper = ENV.fetch('DEVISE_PEPPER')
+  config.pepper = Rails.application.credentials.dig(:devise, :pepper)
 
   # ==> Configuration for :rememberable
   config.expire_all_remember_me_on_sign_out = true
@@ -28,7 +26,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :lockable
   config.lock_strategy = :failed_attempts
-  config.unlock_keys = [:email]
+  config.unlock_keys = [ :email ]
   config.unlock_strategy = :none
   config.maximum_attempts = 5
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DropUpdateLogs < ActiveRecord::Migration[7.1]
   def up
     drop_table :update_logs

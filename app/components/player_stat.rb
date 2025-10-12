@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PlayerStat < ViewComponent::Base
   attr_reader :player, :previous_day_log, :attribute, :style
 

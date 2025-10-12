@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# Run this script to build the application's docker image
+
+# Read the ruby version from .ruby-version
+RUBY_VERSION=$(cat .ruby-version)
+NODE_VERSION=$(cat .nvmrc)
+YARN_VERSION=$(grep '"packageManager":' package.json | cut -d '@' -f2 | cut -d '"' -f1)
+
+docker build --build-arg RUBY_VERSION=$RUBY_VERSION \
+             --build-arg NODE_VERSION=$NODE_VERSION \
+             --build-arg YARN_VERSION=$YARN_VERSION \
+             -t cheeseformice:latest .

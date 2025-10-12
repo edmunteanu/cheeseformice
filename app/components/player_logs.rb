@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PlayerLogs < ViewComponent::Base
   attr_reader :previous_month_logs, :type
 
@@ -31,23 +29,23 @@ class PlayerLogs < ViewComponent::Base
 
   def button_class(period)
     [
-      'accordion-button gap-3',
-      expand_log?(period) ? nil : 'collapsed'
-    ].compact.join(' ')
+      "accordion-button gap-3",
+      expand_log?(period) ? nil : "collapsed"
+    ].compact.join(" ")
   end
 
   def score_change(value)
-    return display_score(value, span_class: 'text-muted', icon_class: 'bi bi-dash-lg') if value.zero?
-    return display_score(value, span_class: 'text-success', icon_class: 'bi bi-chevron-up') if value.positive?
+    return display_score(value, span_class: "text-muted", icon_class: "bi bi-dash-lg") if value.zero?
+    return display_score(value, span_class: "text-success", icon_class: "bi bi-chevron-up") if value.positive?
 
-    display_score(value.abs, span_class: 'text-danger', icon_class: 'bi bi-chevron-down')
+    display_score(value.abs, span_class: "text-danger", icon_class: "bi bi-chevron-down")
   end
 
   def body_class(period)
     [
-      'accordion-collapse collapse',
-      expand_log?(period) ? 'show' : nil
-    ].compact.join(' ')
+      "accordion-collapse collapse",
+      expand_log?(period) ? "show" : nil
+    ].compact.join(" ")
   end
 
   def player_score
@@ -65,7 +63,7 @@ class PlayerLogs < ViewComponent::Base
   private
 
   def aggregate_log_data(logs)
-    attributes = [player_score] + player_attributes
+    attributes = [ player_score ] + player_attributes
     aggregated = attributes.index_with { |_attr| 0 }
 
     attributes.each do |attr|
@@ -81,9 +79,9 @@ class PlayerLogs < ViewComponent::Base
 
   def display_score(score, span_class:, icon_class:)
     value = [
-      I18n.t('players.score', score: number_with_delimiter(score)),
+      I18n.t("players.score", score: number_with_delimiter(score)),
       "<i class='#{icon_class}'></i>"
-    ].join(' ')
+    ].join(" ")
 
     "<span class='#{span_class} flex-shrink-0 ms-auto'>#{value}</span>"
   end
