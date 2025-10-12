@@ -4,18 +4,21 @@ on:
   push:
     branches:
       - main
+      - feature/update-ruby-and-rails
 
 jobs:
   deploy:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feature/update-ruby-and-rails') }}
     runs-on: ubuntu-latest
 
     env:
       DOCKER_BUILDKIT: 1
       RAILS_ENV: production
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-      DOCKER_REGISTRY_USERNAME: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
       DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      APP_HOST: cheeseformice.cc
+      APP_PORT: 443
 
     steps:
       - name: Checkout code
