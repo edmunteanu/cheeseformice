@@ -10,13 +10,6 @@ jobs:
       SECRET_KEY_BASE: test
       APP_HOST: cheeseformice.localhost
       APP_PORT: 3000
-      A801_DATABASE_HOST: test
-      A801_DATABASE_PORT: test
-      A801_DATABASE_NAME: test
-      A801_DATABASE_USERNAME: test
-      A801_DATABASE_PASSWORD: test
-      DEVISE_SECRET_KEY: test
-      DEVISE_PEPPER: test
 
     steps:
       - name: Checkout code
@@ -28,11 +21,14 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Setup Node.js
+      - name: Read Node version from .nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
+
+      - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: .nvmrc
-          cache: npm
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -49,13 +45,6 @@ jobs:
       SECRET_KEY_BASE: test
       APP_HOST: cheeseformice.localhost
       APP_PORT: 3000
-      A801_DATABASE_HOST: test
-      A801_DATABASE_PORT: test
-      A801_DATABASE_NAME: test
-      A801_DATABASE_USERNAME: test
-      A801_DATABASE_PASSWORD: test
-      DEVISE_SECRET_KEY: test
-      DEVISE_PEPPER: test
 
     services:
       postgres:
@@ -76,10 +65,13 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Read Node version from .nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
+
       - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: .nvmrc
+          node-version: ${{ env.NODE_VERSION }}
           cache: yarn
 
       - name: Install JS dependencies
