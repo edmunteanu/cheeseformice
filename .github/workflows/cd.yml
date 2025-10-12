@@ -45,3 +45,6 @@ jobs:
 
       - name: Run deploy command
         run: kamal deploy
+
+      - name: Prune old containers and images
+        run: kamal prune all

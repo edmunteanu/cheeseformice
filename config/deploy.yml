@@ -23,7 +23,9 @@ servers:
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
   ssl: true
-  host: cheeseformice.cc
+  hosts:
+    - cheeseformice.cc
+    - www.cheeseformice.cc
 
 # Credentials for your image host.
 registry:
@@ -64,7 +66,7 @@ aliases:
 # Use a persistent storage volume for sqlite database files and local Active Storage files.
 # Recommended to change this to a mounted volume path that is backed up off server.
 volumes:
-  - "cheeseformice_storage:/rails/storage"
+  - "/mnt/HC_Volume_103686174/cheeseformice_storage:/rails/storage"
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old
@@ -106,4 +108,4 @@ accessories:
       secret:
         - POSTGRES_PASSWORD
     directories:
-      - "cheeseformice_storage:/var/lib/postgresql/data"
+      - "/mnt/HC_Volume_103686174/cheeseformice_storage:/var/lib/postgresql/data"
