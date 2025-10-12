@@ -37,6 +37,8 @@ env:
     - RAILS_MASTER_KEY
     - DOCKER_REGISTRY_PASSWORD
     - POSTGRES_PASSWORD
+    - APP_HOST
+    - APP_PORT
   clear:
     # Set number of cores available to the application on each server (default: 1).
     WEB_CONCURRENCY: auto
@@ -92,7 +94,7 @@ accessories:
   postgres:
     image: postgres:16
     host: 78.47.203.46
-    port: "127.0.0.1:5432:5432"
+    port: "5432:5432"
     env:
       clear:
         POSTGRES_USER: root
