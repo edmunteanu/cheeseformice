@@ -34,18 +34,17 @@ registry:
   username: ceicu
 
   # Always use an access token rather than real password when possible.
-  password:
-    - DOCKER_REGISTRY_PASSWORD
+  password: <%= ENV.fetch("DOCKER_REGISTRY_PASSWORD") %>
 
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:
-  secret:
-    - RAILS_MASTER_KEY
-    - DOCKER_REGISTRY_PASSWORD
-    - POSTGRES_PASSWORD
-    - APP_HOST
-    - APP_PORT
   clear:
+    APP_HOST: cheeseformice.cc
+    APP_PORT: 443
+    RAILS_MASTER_KEY: <%= ENV.fetch("RAILS_MASTER_KEY") %>
+    DOCKER_REGISTRY_PASSWORD: <%= ENV.fetch("DOCKER_REGISTRY_PASSWORD") %>
+    POSTGRES_PASSWORD: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+
     # Set number of cores available to the application on each server (default: 1).
     WEB_CONCURRENCY: auto
 
@@ -103,9 +102,8 @@ accessories:
     port: "5432:5432"
     env:
       clear:
-        POSTGRES_USER: root
         POSTGRES_DB: cheeseformice
-      secret:
-        - POSTGRES_PASSWORD
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: <%= ENV.fetch("POSTGRES_PASSWORD") %>
     directories:
       - "/mnt/HC_Volume_103686174/cheeseformice_storage:/var/lib/postgresql/data"

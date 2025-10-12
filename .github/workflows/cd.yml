@@ -17,8 +17,6 @@ jobs:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       DOCKER_REGISTRY_PASSWORD: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      APP_HOST: cheeseformice.cc
-      APP_PORT: 443
 
     steps:
       - name: Checkout code
