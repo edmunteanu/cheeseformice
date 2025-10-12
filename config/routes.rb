@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
+  get "/up" => "rails/health#show", as: :rails_health_check
+
   devise_for :users
-
-  get "/leaderboard", to: "players#index"
-  resources :players, only: :show
-
-  get "/404", to: "errors#not_found"
-  get "/500", to: "errors#internal_server_error"
 
   authenticate :user, ->(user) { user.admin? } do
     mount GoodJob::Engine, at: "/good_job"
@@ -17,4 +13,11 @@ Rails.application.routes.draw do
   end
 
   root to: "home#index"
+
+  get "/leaderboard", to: "players#index"
+
+  resources :players, only: :show
+
+  get "/404", to: "errors#not_found"
+  get "/500", to: "errors#internal_server_error"
 end
