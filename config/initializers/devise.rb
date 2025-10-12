@@ -1,5 +1,5 @@
 Devise.setup do |config|
-  config.secret_key = ENV.fetch("DEVISE_SECRET_KEY")
+  config.secret_key = Rails.application.credentials.dig(:devise, :secret_key)
 
   # ==> ORM configuration
   require "devise/orm/active_record"
@@ -12,7 +12,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :database_authenticatable
   config.stretches = Rails.env.test? ? 1 : 10
-  config.pepper = ENV.fetch("DEVISE_PEPPER")
+  config.pepper = Rails.application.credentials.dig(:devise, :pepper)
 
   # ==> Configuration for :rememberable
   config.expire_all_remember_me_on_sign_out = true

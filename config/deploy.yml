@@ -37,7 +37,6 @@ env:
     - RAILS_MASTER_KEY
     - DOCKER_REGISTRY_PASSWORD
     - POSTGRES_PASSWORD
-    - DATABASE_URL
   clear:
     # Set number of cores available to the application on each server (default: 1).
     WEB_CONCURRENCY: auto
