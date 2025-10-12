@@ -95,8 +95,9 @@ USER rails:rails
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD ["./bin/rails", "server"]
+# Note: We're exposing port 80 here instead of 3000, as Kamal expects the app to run on port 80
+EXPOSE 80
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "80"]
 
 # Configure a healthcheck for Kamal to check if the app is up and running
 HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
