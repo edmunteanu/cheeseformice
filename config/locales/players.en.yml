@@ -4,7 +4,6 @@ en:
       title: "Top players"
     score: "Score: %{score}"
     show:
-      badges: "Badges"
       categories:
         defilante: "Defilante"
         normal: "Normal"
@@ -14,5 +13,3 @@ en:
       disqualified: "Disqualified"
       last_update: "Last updated %{time_ago} ago"
       level: "Level"
-      mouse: "Mouse"
-      registration_date: "Registration date"

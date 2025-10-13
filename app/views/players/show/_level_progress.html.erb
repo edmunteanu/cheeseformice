@@ -1,0 +1,12 @@
+<div class="d-flex flex-column justify-content-center gap-2 mb-4">
+  <span class="fw-bold text-center"><%= t("players.show.level") %></span>
+
+  <div class="progress flex-grow-1 position-relative">
+            <span class="position-absolute top-50 start-50 translate-middle">
+              <%= player.current_level %>
+            </span>
+    <div class="progress-bar bg-primary overflow-visible"
+         style="width: <%= decimal_to_percentage(player.level_progress) %>;">
+    </div>
+  </div>
+</div>

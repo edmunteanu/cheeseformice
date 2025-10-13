@@ -8,16 +8,28 @@
   <% end %>
 </div>
 
-<div class="row g-3 mb-4 mb-md-5">
-  <div class="player-misc col-12 col-lg-3 d-flex flex-column">
-    <%= render "players/show/mouse", player: @player %>
-    <%= render "players/show/badges", player: @player %>
+<div class="d-flex gap-3 mb-4 mb-md-5">
+  <span><%= l(@player.registration_date, format: :short) %></span>
+
+  <div class="vr mx-2"></div>
+
+  <span><%= @player.title %></span>
+</div>
+
+<div class="statistics-grid">
+  <div class="normal-stats">
+    <%= render "players/show/normal_stats", player: @player, previous_day_log: @previous_day_log %>
   </div>
 
-  <div class="player-stats col-12 col-lg-9">
-    <%= render "players/show/normal_stats", player: @player, previous_day_log: @previous_day_log %>
+  <div class="racing-stats">
     <%= render "players/show/racing_stats", player: @player, previous_day_log: @previous_day_log %>
+  </div>
+
+  <div class="survivor-stats">
     <%= render "players/show/survivor_stats", player: @player, previous_day_log: @previous_day_log %>
+  </div>
+
+  <div class="defilante-stats">
     <%= render "players/show/defilante_stats", player: @player, previous_day_log: @previous_day_log %>
   </div>
 </div>
