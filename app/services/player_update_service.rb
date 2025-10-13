@@ -22,13 +22,8 @@ class PlayerUpdateService
 
   MIN_CHEESE_GATHERED = 250
   def records
-    A801::Player.where(cheese_gathered: MIN_CHEESE_GATHERED..)
+    A801::Player.where(updatedLast7days: true, cheese_gathered: MIN_CHEESE_GATHERED..)
   end
-  # THIS IS THE DEFAULT CRITERIA – UNCOMMENT AFTER COPYING ALL PLAYERS
-  # MIN_CHEESE_GATHERED = 250
-  # def records
-  #   A801::Player.where(updatedLast7days: true, cheese_gathered: MIN_CHEESE_GATHERED..)
-  # end
 
   def start_threads(threads, batch, slice_size)
     batch.each_slice(slice_size) do |slice|
