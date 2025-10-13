@@ -13,7 +13,7 @@
 
   <div class="vr mx-2"></div>
 
-  <span><%= @player.title %></span>
+  <span><%= sanitize(humanized_title(@player.title)) %></span>
 </div>
 
 <div class="statistics-grid">
