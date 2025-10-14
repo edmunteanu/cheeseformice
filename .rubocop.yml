@@ -12,9 +12,9 @@ RSpec/ExampleLength:
     - hash
     - heredoc
   Exclude:
-    - 'spec/system/**/*'
-    - 'spec/requests/**/*'
-    - 'spec/views/**/*'
+    - "spec/system/**/*"
+    - "spec/requests/**/*"
+    - "spec/views/**/*"
 
 RSpec/MultipleExpectations:
   Enabled: false
@@ -27,3 +27,15 @@ RSpec/NestedGroups:
 
 RSpec/VerifiedDoubles:
   Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+  Include:
+    - "app/**/*"
+    - "bin/**/*"
+    - "db/**/*"
+    - "config/**/*"
+    - "lib/**/*"
+    - "spec/**/*"
+    - "Gemfile"

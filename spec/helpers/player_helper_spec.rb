@@ -1,70 +1,70 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PlayerHelper do
-  describe '#display_ratio' do
+  describe "#display_ratio" do
     subject(:displayed_ratio) { helper.display_ratio(decimal) }
 
     let(:decimal) { 0.1234 }
 
-    it 'converts the decimal into a percentage in parentheses' do
-      expect(displayed_ratio).to eq('(12.34%)')
+    it "converts the decimal into a percentage in parentheses" do
+      expect(displayed_ratio).to eq("(12.34%)")
     end
 
-    context 'when the ratio is zero' do
+    context "when the ratio is zero" do
       let(:decimal) { 0 }
 
-      it 'does not display the ratio' do
+      it "does not display the ratio" do
         expect(displayed_ratio).to be_nil
       end
     end
 
-    context 'when the ratio is negative' do
+    context "when the ratio is negative" do
       let(:decimal) { -0.1234 }
 
-      it 'does not display the ratio' do
+      it "does not display the ratio" do
         expect(displayed_ratio).to be_nil
       end
     end
 
-    context 'when the ratio is nil' do
+    context "when the ratio is nil" do
       let(:decimal) { nil }
 
-      it 'does not display the ratio' do
+      it "does not display the ratio" do
         expect(displayed_ratio).to be_nil
       end
     end
   end
 
-  describe '#decimal_to_percentage' do
-    it 'converts a decimal to a percentage with 2 decimal places' do
-      expect(helper.decimal_to_percentage(0.1234)).to eq('12.34%')
+  describe "#decimal_to_percentage" do
+    it "converts a decimal to a percentage with 2 decimal places" do
+      expect(helper.decimal_to_percentage(0.1234)).to eq("12.34%")
     end
 
-    it 'handles whole numbers correctly' do
-      expect(helper.decimal_to_percentage(1)).to eq('100.00%')
+    it "handles whole numbers correctly" do
+      expect(helper.decimal_to_percentage(1)).to eq("100.00%")
     end
 
-    it 'handles zero correctly' do
-      expect(helper.decimal_to_percentage(0)).to eq('0.00%')
+    it "handles zero correctly" do
+      expect(helper.decimal_to_percentage(0)).to eq("0.00%")
     end
   end
 
-  describe '#humanized_title' do
-    context 'when title is an admin title' do
-      it 'wraps the translated title in a span with admin-title class and guillemets' do
-        expect(helper.humanized_title('440')).to eq("«<span class='admin-title'>Fromadmin</span>»")
+  describe "#humanized_title" do
+    context "when title is an admin title" do
+      it "wraps the translated title in a span with admin-title class and guillemets" do
+        expect(helper.humanized_title("440")).to eq("«<span class='admin-title'>Fromadmin</span>»")
       end
     end
 
-    context 'when title is not an admin title' do
-      it 'returns the translated title wrapped in guillemets' do
-        expect(helper.humanized_title('235')).to eq('«*-*»')
+    context "when title is not an admin title" do
+      it "returns the translated title wrapped in guillemets" do
+        expect(helper.humanized_title("235")).to eq("«*-*»")
       end
     end
 
-    context 'when no translation exists' do
-      it 'falls back to the original title' do
-        expect(helper.humanized_title('999')).to eq('«999»')
+    context "when no translation exists" do
+      it "falls back to the original title" do
+        expect(helper.humanized_title("999")).to eq("«999»")
       end
     end
   end

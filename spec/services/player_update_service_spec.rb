@@ -1,10 +1,10 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PlayerUpdateService, type: :service do
-  describe '#call' do
+  describe "#call" do
     subject(:update_players) { described_class.new.call }
 
-    let!(:existing_player) { create(:player, a801_id: 0, name: 'Double_0') }
+    let!(:existing_player) { create(:player, a801_id: 0, name: "Double_0") }
     let(:mock_relation) { double(ActiveRecord::Relation) }
 
     let(:mock_players) do
@@ -12,8 +12,8 @@ RSpec.describe PlayerUpdateService, type: :service do
         double(A801::Player, id: index, updatedLast7days: 0, registration_date: Time.current,
                              stats_reliability: 0, name: "Double_#{index}#0000", title: title,
                              unlocked_titles: existing_player.unlocked_titles,
-                             experience: 0, look: existing_player.look, badges: '', dress_list: '',
-                             color1: existing_player.mouse_color, color2: existing_player.shaman_color, skills: '',
+                             experience: 0, look: existing_player.look, badges: "", dress_list: "",
+                             color1: existing_player.mouse_color, color2: existing_player.shaman_color, skills: "",
                              round_played: rounds_played, shaman_cheese: shaman_cheese, saved_mice: saved_mice,
                              saved_mice_hard: 0, saved_mice_divine: saved_mice_divine, saved_mice_ns: 0,
                              saved_mice_hard_ns: 0, saved_mice_divine_ns: 0, cheese_gathered: cheese_gathered,
@@ -24,7 +24,7 @@ RSpec.describe PlayerUpdateService, type: :service do
       end
     end
 
-    let(:title) { '0' }
+    let(:title) { "0" }
     let(:rounds_played) { 353 }
     let(:shaman_cheese) { 38 }
     let(:saved_mice) { 674 }
@@ -37,7 +37,7 @@ RSpec.describe PlayerUpdateService, type: :service do
       allow(mock_relation).to receive(:in_batches).and_yield(mock_players)
     end
 
-    it 'creates new Player records, updates the existing player and creates an associated ChangeLog' do
+    it "creates new Player records, updates the existing player and creates an associated ChangeLog" do
       expect { update_players }.to change(Player, :count).by(1).and(change(ChangeLog, :count).by(1))
 
       expect(existing_player.reload.change_logs.count).to eq(1)
@@ -53,7 +53,7 @@ RSpec.describe PlayerUpdateService, type: :service do
       expect(existing_player.normal_score).to eq(2_555).and(eq(change_log.normal_score))
     end
 
-    context 'when the existing player was not changed' do
+    context "when the existing player was not changed" do
       let(:rounds_played) { 0 }
       let(:shaman_cheese) { 0 }
       let(:saved_mice) { 0 }
@@ -61,15 +61,15 @@ RSpec.describe PlayerUpdateService, type: :service do
       let(:cheese_gathered) { 0 }
       let(:firsts) { 0 }
 
-      it 'does not update the existing player and does not create a ChangeLog' do
+      it "does not update the existing player and does not create a ChangeLog" do
         expect { update_players }.to change(Player, :count).by(1)
                                                            .and(not_change(ChangeLog, :count))
                                                            .and(not_change { existing_player.reload })
       end
     end
 
-    context 'when the existing player was changed but no ChangeLog relevant attributes were updated' do
-      let(:title) { '226' }
+    context "when the existing player was changed but no ChangeLog relevant attributes were updated" do
+      let(:title) { "226" }
       let(:rounds_played) { 0 }
       let(:shaman_cheese) { 0 }
       let(:saved_mice) { 0 }
@@ -77,7 +77,7 @@ RSpec.describe PlayerUpdateService, type: :service do
       let(:cheese_gathered) { 0 }
       let(:firsts) { 0 }
 
-      it 'updates the existing player but does not create a ChangeLog' do
+      it "updates the existing player but does not create a ChangeLog" do
         expect { update_players }.to change(Player, :count).by(1).and(not_change(ChangeLog, :count))
 
         expect(existing_player.reload.change_logs.count).to eq(0)
@@ -85,7 +85,7 @@ RSpec.describe PlayerUpdateService, type: :service do
       end
     end
 
-    context 'when the A801 player has null values for stat attributes' do
+    context "when the A801 player has null values for stat attributes" do
       let(:rounds_played) { nil }
       let(:shaman_cheese) { nil }
       let(:saved_mice) { nil }
@@ -93,7 +93,7 @@ RSpec.describe PlayerUpdateService, type: :service do
       let(:cheese_gathered) { nil }
       let(:firsts) { nil }
 
-      it 'creates the player nonetheless and sets the value to 0' do
+      it "creates the player nonetheless and sets the value to 0" do
         expect { update_players }.to change(Player, :count).by(1)
                                                            .and(not_change(ChangeLog, :count))
                                                            .and(not_change { existing_player.reload })
