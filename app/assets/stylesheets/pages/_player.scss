@@ -22,12 +22,6 @@
   @extend .d-flex, .gap-3,
 }
 
-.admin-title {
-  @extend .fw-bold;
-
-  color: $admin;
-}
-
 .statistics-grid {
   @extend .mb-4, .mb-md-5;
 
