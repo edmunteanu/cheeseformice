@@ -16,26 +16,48 @@
   <span><%= sanitize(humanized_title(@player.title)) %></span>
 </div>
 
-<div class="statistics-grid">
-  <div class="normal-stats">
-    <%= render "players/show/normal_stats", player: @player, previous_day_log: @previous_day_log %>
-  </div>
-
-  <div class="racing-stats">
-    <%= render "players/show/racing_stats", player: @player, previous_day_log: @previous_day_log %>
-  </div>
-
-  <div class="survivor-stats">
-    <%= render "players/show/survivor_stats", player: @player, previous_day_log: @previous_day_log %>
-  </div>
-
-  <div class="defilante-stats">
-    <%= render "players/show/defilante_stats", player: @player, previous_day_log: @previous_day_log %>
+<div class="d-flex mb-3">
+  <div class="pill-container">
+    <ul id="profileTabs" class="nav nav-underline gap-4">
+      <li class="nav-item">
+        <button id="statistics" class="nav-link py-3 active" type="button" data-bs-toggle="tab"
+                data-bs-target="#statisticsTabPane">
+          <%= t("players.show.statistics") %>
+        </button>
+      </li>
+      <li class="nav-item">
+        <button id="performance" class="nav-link py-3" type="button" data-bs-toggle="tab"
+                data-bs-target="#performanceTabPane">
+          <%= t("players.show.performance") %>
+        </button>
+      </li>
+    </ul>
   </div>
 </div>
 
-<div class="row g-3">
-  <div class="col-12">
-    <%= render "players/show/change_logs", player: @player, previous_month_logs: @previous_month_logs %>
+<div id="profileTabTypes" class="tab-content">
+  <div id="statisticsTabPane" class="tab-pane fade show active" role="tabpanel">
+    <div class="statistics-grid">
+      <div class="normal-stats">
+        <%= render "players/show/normal_stats", player: @player, previous_day_log: @previous_day_log %>
+      </div>
+      <div class="racing-stats">
+        <%= render "players/show/racing_stats", player: @player, previous_day_log: @previous_day_log %>
+      </div>
+      <div class="survivor-stats">
+        <%= render "players/show/survivor_stats", player: @player, previous_day_log: @previous_day_log %>
+      </div>
+      <div class="defilante-stats">
+        <%= render "players/show/defilante_stats", player: @player, previous_day_log: @previous_day_log %>
+      </div>
+    </div>
+  </div>
+
+  <div id="performanceTabPane" class="tab-pane fade" role="tabpanel">
+    <div class="row g-3">
+      <div class="col-12">
+        <%= render "players/show/change_logs", player: @player, previous_month_logs: @previous_month_logs %>
+      </div>
+    </div>
   </div>
 </div>

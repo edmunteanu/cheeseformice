@@ -14,4 +14,6 @@ en:
       last_update: "Last updated %{time_ago} ago"
       level: "Level"
       mouse_attributes: "Mouse"
+      performance: "Performance"
       shaman_attributes: "Shaman"
+      statistics: "Statistics"

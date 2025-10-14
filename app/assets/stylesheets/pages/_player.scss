@@ -22,9 +22,11 @@
   @extend .d-flex, .gap-3,
 }
 
-.statistics-grid {
-  @extend .mb-4, .mb-md-5;
+.pill-container {
+  @extend .d-flex, .bg-dark, .rounded-4, .px-4;
+}
 
+.statistics-grid {
   display: grid;
   grid-template:
     "normal" auto
