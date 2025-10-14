@@ -6,7 +6,7 @@
     <div class="card-separator"></div>
 
     <div class="row g-3">
-      <% cols = "col-6 col-md-4" %>
+      <% cols = "col-6" %>
 
       <% Player::DEFILANTE_ATTRIBUTES.each do |attribute| %>
         <%= render PlayerStat.new(player, previous_day_log, attribute: attribute,

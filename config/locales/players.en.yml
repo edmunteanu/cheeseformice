@@ -13,3 +13,5 @@ en:
       disqualified: "Disqualified"
       last_update: "Last updated %{time_ago} ago"
       level: "Level"
+      mouse_attributes: "Mouse"
+      shaman_attributes: "Shaman"
