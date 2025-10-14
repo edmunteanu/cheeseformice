@@ -50,6 +50,10 @@
 
   .normal-stats {
     grid-area: normal;
+
+    .progress {
+      --bs-progress-bg: var(--bs-body-bg);
+    }
   }
 
   .racing-stats {

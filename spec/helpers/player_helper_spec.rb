@@ -34,4 +34,38 @@ RSpec.describe PlayerHelper do
       end
     end
   end
+
+  describe '#decimal_to_percentage' do
+    it 'converts a decimal to a percentage with 2 decimal places' do
+      expect(helper.decimal_to_percentage(0.1234)).to eq('12.34%')
+    end
+
+    it 'handles whole numbers correctly' do
+      expect(helper.decimal_to_percentage(1)).to eq('100.00%')
+    end
+
+    it 'handles zero correctly' do
+      expect(helper.decimal_to_percentage(0)).to eq('0.00%')
+    end
+  end
+
+  describe '#humanized_title' do
+    context 'when title is an admin title' do
+      it 'wraps the translated title in a span with admin-title class and guillemets' do
+        expect(helper.humanized_title('440')).to eq("«<span class='admin-title'>Fromadmin</span>»")
+      end
+    end
+
+    context 'when title is not an admin title' do
+      it 'returns the translated title wrapped in guillemets' do
+        expect(helper.humanized_title('235')).to eq('«*-*»')
+      end
+    end
+
+    context 'when no translation exists' do
+      it 'falls back to the original title' do
+        expect(helper.humanized_title('999')).to eq('«999»')
+      end
+    end
+  end
 end
