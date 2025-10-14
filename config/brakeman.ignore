@@ -1,0 +1,97 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "380a82b1b18f2311a3b5745f2f0bf88ca80a9c63e223cc3d11b0a5ac02ab436c",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/rank_update_service.rb",
+      "line": 83,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"      CREATE TEMP TABLE #{temp_table} AS\\n      SELECT id,\\n             ROW_NUMBER() OVER (ORDER BY #{score} DESC, a801_id ASC) AS new_rank\\n      FROM players\\n      WHERE stats_reliability != 2\\n\".squish)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RankUpdateService",
+        "method": "create_rank_temp_table"
+      },
+      "user_input": "temp_table",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "6b84bb536ad28c221adeb6f9859392e2ac192f05d4f5d792c8d5e1a80b236c9e",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/rank_update_service.rb",
+      "line": 69,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"        UPDATE players\\n        SET #{previous_rank} = #{rank}\\n        WHERE stats_reliability != 2\\n          AND id BETWEEN #{1} AND #{[(0 + batch_size), (Player.where.not(:stats_reliability => 2).maximum(:id) or 0)].min}\\n\".squish)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RankUpdateService",
+        "method": "snapshot_previous_ranks"
+      },
+      "user_input": "previous_rank",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "7c8dc966435d738f05abee7b61ebfbc855558d2b930d364eb6ba918abb807b7f",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/rank_update_service.rb",
+      "line": 53,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"DROP TABLE IF EXISTS #{\"ranked_#{mode}_tmp\"}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RankUpdateService",
+        "method": "update_mode_ranks"
+      },
+      "user_input": "mode",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ca82989820a7da43169511e94cae665698a138a6b8cf4a99fffc41a45fa821cc",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/rank_update_service.rb",
+      "line": 102,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"        UPDATE players p\\n        SET #{rank} = r.new_rank\\n        FROM #{temp_table} r\\n        WHERE p.id = r.id\\n          AND p.stats_reliability != 2\\n          AND p.id BETWEEN #{1} AND #{[(0 + batch_size), (Player.where.not(:stats_reliability => 2).maximum(:id) or 0)].min}\\n          AND (p.#{rank} IS DISTINCT FROM r.new_rank)\\n\".squish)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RankUpdateService",
+        "method": "update_changed_ranks"
+      },
+      "user_input": "rank",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.1.0"
+}
