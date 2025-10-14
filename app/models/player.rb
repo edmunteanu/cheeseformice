@@ -8,6 +8,11 @@ class Player < ApplicationRecord
 
   MAX_NAME_LENGTH = 100
   TAG_REGEX = /#\d{4}$/
+  ADMIN_TAG = "0001"
+  ADMIN_TITLES = %w[440 442 444 445 446 447 448 449 450 451 452 453 454 534].freeze
+  MODERATOR_TAG = "0010"
+  SENTINEL_TAG = "0015"
+  MAP_CREW_TAG = "0020"
 
   has_many :change_logs, dependent: :destroy
 

@@ -1,16 +1,30 @@
-<div class="card">
+<div class="card h-100">
   <div class="card-body">
     <%= render ScoreHeader.new(player, previous_day_log, title: t("players.show.categories.normal"), type: :normal) %>
 
     <div class="card-separator"></div>
 
-    <div class="row g-3">
-      <% cols = "col-6 col-md-4" %>
+    <%= render "players/show/level_progress", player: player %>
 
-      <% Player::NORMAL_ATTRIBUTES.each do |attribute| %>
-        <%= render PlayerStat.new(player, previous_day_log, attribute: attribute,
-                                                            style: cols,
-                                                            display_ratio: attribute != :rounds_played) %>
+    <span class="d-block fw-bold mb-3"><%= t("players.show.shaman_attributes") %></span>
+    <div class="row g-3">
+      <% cols = "col-6" %>
+
+      <% Player::SHAMAN_ATTRIBUTES.each do |attribute| %>
+        <%= render PlayerStat.new(player, previous_day_log,
+                                  attribute: attribute, style: cols, display_ratio: attribute != :rounds_played) %>
+      <% end %>
+    </div>
+
+    <div class="hr my-4"></div>
+
+    <span class="d-block fw-bold mb-3"><%= t("players.show.mouse_attributes") %></span>
+    <div class="row g-3">
+      <% cols = "col-6" %>
+
+      <% Player::MOUSE_ATTRIBUTES.each do |attribute| %>
+        <%= render PlayerStat.new(player, previous_day_log,
+                                  attribute: attribute, style: cols, display_ratio: attribute != :rounds_played) %>
       <% end %>
     </div>
   </div>

@@ -1,17 +1,17 @@
-ENV['RAILS_ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
 
-require 'spec_helper'
-require_relative '../config/environment'
+require "spec_helper"
+require_relative "../config/environment"
 
-abort('The Rails environment is running in production mode!') if Rails.env.production?
+abort("The Rails environment is running in production mode!") if Rails.env.production?
 
-require 'rspec/rails'
-require 'capybara/rspec'
-require 'capybara/rails'
-require 'selenium/webdriver'
-require 'super_diff/rspec-rails'
+require "rspec/rails"
+require "capybara/rspec"
+require "capybara/rails"
+require "selenium/webdriver"
+require "super_diff/rspec-rails"
 
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -26,7 +26,7 @@ RSpec.configure do |config|
   config.include ActiveJob::TestHelper
   config.include Devise::Test::IntegrationHelpers, type: :request
 
-  config.fixture_paths = [ Rails.root.join('spec/fixtures') ]
+  config.fixture_paths = [ Rails.root.join("spec/fixtures") ]
 
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
@@ -43,7 +43,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :js, type: :system) do
-    driven_by ENV['SELENIUM_DRIVER']&.to_sym || :selenium_chrome_headless
+    driven_by ENV["SELENIUM_DRIVER"]&.to_sym || :selenium_chrome_headless
   end
 
   config.after do |example|

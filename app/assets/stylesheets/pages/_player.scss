@@ -1,6 +1,4 @@
-.player-list,
-.player-misc,
-.player-stats {
+.player-list {
   .card {
     @extend .mb-3;
 
@@ -12,10 +10,55 @@
 
 .title-container {
   @extend .d-flex, .flex-column, .flex-md-row, .align-items-md-center, .justify-content-md-between,
-          .gap-2, .gap-md-0, .mb-4, .mb-md-5;
+          .gap-2, .gap-md-0, .mb-2;
 
   .disqualified-badge {
-    @extend .align-self-start, .align-self-md-auto, .bg-danger-subtle, .border, .border-danger,
-            .rounded-3, .px-2, .py-1;
+    @extend .align-self-start, .align-self-md-auto, .order-first, .order-md-last, .bg-danger-subtle,
+            .border, .border-danger, .rounded-3, .px-2, .py-1;
+  }
+}
+
+.subtitle-container {
+  @extend .d-flex, .gap-3,
+}
+
+.statistics-grid {
+  @extend .mb-4, .mb-md-5;
+
+  display: grid;
+  grid-template:
+    "normal" auto
+    "racing" auto
+    "survivor" auto
+    "defilante" auto
+    / 1fr;
+  gap: 1rem;
+
+  @include media-breakpoint-up(xxl) {
+    grid-template:
+      "normal normal racing racing" auto
+      "normal normal survivor survivor" auto
+      "normal normal defilante defilante" auto
+      / 1fr 1fr 1fr 1fr;
+  }
+
+  .normal-stats {
+    grid-area: normal;
+
+    .progress {
+      --bs-progress-bg: var(--bs-body-bg);
+    }
+  }
+
+  .racing-stats {
+    grid-area: racing;
+  }
+
+  .survivor-stats {
+    grid-area: survivor;
+  }
+
+  .defilante-stats {
+    grid-area: defilante;
   }
 }

@@ -6,17 +6,17 @@ FactoryBot.define do
     sequence(:name) { |n| "Player#{n}" }
     registration_date { Time.current }
 
-    title { '0' }
-    unlocked_titles { '0' }
+    title { "0" }
+    unlocked_titles { "0" }
 
     experience { 0 }
 
-    look { '1;0,0,9,0,0,0,0,0,0,0,0,0' }
-    badges { '' }
-    dress_list { '' }
-    mouse_color { '78583a' }
-    shaman_color { '95d9d6' }
-    skills { '' }
+    look { "1;0,0,9,0,0,0,0,0,0,0,0,0" }
+    badges { "" }
+    dress_list { "" }
+    mouse_color { "78583a" }
+    shaman_color { "95d9d6" }
+    skills { "" }
 
     stats_reliability { 0 }
     rounds_played { 0 }
