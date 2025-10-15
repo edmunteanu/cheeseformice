@@ -1,105 +1,58 @@
 class RankUpdateService
-  RANK_COLUMNS = {
-    normal: {
-      score: "normal_score",
-      rank: "normal_rank",
-      previous_rank: "previous_normal_rank"
-    },
-    survivor: {
-      score: "survivor_score",
-      rank: "survivor_rank",
-      previous_rank: "previous_survivor_rank"
-    },
-    racing: {
-      score: "racing_score",
-      rank: "racing_rank",
-      previous_rank: "previous_racing_rank"
-    },
-    defilante: {
-      score: "defilante_score",
-      rank: "defilante_rank",
-      previous_rank: "previous_defilante_rank"
-    }
-  }.freeze
-
-  def initialize(batch_size: 200_000)
+  def initialize(batch_size: 50_000)
     @batch_size = batch_size
-    @max_id = Player.where.not(stats_reliability: 2).maximum(:id) || 0
   end
 
   def call
-    RANK_COLUMNS.each_key { |mode| update_mode_ranks(mode) }
+    %w[normal survivor racing defilante].each do |mode|
+      update_rank("#{mode}_score", "#{mode}_rank", "previous_#{mode}_rank")
+    end
   end
 
   private
 
-  def update_mode_ranks(mode)
-    cols = RANK_COLUMNS.fetch(mode)
-    score_col = cols[:score]
-    rank_col = cols[:rank]
-    prev_col = cols[:previous_rank]
-    temp_table = "ranked_#{mode}_tmp"
+  def update_rank(score, rank, previous_rank)
+    # Step 1: Precompute ranks into a temporary table
+    create_temp_rank_table(score, rank)
 
-    # Phase 1: Copy current rank into previous rank
-    snapshot_previous_ranks(prev_col, rank_col)
+    # Step 2: Apply updates in batches using the precomputed ranks
+    apply_batch_updates(rank, previous_rank)
 
-    # Phase 2: Compute new ranks once into a temp table
-    create_rank_temp_table(temp_table, score_col)
-
-    # Phase 3: Update only rows whose ranks changed
-    update_changed_ranks(temp_table, rank_col)
-
-    # Phase 4: Ensure temp table is dropped
-    ActiveRecord::Base.connection.execute("DROP TABLE IF EXISTS #{temp_table}")
+    # Step 3: Drop temporary table ahead of the next iteration
+    ActiveRecord::Base.connection.execute("DROP TABLE tmp_ranked_players;")
   end
 
-  def snapshot_previous_ranks(previous_rank, rank)
-    last_id = 0
-
-    while last_id < @max_id
-      batch_start_id = last_id + 1
-      batch_end_id = [ last_id + @batch_size, @max_id ].min
-
-      sql = <<-SQL.squish
-        UPDATE players
-        SET #{previous_rank} = #{rank}
-        WHERE stats_reliability != 2
-          AND id BETWEEN #{batch_start_id} AND #{batch_end_id}
-      SQL
-      ActiveRecord::Base.connection.execute(sql)
-
-      last_id = batch_end_id
-    end
-  end
-
-  def create_rank_temp_table(temp_table, score)
-    sql = <<-SQL.squish
-      CREATE TEMP TABLE #{temp_table} AS
+  # Order by score DESC first and then by a801_id ASC to ensure that players with the same score still
+  # receive a different rank. This means that an older account will be ranked higher. This should not
+  # pose a problem, since duplicate scores don't become apparent until around the 200'000th rank.
+  def create_temp_rank_table(score, rank)
+    ActiveRecord::Base.connection.execute(<<~SQL.squish)
+      CREATE TEMP TABLE tmp_ranked_players AS
       SELECT id,
+             #{rank} AS old_rank,
              ROW_NUMBER() OVER (ORDER BY #{score} DESC, a801_id ASC) AS new_rank
       FROM players
-      WHERE stats_reliability != 2
+      WHERE stats_reliability != 2;
     SQL
-    ActiveRecord::Base.connection.execute(sql)
   end
 
-  def update_changed_ranks(temp_table, rank)
+  def apply_batch_updates(rank, previous_rank)
     last_id = 0
+    max_id = Player.qualified.maximum(:id) || 0
 
-    while last_id < @max_id
+    while last_id < max_id
       batch_start_id = last_id + 1
-      batch_end_id = [ last_id + @batch_size, @max_id ].min
+      batch_end_id = [ last_id + @batch_size, max_id ].min
 
-      sql = <<-SQL.squish
-        UPDATE players p
-        SET #{rank} = r.new_rank
-        FROM #{temp_table} r
-        WHERE p.id = r.id
-          AND p.stats_reliability != 2
-          AND p.id BETWEEN #{batch_start_id} AND #{batch_end_id}
-          AND (p.#{rank} IS DISTINCT FROM r.new_rank)
+      ActiveRecord::Base.connection.execute(<<~SQL.squish)
+        UPDATE players
+        SET #{rank} = tmp.new_rank,
+            #{previous_rank} = tmp.old_rank
+        FROM tmp_ranked_players tmp
+        WHERE players.id = tmp.id
+          AND stats_reliability != 2
+          AND players.id BETWEEN #{batch_start_id} AND #{batch_end_id};
       SQL
-      ActiveRecord::Base.connection.execute(sql)
 
       last_id = batch_end_id
     end
