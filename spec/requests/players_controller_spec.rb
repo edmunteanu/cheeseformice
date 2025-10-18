@@ -29,6 +29,46 @@ RSpec.describe PlayersController do
         players.each { |player| expect(response.body).to include(player.name) }
       end
 
+      describe "statistic parameter" do
+        before { get leaderboard_path, params: { statistic: statistic_param } }
+
+        context "when the statistic parameter is valid" do
+          let(:statistic_param) { "normal_score" }
+
+          it "displays the leaderboard for the specified statistic" do
+            expect(response).to have_http_status(:ok)
+            players.each { |player| expect(response.body).to include(player.name) }
+          end
+        end
+
+        context "when the statistic parameter is invalid" do
+          let(:statistic_param) { "invalid_statistic" }
+
+          it "defaults to normal_score" do
+            expect(response).to have_http_status(:ok)
+            players.each { |player| expect(response.body).to include(player.name) }
+          end
+        end
+      end
+
+      describe "category parameter" do
+        context "when the statistic parameter corresponds to the normal category" do
+          let(:statistic_param) { "saved_mice" }
+
+          it "sets the category to normal" do
+            expect(response.body).to include(I18n.t("players.show.categories.normal"))
+          end
+        end
+
+        context "when the statistic parameter corresponds to the racing category" do
+          let(:statistic_param) { "racing_firsts" }
+
+          it "sets the category to normal" do
+            expect(response.body).to include(I18n.t("players.show.categories.racing"))
+          end
+        end
+      end
+
       describe "page parameter" do
         before do
           stub_const("PlayersController::MAX_LEADERBOARD_PAGES", 2)

@@ -13,10 +13,18 @@ module PlayerExtensions
 
     class_methods do
       def ranked_by(statistic:)
-        statistic = statistic.sub(/_score$/, "_rank")
+        rank_suffix = "_rank"
+        statistic = statistic.sub(/_score$/, rank_suffix)
 
-        # We break ties by ordering players with the same statistic by their a801_id in ascending order.
-        qualified.order(statistic => statistic.ends_with?("_rank") ? :asc : :desc, "a801_id" => :asc)
+        order_by = if statistic.ends_with?(rank_suffix)
+                     # Tie-breaking is already handled when calculating the ranks.
+                     { statistic => :asc }
+        else
+                     # We break ties by ordering players with the same statistic by their a801_id in ascending order.
+                     { statistic => :desc, "a801_id" => :asc }
+        end
+
+        qualified.order(order_by)
       end
     end
   end

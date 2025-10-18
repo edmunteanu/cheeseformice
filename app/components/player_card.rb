@@ -22,8 +22,6 @@ class PlayerCard < ViewComponent::Base
   end
 
   def score_statistic?
-    return true if @statistic.blank?
-
     %w[normal_score racing_score survivor_score defilante_score].include?(@statistic)
   end
 

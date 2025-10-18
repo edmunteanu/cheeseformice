@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe PlayerLogs, type: :component do
-  let(:component) { described_class.new(logs, type: :normal) }
+  let(:component) { described_class.new(logs, category: :normal) }
   let(:logs) { create_list(:change_log, 1) }
 
   describe "#previous_week_aggregated_log" do

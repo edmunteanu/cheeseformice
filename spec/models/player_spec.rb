@@ -171,4 +171,35 @@ RSpec.describe Player do
       end
     end
   end
+
+  describe ".ranked_by" do
+    let!(:disqualified_player) do
+      create(:player, cheese_gathered: 1_000, rounds_played: 1_500, stats_reliability: 2, a801_id: 5)
+    end
+
+    context "when ranking by a score statistic" do
+      let!(:first_player) { create(:player, normal_rank: 2) }
+      let!(:second_player) { create(:player, normal_rank: 1) }
+      let!(:third_player) { create(:player, normal_rank: 3) }
+      let(:ranked_players) { described_class.ranked_by(statistic: "normal_score") }
+
+      it "returns players ranked by their score statistic rank" do
+        expect(ranked_players).to eq([ second_player, first_player, third_player ])
+        expect(ranked_players).not_to include(disqualified_player)
+      end
+    end
+
+    context "when ranking by a non-score statistic" do
+      let!(:first_player) { create(:player, cheese_gathered: 500, rounds_played: 1_000, a801_id: 1) }
+      let!(:second_player) { create(:player, cheese_gathered: 750, rounds_played: 1_000, a801_id: 2) }
+      let!(:third_player) { create(:player, cheese_gathered: 500, rounds_played: 1_000, a801_id: 3) }
+      let!(:fourth_player) { create(:player, cheese_gathered: 600, rounds_played: 1_000, a801_id: 4) }
+      let(:ranked_players) { described_class.ranked_by(statistic: "cheese_gathered") }
+
+      it "returns players ranked by the specified statistic in descending order and a801_id in ascending order" do
+        expect(ranked_players).to eq([ second_player, fourth_player, first_player, third_player ])
+        expect(ranked_players).not_to include(disqualified_player)
+      end
+    end
+  end
 end
