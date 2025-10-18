@@ -21,7 +21,7 @@ RSpec.describe RankUpdateService, type: :service do
                defilante_rounds_played: 200, defilante_finished_maps: 100)
       end
       let!(:third_player) do
-        create(:player, a801_id: 100,
+        create(:player, a801_id: 1234,
                rounds_played: 100, cheese_gathered: 50,
                racing_rounds_played: 300, racing_finished_maps: 150,
                survivor_rounds_played: 200, survivor_survived_rounds: 100,
@@ -50,7 +50,7 @@ RSpec.describe RankUpdateService, type: :service do
       # rubocop:enable RSpec/ExampleLength
 
       context "when multiple players have the same score" do
-        let!(:fourth_player) { create(:player, a801_id: 250, rounds_played: 100, cheese_gathered: 50) }
+        let!(:fourth_player) { create(:player, a801_id: 12345, rounds_played: 100, cheese_gathered: 50) }
 
         it "ranks the players based on their a801_id" do
           expect { update_ranks }.to change { first_player.reload.normal_rank }.from(nil).to(1)
