@@ -5,6 +5,7 @@ class Player < ApplicationRecord
   include PlayerExtensions::RacingScore
   include PlayerExtensions::DefilanteScore
   include PlayerExtensions::Level
+  include PlayerExtensions::Leaderboard
 
   MAX_NAME_LENGTH = 100
   TAG_REGEX = /#\d{4}$/

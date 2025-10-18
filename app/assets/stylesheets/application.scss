@@ -1,5 +1,5 @@
 // Project variables
-@import "utils/variables";
+@import "abstracts/variables";
 @import "themes/dark";
 
 // Bootstrap and overrides
@@ -11,13 +11,15 @@
 @import "base/typography";
 @import "components/accordion";
 @import "components/alert";
+@import "components/button";
 @import "components/card";
+@import "components/dropdown";
+@import "components/flash_messages";
 @import "components/image";
 @import "components/link";
 @import "components/nav";
+@import "components/navbar";
 @import "components/pagy";
 @import "components/rule";
 @import "components/score_header";
-@import "layout/flash_messages";
-@import "layout/navbar";
 @import "pages/player";

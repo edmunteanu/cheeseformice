@@ -39,16 +39,16 @@
 
     <div id="changeLogTypes" class="tab-content">
       <div id="normalTabPane" class="tab-pane fade show active" role="tabpanel">
-        <%= render PlayerLogs.new(@previous_month_logs, type: :normal) %>
+        <%= render PlayerLogs.new(@previous_month_logs, category: :normal) %>
       </div>
       <div id="racingTabPane" class="tab-pane fade" role="tabpanel">
-        <%= render PlayerLogs.new(@previous_month_logs, type: :racing) %>
+        <%= render PlayerLogs.new(@previous_month_logs, category: :racing) %>
       </div>
       <div id="survivorTabPane" class="tab-pane fade" role="tabpanel">
-        <%= render PlayerLogs.new(@previous_month_logs, type: :survivor) %>
+        <%= render PlayerLogs.new(@previous_month_logs, category: :survivor) %>
       </div>
       <div id="defilanteTabPane" class="tab-pane fade" role="tabpanel">
-        <%= render PlayerLogs.new(@previous_month_logs, type: :defilante) %>
+        <%= render PlayerLogs.new(@previous_month_logs, category: :defilante) %>
       </div>
     </div>
   </div>
