@@ -10,15 +10,18 @@ servers:
     hosts:
       - 78.47.203.46
     options:
-      health-interval: 90s
+      health-interval: 60s
+      health-retries: 10
   job:
     hosts:
       - 78.47.203.46
     cmd: bundle exec good_job start
     options:
-      health-cmd: bin/check
+      health-cmd: "true"
       health-interval: 30s
       health-retries: 1
+
+deploy_timeout: 600
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
 # Remove this section when using multiple web servers and ensure you terminate SSL at your load balancer.
