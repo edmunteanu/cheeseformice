@@ -5,13 +5,14 @@ ruby File.read(File.join(__dir__, ".ruby-version")).strip
 
 gem "blazer"
 gem "bootsnap", require: false
-gem "cssbundling-rails"
+gem "bootstrap"
+gem "dartsass-sprockets"
 gem "devise"
 gem "devise-i18n"
 gem "figaro"
 gem "good_job"
+gem "importmap-rails"
 gem "jbuilder"
-gem "jsbundling-rails"
 gem "kamal"
 gem "mysql2"
 gem "pagy", "~> 8.6"

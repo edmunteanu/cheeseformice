@@ -24,3 +24,7 @@ en:
         defilante_rounds_played: "Rounds played"
         defilante_finished_maps: "Finished maps"
         defilante_points: "Points"
+        normal_score: "Normal score"
+        survivor_score: "Survivor score"
+        racing_score: "Racing score"
+        defilante_score: "Defilante score"

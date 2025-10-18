@@ -1,13 +1,12 @@
 class PlayersController < AuthenticatedController
   MAX_LEADERBOARD_PAGES = 50
 
-  before_action :sanitize_page, only: :index
+  before_action :set_statistic, :set_category, :sanitize_page, only: :index
   before_action :capitalize_name, only: :show
 
   def index
-    # TODO: Sort by normal_rank, survivor_rank, racing_rank, defilante_rank (based on query param)
-    #   once the players are sorted by the respective scores and the ranks persisted to the DB.
-    @pagy, @players = pagy_countless(Player.qualified.order(:normal_rank), max_pages: MAX_LEADERBOARD_PAGES)
+    @current_page = params[:page].to_i.zero? ? 1 : params[:page].to_i
+    @pagy, @players = pagy_countless(Player.ranked_by(statistic: @statistic), max_pages: MAX_LEADERBOARD_PAGES)
   end
 
   def show
@@ -17,6 +16,20 @@ class PlayersController < AuthenticatedController
   end
 
   private
+
+  def set_statistic
+    @statistic = if Player::LEADERBOARD_STATISTICS.values.flatten.include?(params[:statistic])
+                   params[:statistic]
+    else
+                   "normal_score"
+    end
+  end
+
+  def set_category
+    @category = Player::LEADERBOARD_STATISTICS.key(
+      Player::LEADERBOARD_STATISTICS.values.find { |types| types.include?(@statistic) }
+    )
+  end
 
   # The Pagy overflow extra does not work with the :max_pages option. Setting it to :last_page in the initializer
   # won't work with this setup, since it only allows :empty_page or :exception. Neither of these options are suitable

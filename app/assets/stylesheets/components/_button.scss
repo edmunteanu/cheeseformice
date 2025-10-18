@@ -1,0 +1,23 @@
+.btn-leaderboard {
+  @extend .d-flex, .align-items-center;
+
+  --bs-btn-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
+  --bs-btn-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-border-color: transparent;
+
+  // Ensure leaderboard button is the same height as the profile tab switcher
+  border: none;
+  border-bottom: 2px solid transparent;
+
+  .icon-container {
+    @extend .d-none, .d-md-inline-block, .ms-2;
+
+    font-size: 12px;
+    transition: transform 0.2s ease;
+
+    &.rotate-180 {
+      transform: rotate(180deg);
+    }
+  }
+}

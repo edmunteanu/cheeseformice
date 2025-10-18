@@ -1,0 +1,26 @@
+<div class="d-flex bg-dark rounded-4">
+  <div class="dropdown-container">
+    <% Player::LEADERBOARD_STATISTICS.each_key do |key| %>
+      <div class="dropdown" data-controller="rotate-icon">
+        <a class="btn btn-leaderboard" data-rotate-icon-target="button" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          <%= t(key, scope: "players.show.categories") %>
+          <span class="icon-container" data-rotate-icon-target="iconContainer">
+              <i class="bi bi-chevron-down"></i>
+            </span>
+        </a>
+
+        <ul class="dropdown-menu">
+          <% Player::LEADERBOARD_STATISTICS[key].each do |statistic| %>
+            <li>
+              <%= link_to leaderboard_path(statistic: statistic), class: "dropdown-item",
+                          data: { "turbo-prefetch": false } do %>
+                <span><%= t(statistic, scope: "activerecord.attributes.player") %></span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,8 +1,12 @@
 en:
   players:
     index:
+      scores:
+        normal: "Normal score: %{score}"
+        racing: "Racing score: %{score}"
+        survivor: "Survivor score: %{score}"
+        defilante: "Defilante score: %{score}"
       title: "Top players"
-    score: "Score: %{score}"
     show:
       categories:
         defilante: "Defilante"
@@ -15,5 +19,6 @@ en:
       level: "Level"
       mouse_attributes: "Mouse"
       performance: "Performance"
+      score: "Score: %{score}"
       shaman_attributes: "Shaman"
       statistics: "Statistics"

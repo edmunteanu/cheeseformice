@@ -1,16 +1,16 @@
 class PlayerLogs < ViewComponent::Base
-  attr_reader :previous_month_logs, :type
+  attr_reader :previous_month_logs, :category
 
   delegate :display_ratio, to: :helpers
 
-  def initialize(previous_month_logs, type:)
+  def initialize(previous_month_logs, category:)
     super
     @previous_month_logs = previous_month_logs
-    @type = type
+    @category = category
   end
 
   def accordion_id
-    "#{type}ChangeLogs"
+    "#{category}ChangeLogs"
   end
 
   def previous_week_aggregated_log
@@ -49,15 +49,15 @@ class PlayerLogs < ViewComponent::Base
   end
 
   def player_score
-    :"#{type}_score"
+    :"#{category}_score"
   end
 
   def player_attributes
-    Player.const_get("#{type.upcase}_ATTRIBUTES")
+    Player.const_get("#{category.upcase}_ATTRIBUTES")
   end
 
   def player_rounds_played
-    type == :normal ? :rounds_played : :"#{type}_rounds_played"
+    category == :normal ? :rounds_played : :"#{category}_rounds_played"
   end
 
   private
@@ -79,7 +79,7 @@ class PlayerLogs < ViewComponent::Base
 
   def display_score(score, span_class:, icon_class:)
     value = [
-      I18n.t("players.score", score: number_with_delimiter(score)),
+      I18n.t("players.show.score", score: number_with_delimiter(score)),
       "<i class='#{icon_class}'></i>"
     ].join(" ")
 

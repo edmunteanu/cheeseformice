@@ -1,19 +1,25 @@
-// Order of precedence: utils/variables -> themes/dark -> vendor/bootstrap -> the rest
-@import 'utils/variables';
-@import 'themes/dark';
-@import 'vendor/bootstrap';
+// Project variables
+@import "abstracts/variables";
+@import "themes/dark";
 
-@import 'base/fonts';
-@import 'base/typography';
-@import 'components/accordion';
-@import 'components/alert';
-@import 'components/card';
-@import 'components/image';
-@import 'components/link';
-@import 'components/nav';
-@import 'components/pagy';
-@import 'components/rule';
-@import 'components/score_header';
-@import 'layout/flash_messages';
-@import 'layout/navbar';
-@import 'pages/player';
+// Bootstrap and overrides
+@import "bootstrap";
+@import "abstracts/bootstrap_utils";
+@import "bootstrap/utilities/api"; // Regenerate the utility classes after modifying the utilities map
+
+@import "base/fonts";
+@import "base/typography";
+@import "components/accordion";
+@import "components/alert";
+@import "components/button";
+@import "components/card";
+@import "components/dropdown";
+@import "components/flash_messages";
+@import "components/image";
+@import "components/link";
+@import "components/nav";
+@import "components/navbar";
+@import "components/pagy";
+@import "components/rule";
+@import "components/score_header";
+@import "pages/player";

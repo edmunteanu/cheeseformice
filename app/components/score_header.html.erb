@@ -1,18 +1,13 @@
 <div class="d-flex justify-content-between gap-3">
   <div class="score-container">
-    <% if title_path %>
-      <%= link_to title_path,
-                  class: "link-light link-offset-1 link-underline-opacity-50 link-underline-opacity-100-hover" do %>
-        <h4 class="text-truncate mb-0"><%= title %></h4>
-      <% end %>
-    <% else %>
-      <h4 class="text-truncate mb-0"><%= title %></h4>
-    <% end %>
+    <h4 class="text-truncate mb-0"><%= title %></h4>
 
     <div class="vr d-none d-md-block"></div>
 
     <div class="d-flex align-self-md-end gap-3">
-      <span><%= t("players.score", score: number_with_delimiter(player.public_send(:"#{type}_score"))) %></span>
+      <span>
+        <%= t("players.show.score", score: number_with_delimiter(player.public_send(:"#{category}_score"))) %>
+      </span>
 
       <% if display_score_change? %>
         <%== score_change %>
@@ -22,7 +17,7 @@
 
   <% unless player.disqualified? %>
     <div class="rank-container">
-      <h4 class="mb-0"><%= "##{number_with_delimiter(player.public_send(:"#{type}_rank"))}" %></h4>
+      <h4 class="mb-0"><%= "##{number_with_delimiter(player.public_send(:"#{category}_rank"))}" %></h4>
       <%== displayed_rank_change %>
     </div>
   <% end %>

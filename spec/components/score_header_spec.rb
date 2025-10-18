@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ScoreHeader, type: :component do
-  let(:component) { described_class.new(player, previous_day, title: player.name, type: :normal) }
+  let(:component) { described_class.new(player, previous_day, title: player.name, category: :normal) }
   let(:player) { create(:player) }
   let(:previous_day) { player.change_logs.previous_month.first }
 
@@ -45,6 +45,7 @@ RSpec.describe ScoreHeader, type: :component do
     end
   end
 
+  # components/concerns/player_rank_change.rb
   describe "#displayed_rank_change" do
     let(:displayed_rank_change) { component.displayed_rank_change }
 

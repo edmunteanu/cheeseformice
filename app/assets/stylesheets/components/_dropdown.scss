@@ -1,0 +1,25 @@
+.dropdown-container {
+  @extend .d-flex;
+
+  .dropdown .btn-leaderboard {
+    @extend .ps-3, .ps-md-4, .pe-0, .py-3;
+  }
+
+  .dropdown:last-child .btn-leaderboard {
+    @extend .pe-3, .pe-md-4;
+  }
+}
+
+.dropdown-menu {
+  --bs-dropdown-link-hover-bg: var(--bs-dark);
+
+  .dropdown-item {
+    --bs-dropdown-item-padding-x: 1rem;
+    --bs-dropdown-item-padding-y: 0.5rem;
+
+    @include media-breakpoint-up(md) {
+      --bs-dropdown-item-padding-x: 1.5rem;
+      --bs-dropdown-item-padding-y: 0.25rem;
+    }
+  }
+}
