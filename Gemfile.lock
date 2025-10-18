@@ -181,7 +181,22 @@ GEM
       fugit (>= 1.11.0)
       railties (>= 6.1.0)
       thor (>= 1.0.0)
+    google-protobuf (4.31.1)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-aarch64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
     google-protobuf (4.31.1-arm64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-x86-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-x86_64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
     i18n (1.14.7)
@@ -261,7 +276,7 @@ GEM
     optimist (3.2.1)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
-    pagy (8.6.3)
+    pagy (9.4.0)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
@@ -400,7 +415,18 @@ GEM
     ruby-progressbar (1.13.0)
     rubyzip (3.1.1)
     safely_block (0.5.0)
+    sass-embedded (1.90.0)
+      google-protobuf (~> 4.31)
+      rake (>= 13)
+    sass-embedded (1.90.0-aarch64-linux-gnu)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.90.0-arm-linux-gnueabihf)
+      google-protobuf (~> 4.31)
     sass-embedded (1.90.0-arm64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.90.0-x86_64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.90.0-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     sassc-embedded (1.80.5)
       sass-embedded (~> 1.80)
@@ -507,7 +533,7 @@ DEPENDENCIES
   jbuilder
   kamal
   mysql2
-  pagy (~> 8.6)
+  pagy (~> 9.4)
   pg
   puma
   rails (~> 8.0)
