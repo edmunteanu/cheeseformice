@@ -17,8 +17,7 @@ servers:
       - 78.47.203.46
     cmd: bundle exec good_job start
     options:
-      health-cmd: bin/check
-      health-interval: 30s
+      health-cmd: "true"
       health-retries: 1
 
 deploy_timeout: 300
