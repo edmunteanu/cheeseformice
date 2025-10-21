@@ -105,6 +105,7 @@ accessories:
     image: postgres:16
     host: 78.47.203.46
     port: "5432:5432"
+    shm_size: "1g"
     env:
       clear:
         POSTGRES_DB: cheeseformice
