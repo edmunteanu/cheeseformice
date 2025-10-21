@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_18_113255) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_173852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -68,6 +68,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_18_113255) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
+  end
+
+  create_table "category_standings", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.bigint "normal_score"
+    t.integer "normal_rank"
+    t.integer "previous_normal_rank"
+    t.bigint "racing_score"
+    t.integer "racing_rank"
+    t.integer "previous_racing_rank"
+    t.bigint "survivor_score"
+    t.integer "survivor_rank"
+    t.integer "previous_survivor_rank"
+    t.bigint "defilante_score"
+    t.integer "defilante_rank"
+    t.integer "previous_defilante_rank"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["defilante_rank"], name: "index_category_standings_on_defilante_rank"
+    t.index ["normal_rank"], name: "index_category_standings_on_normal_rank"
+    t.index ["player_id"], name: "index_category_standings_on_player_id", unique: true
+    t.index ["racing_rank"], name: "index_category_standings_on_racing_rank"
+    t.index ["survivor_rank"], name: "index_category_standings_on_survivor_rank"
   end
 
   create_table "change_logs", force: :cascade do |t|
@@ -231,37 +254,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_18_113255) do
     t.integer "defilante_rounds_played"
     t.integer "defilante_finished_maps"
     t.integer "defilante_points"
-    t.bigint "normal_score"
-    t.integer "normal_rank"
-    t.bigint "survivor_score"
-    t.integer "survivor_rank"
-    t.bigint "racing_score"
-    t.integer "racing_rank"
-    t.bigint "defilante_score"
-    t.integer "defilante_rank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "previous_normal_rank"
-    t.integer "previous_survivor_rank"
-    t.integer "previous_racing_rank"
-    t.integer "previous_defilante_rank"
     t.integer "change_logs_count"
     t.index ["a801_id"], name: "index_players_on_a801_id", unique: true
     t.index ["bootcamp"], name: "index_players_on_bootcamp"
     t.index ["cheese_gathered"], name: "index_players_on_cheese_gathered"
     t.index ["defilante_finished_maps"], name: "index_players_on_defilante_finished_maps"
     t.index ["defilante_points"], name: "index_players_on_defilante_points"
-    t.index ["defilante_rank"], name: "index_players_on_defilante_rank"
-    t.index ["defilante_score"], name: "index_players_on_defilante_score"
     t.index ["firsts"], name: "index_players_on_firsts"
     t.index ["name"], name: "index_players_on_name", unique: true
-    t.index ["normal_rank"], name: "index_players_on_normal_rank"
-    t.index ["normal_score"], name: "index_players_on_normal_score"
     t.index ["racing_finished_maps"], name: "index_players_on_racing_finished_maps"
     t.index ["racing_firsts"], name: "index_players_on_racing_firsts"
     t.index ["racing_podiums"], name: "index_players_on_racing_podiums"
-    t.index ["racing_rank"], name: "index_players_on_racing_rank"
-    t.index ["racing_score"], name: "index_players_on_racing_score"
     t.index ["saved_mice"], name: "index_players_on_saved_mice"
     t.index ["saved_mice_divine"], name: "index_players_on_saved_mice_divine"
     t.index ["saved_mice_divine_without_skills"], name: "index_players_on_saved_mice_divine_without_skills"
@@ -270,8 +275,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_18_113255) do
     t.index ["saved_mice_without_skills"], name: "index_players_on_saved_mice_without_skills"
     t.index ["stats_reliability"], name: "index_players_on_stats_reliability"
     t.index ["survivor_mice_killed"], name: "index_players_on_survivor_mice_killed"
-    t.index ["survivor_rank"], name: "index_players_on_survivor_rank"
-    t.index ["survivor_score"], name: "index_players_on_survivor_score"
     t.index ["survivor_shaman_rounds"], name: "index_players_on_survivor_shaman_rounds"
     t.index ["survivor_survived_rounds"], name: "index_players_on_survivor_survived_rounds"
   end
@@ -288,5 +291,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_18_113255) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "category_standings", "players"
   add_foreign_key "change_logs", "players"
 end

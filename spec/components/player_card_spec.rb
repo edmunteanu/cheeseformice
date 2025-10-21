@@ -29,7 +29,9 @@ RSpec.describe PlayerCard, type: :component do
 
   describe "#current_rank" do
     context "when statistic is a score statistic" do
-      let(:player) { create(:player, normal_rank: 5) }
+      let(:player) { create(:player) }
+
+      before { player.category_standing.update!(normal_rank: 5) }
 
       it "returns the player's rank with delimiters" do
         expect(component.current_rank).to eq("5")

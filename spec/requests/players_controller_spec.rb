@@ -13,8 +13,8 @@ RSpec.describe PlayersController do
     context "when signed in" do
       let(:user) { create(:user) }
       let!(:players) do
-        build_list(:player, 3).each_with_index do |player, index|
-          player.normal_rank = index + 1
+        create_list(:player, 3).each_with_index do |player, index|
+          player.category_standing.normal_rank = index + 1
           player.save!
         end
       end
@@ -160,13 +160,13 @@ RSpec.describe PlayersController do
           before { create(:change_log, player: player) }
 
           it "does not perform too many queries" do
-            expect { get player_path(player) }.to make_database_queries(count: 3, matching: /SELECT/)
+            expect { get player_path(player) }.to make_database_queries(count: 4, matching: /SELECT/)
           end
         end
 
         context "when the player has no previous day change log" do
           it "does not perform too many queries" do
-            expect { get player_path(player) }.to make_database_queries(count: 3, matching: /SELECT/)
+            expect { get player_path(player) }.to make_database_queries(count: 4, matching: /SELECT/)
           end
         end
       end

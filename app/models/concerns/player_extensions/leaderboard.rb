@@ -16,15 +16,17 @@ module PlayerExtensions
         rank_suffix = "_rank"
         statistic = statistic.sub(/_score$/, rank_suffix)
 
-        order_by = if statistic.ends_with?(rank_suffix)
-                     # Tie-breaking is already handled when calculating the ranks.
-                     { statistic => :asc }
+        if statistic.ends_with?(rank_suffix)
+          # We first eager load the category_standing to avoid N+1 queries.
+          # Then we join the category_standings table to access the statistic (and its indexed rank column).
+          # Tie-breaking is already handled when calculating the ranks.
+          includes(:category_standing).qualified
+                                      .joins(:category_standing)
+                                      .order({ category_standing: { statistic => :asc } })
         else
-                     # We break ties by ordering players with the same statistic by their a801_id in ascending order.
-                     { statistic => :desc, "a801_id" => :asc }
+          # We break ties by ordering players with the same statistic by their a801_id in ascending order.
+          qualified.order({ statistic => :desc, a801_id: :asc })
         end
-
-        qualified.order(order_by)
       end
     end
   end
