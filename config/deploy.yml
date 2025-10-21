@@ -105,7 +105,6 @@ accessories:
     image: postgres:16
     host: 78.47.203.46
     port: "5432:5432"
-    shm_size: "1g"
     env:
       clear:
         POSTGRES_DB: cheeseformice
@@ -113,3 +112,5 @@ accessories:
         POSTGRES_PASSWORD: <%= ENV.fetch("POSTGRES_PASSWORD") %>
     directories:
       - "/mnt/HC_Volume_103686174/cheeseformice_storage:/var/lib/postgresql/data"
+    options:
+      shm-size: "1g"
