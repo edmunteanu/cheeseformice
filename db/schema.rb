@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_173852) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_220503) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -273,7 +273,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_173852) do
     t.index ["saved_mice_hard"], name: "index_players_on_saved_mice_hard"
     t.index ["saved_mice_hard_without_skills"], name: "index_players_on_saved_mice_hard_without_skills"
     t.index ["saved_mice_without_skills"], name: "index_players_on_saved_mice_without_skills"
-    t.index ["stats_reliability"], name: "index_players_on_stats_reliability"
     t.index ["survivor_mice_killed"], name: "index_players_on_survivor_mice_killed"
     t.index ["survivor_shaman_rounds"], name: "index_players_on_survivor_shaman_rounds"
     t.index ["survivor_survived_rounds"], name: "index_players_on_survivor_survived_rounds"
