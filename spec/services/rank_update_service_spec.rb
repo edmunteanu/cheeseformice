@@ -62,7 +62,9 @@ RSpec.describe RankUpdateService, type: :service do
       end
 
       context "when the player already had a rank" do
-        let!(:fourth_player) { create(:player, rounds_played: 50, cheese_gathered: 25, normal_rank: 1) }
+        let(:fourth_player) { create(:player, rounds_played: 50, cheese_gathered: 25) }
+
+        before { fourth_player.category_standing.update!(normal_rank: 1) }
 
         it "updates the previous rank and the current rank" do
           expect { update_ranks }.to change { fourth_player.reload.previous_normal_rank }.from(nil).to(1)
@@ -71,9 +73,9 @@ RSpec.describe RankUpdateService, type: :service do
       end
 
       context "when a player's rank does not change" do
-        let!(:fourth_player) do
-          create(:player, rounds_played: 50, cheese_gathered: 25, normal_rank: 4, previous_normal_rank: 1)
-        end
+        let(:fourth_player) { create(:player, rounds_played: 50, cheese_gathered: 25) }
+
+        before { fourth_player.category_standing.update!(normal_rank: 4, previous_normal_rank: 1) }
 
         it "updates previous rank to the current rank, keeping delta at 0" do
           expect { update_ranks }.to change { fourth_player.reload.previous_normal_rank }.from(1).to(4)

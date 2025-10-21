@@ -15,6 +15,7 @@ class Player < ApplicationRecord
   SENTINEL_TAG = "0015"
   MAP_CREW_TAG = "0020"
 
+  has_one :category_standing, autosave: true, dependent: :destroy
   has_many :change_logs, dependent: :destroy
 
   scope :qualified, -> { where.not(stats_reliability: 2) }
@@ -24,6 +25,12 @@ class Player < ApplicationRecord
 
   after_validation :normalize_name
   before_save :update_scores, :log_changes # Order matters
+
+  delegate :normal_score, :normal_rank, :previous_normal_rank,
+           :survivor_score, :survivor_rank, :previous_survivor_rank,
+           :racing_score, :racing_rank, :previous_racing_rank,
+           :defilante_score, :defilante_rank, :previous_defilante_rank,
+           to: :category_standing, allow_nil: true
 
   def to_param
     name.downcase
@@ -46,20 +53,25 @@ class Player < ApplicationRecord
   end
 
   def update_scores
-    self.normal_score = calculate_normal_score
-    self.survivor_score = calculate_survivor_score
-    self.racing_score = calculate_racing_score
-    self.defilante_score = calculate_defilante_score
+    standing = category_standing || build_category_standing
+
+    standing.normal_score = calculate_normal_score
+    standing.survivor_score = calculate_survivor_score
+    standing.racing_score = calculate_racing_score
+    standing.defilante_score = calculate_defilante_score
   end
 
   def log_changes
     return if new_record?
 
     tracked_attributes = ChangeLog.column_names.excluding(%w[id player_id created_at updated_at])
-    changed_attributes = changes.slice(*tracked_attributes)
-    return if changed_attributes.empty?
+    player_changes = changes.slice(*tracked_attributes)
+    category_standing_changes = category_standing&.changes&.slice(*tracked_attributes) || {}
+    all_changes = player_changes.merge(category_standing_changes)
 
-    calculated_deltas = changed_attributes.transform_values { |values| values[1] - values[0] }
+    return if all_changes.empty?
+
+    calculated_deltas = all_changes.transform_values { |(old, new)| new - old }
     change_logs.create!(calculated_deltas)
   end
 end

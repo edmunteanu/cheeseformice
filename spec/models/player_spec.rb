@@ -178,10 +178,16 @@ RSpec.describe Player do
     end
 
     context "when ranking by a score statistic" do
-      let!(:first_player) { create(:player, normal_rank: 2) }
-      let!(:second_player) { create(:player, normal_rank: 1) }
-      let!(:third_player) { create(:player, normal_rank: 3) }
+      let(:first_player) { create(:player) }
+      let(:second_player) { create(:player) }
+      let(:third_player) { create(:player) }
       let(:ranked_players) { described_class.ranked_by(statistic: "normal_score") }
+
+      before do
+        first_player.category_standing.update!(normal_rank: 2)
+        second_player.category_standing.update!(normal_rank: 1)
+        third_player.category_standing.update!(normal_rank: 3)
+      end
 
       it "returns players ranked by their score statistic rank" do
         expect(ranked_players).to eq([ second_player, first_player, third_player ])
