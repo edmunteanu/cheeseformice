@@ -63,7 +63,8 @@ RSpec.describe PlayerLogs, type: :component do
       let(:value) { 0 }
 
       it "returns the correct message" do
-        message = "<span class='text-muted flex-shrink-0 ms-auto'>Score: 0 <i class='bi bi-dash-lg'></i></span>"
+        message = "<span class='d-flex align-items-center flex-shrink-0 ms-auto text-muted'>Score: 0" \
+          "<i class='bi bi-dash-lg icon-sm ms-2'></i></span>"
         expect(score_change).to eq(message)
       end
     end
@@ -72,7 +73,8 @@ RSpec.describe PlayerLogs, type: :component do
       let(:value) { 1 }
 
       it "returns the correct message" do
-        message = "<span class='text-success flex-shrink-0 ms-auto'>Score: 1 <i class='bi bi-chevron-up'></i></span>"
+        message = "<span class='d-flex align-items-center flex-shrink-0 ms-auto text-success'>Score: 1" \
+          "<i class='bi bi-chevron-up icon-sm ms-2'></i></span>"
         expect(score_change).to eq(message)
       end
     end
@@ -81,7 +83,8 @@ RSpec.describe PlayerLogs, type: :component do
       let(:value) { -1 }
 
       it "returns the correct message" do
-        message = "<span class='text-danger flex-shrink-0 ms-auto'>Score: 1 <i class='bi bi-chevron-down'></i></span>"
+        message = "<span class='d-flex align-items-center flex-shrink-0 ms-auto text-danger'>Score: 1" \
+          "<i class='bi bi-chevron-down icon-sm ms-2'></i></span>"
         expect(score_change).to eq(message)
       end
     end

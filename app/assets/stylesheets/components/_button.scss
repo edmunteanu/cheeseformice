@@ -13,7 +13,6 @@
   .icon-container {
     @extend .d-none, .d-md-inline-block, .ms-2;
 
-    font-size: 12px;
     transition: transform 0.2s ease;
 
     &.rotate-180 {

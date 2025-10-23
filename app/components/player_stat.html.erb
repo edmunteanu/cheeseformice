@@ -1,7 +1,7 @@
 <div class="<%= [ style, "d-flex flex-column justify-content-between" ].join(" ") %>">
   <span class="d-block fw-bold"><%= Player.human_attribute_name(attribute) %></span>
 
-  <div class="d-flex gap-1">
+  <div class="d-flex gap-2">
     <span><%= number_with_delimiter(player.public_send(attribute)) %></span>
 
     <% if display_ratio? %>
@@ -9,7 +9,7 @@
     <% end %>
   </div>
 
-  <div class="d-flex gap-1 h-100">
+  <div class="d-flex align-items-center gap-2 h-100">
     <% if display_change? %>
       <span class="text-success"><%= number_with_delimiter(previous_day_value) %></span>
 
@@ -19,7 +19,7 @@
         </span>
       <% end %>
 
-      <i class="bi bi-chevron-up text-success"></i>
+      <i class="bi bi-chevron-up icon-sm text-success"></i>
     <% end %>
   </div>
 </div>

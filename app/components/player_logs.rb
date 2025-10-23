@@ -35,10 +35,10 @@ class PlayerLogs < ViewComponent::Base
   end
 
   def score_change(value)
-    return display_score(value, span_class: "text-muted", icon_class: "bi bi-dash-lg") if value.zero?
-    return display_score(value, span_class: "text-success", icon_class: "bi bi-chevron-up") if value.positive?
+    return display_score(value, span_class: "text-muted", icon_class: "bi bi-dash-lg icon-sm") if value.zero?
+    return display_score(value, span_class: "text-success", icon_class: "bi bi-chevron-up icon-sm") if value.positive?
 
-    display_score(value.abs, span_class: "text-danger", icon_class: "bi bi-chevron-down")
+    display_score(value.abs, span_class: "text-danger", icon_class: "bi bi-chevron-down icon-sm")
   end
 
   def body_class(period)
@@ -80,9 +80,9 @@ class PlayerLogs < ViewComponent::Base
   def display_score(score, span_class:, icon_class:)
     value = [
       I18n.t("players.show.score", score: number_with_delimiter(score)),
-      "<i class='#{icon_class}'></i>"
-    ].join(" ")
+      "<i class='#{icon_class} ms-2'></i>"
+    ].join("")
 
-    "<span class='#{span_class} flex-shrink-0 ms-auto'>#{value}</span>"
+    "<span class='d-flex align-items-center flex-shrink-0 ms-auto #{span_class}'>#{value}</span>"
   end
 end
