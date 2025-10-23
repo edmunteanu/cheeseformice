@@ -29,7 +29,8 @@ RSpec.describe ScoreHeader, type: :component do
         let(:normal_score) { 100 }
 
         it "returns the correct message" do
-          message = "<span class='text-success'>100 <i class='bi bi-chevron-up'></i></span>"
+          message = "<span class='d-flex align-items-center text-success'>100" \
+            "<i class='bi bi-chevron-up icon-sm ms-2'></i></span>"
           expect(score_change).to eq(message)
         end
       end
@@ -38,7 +39,8 @@ RSpec.describe ScoreHeader, type: :component do
         let(:normal_score) { -100 }
 
         it "returns the correct message" do
-          message = "<span class='text-danger'>100 <i class='bi bi-chevron-down'></i></span>"
+          message = "<span class='d-flex align-items-center text-danger'>100" \
+            "<i class='bi bi-chevron-down icon-sm ms-2'></i></span>"
           expect(score_change).to eq(message)
         end
       end
@@ -76,7 +78,8 @@ RSpec.describe ScoreHeader, type: :component do
       before { player.category_standing.update!(normal_rank: 100, previous_normal_rank: 105) }
 
       it "returns the correct message" do
-        message = "<span class='text-success'><i class='bi bi-chevron-up'></i> 5</span>"
+        message = "<span class='d-flex align-items-center text-success'>" \
+          "<i class='bi bi-chevron-up icon-sm me-2'></i>5</span>"
         expect(displayed_rank_change).to eq(message)
       end
     end
@@ -87,7 +90,8 @@ RSpec.describe ScoreHeader, type: :component do
       before { player.category_standing.update!(normal_rank: 100, previous_normal_rank: 95) }
 
       it "returns the correct message" do
-        message = "<span class='text-danger'><i class='bi bi-chevron-down'></i> 5</span>"
+        message = "<span class='d-flex align-items-center text-danger'>" \
+          "<i class='bi bi-chevron-down icon-sm me-2'></i>5</span>"
         expect(displayed_rank_change).to eq(message)
       end
     end

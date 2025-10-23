@@ -5,9 +5,11 @@ module PlayerRankChange
     return if rank_change.zero?
 
     if rank_change.positive?
-      "<span class='text-success'><i class='bi bi-chevron-up'></i> #{number_with_delimiter(rank_change)}</span>"
+      "<span class='d-flex align-items-center text-success'><i class='bi bi-chevron-up icon-sm me-2'></i>" \
+        "#{number_with_delimiter(rank_change)}</span>"
     else
-      "<span class='text-danger'><i class='bi bi-chevron-down'></i> #{number_with_delimiter(rank_change.abs)}</span>"
+      "<span class='d-flex align-items-center text-danger'><i class='bi bi-chevron-down icon-sm me-2'></i>" \
+        "#{number_with_delimiter(rank_change.abs)}</span>"
     end
   end
 

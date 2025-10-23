@@ -19,7 +19,7 @@
               <% player_attributes.each do |attribute| %>
                 <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
                   <span class="d-block fw-bold"><%= Player.human_attribute_name(attribute) %></span>
-                  <div class="d-flex gap-1">
+                  <div class="d-flex gap-2">
                     <span><%= number_with_delimiter(aggregated[attribute]) %></span>
 
                     <% if attribute != player_rounds_played %>
@@ -57,7 +57,7 @@
                 <% player_attributes.each do |attribute| %>
                   <div class="col-6 col-md-3 d-flex flex-column justify-content-between">
                     <span class="d-block fw-bold"><%= Player.human_attribute_name(attribute) %></span>
-                    <div class="d-flex gap-1">
+                    <div class="d-flex gap-2">
                       <span><%= number_with_delimiter(log.public_send(attribute)) %></span>
 
                       <% if attribute != player_rounds_played %>
@@ -72,7 +72,7 @@
         <% else %>
           <div class="accordion-header">
             <button class="accordion-button user-select-text collapsed gap-3" type="button" disabled>
-              <i class="bi bi-dash-lg text-muted accordion-button-disabled-icon"></i>
+              <i class="bi bi-dash-lg icon-sm text-muted accordion-button-disabled-icon"></i>
               <span class="fw-bold cursor-text"><%= title %></span>
               <span class="text-muted cursor-text ms-auto"><%= t("player_logs.no_log") %></span>
             </button>
