@@ -7,6 +7,16 @@ en:
         survivor: "Survivor score: %{score}"
         defilante: "Defilante score: %{score}"
       title: "Top players"
+    search:
+      check_requirements: "Please follow the search term requirements"
+      placeholder: "eg. Noisette#0001 or noisette..."
+      requirements_html: |-
+        <span>Please ensure your search term meets the following requirements:</span>
+        <span>• At least 3 characters long</span>
+        <span>• Only letters (A-Z, a-z), digits (0-9), underscores (_), and hash symbols (#) are allowed</span>
+        <span>• The plus sign (+) is only permitted at the beginning of the input</span>
+      subtitle: "Who are you looking for?"
+      title: "Player search"
     show:
       categories:
         defilante: "Defilante"

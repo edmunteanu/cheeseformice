@@ -56,3 +56,9 @@
     grid-area: defilante;
   }
 }
+
+.search-container {
+  @extend .d-flex, .flex-column, .gap-3, .gap-md-4, .align-self-center, .w-100;
+
+  max-width: 768px;
+}

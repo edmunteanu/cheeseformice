@@ -172,4 +172,56 @@ RSpec.describe PlayersController do
       end
     end
   end
+
+  describe "#search" do
+    let(:user) { create(:user) }
+
+    context "when not signed in" do
+      before { get search_players_path, params: { term: "TestPlayer" } }
+
+      it "redirects to the sign-in page" do
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context "when signed in" do
+      before do
+        sign_in(user)
+        get search_players_path, params: params
+      end
+
+      context "when the search term is blank" do
+        let(:params) { { term: "" } }
+
+        # TODO: Add expectation for the SearchService not to be invoked.
+        it "does not perform a search and renders the search page" do
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(I18n.t("players.search.title"))
+          expect(response.body).to include("small text-muted") # Does not highlight requirements
+        end
+      end
+
+      context "when the search term is too short" do
+        let(:params) { { term: "ab" } }
+
+        # TODO: Add expectation for the SearchService not to be invoked.
+        it "does not perform a search and renders the search page" do
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(I18n.t("players.search.title"))
+          expect(response.body).to include("small text-danger") # Highlights requirements
+        end
+      end
+
+      context "when the search term contains disallowed symbols" do
+        let(:params) { { term: "!!!!" } }
+
+        # TODO: Add expectation for the SearchService not to be invoked.
+        it "does not perform a search and renders the search page" do
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(I18n.t("players.search.title"))
+          expect(response.body).to include("small text-danger") # Highlights requirements
+        end
+      end
+    end
+  end
 end

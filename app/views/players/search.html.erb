@@ -1,0 +1,48 @@
+<% unless @search_results.blank? %>
+  <h1 class="text-primary mb-2"><%= t("players.search.title") %></h1>
+  <span><%= t("players.search.subtitle") %></span>
+<% end %>
+
+<div class="d-flex flex-column flex-grow-1 justify-content-center">
+  <% if @search_results.blank? %>
+    <div class="text-center mb-5">
+      <h1 class="text-primary mb-2"><%= t("players.search.title") %></h1>
+      <span><%= t("players.search.subtitle") %></span>
+    </div>
+  <% end %>
+
+  <!-- TODO: Revisit and restyle the search to be one single field (google-like). -->
+  <!--       Make "search" or "go" icon primary color, to contrast with gray -->
+  <div class="search-container">
+    <div class="card">
+      <div class="card-body">
+        <%= form_tag search_players_path, method: :get do %>
+          <div class="d-flex gap-3">
+            <%= text_field_tag :term, nil,
+                               required: true,
+                               autocomplete: :off,
+                               class: "form-control",
+                               placeholder: t("players.search.placeholder"),
+                               pattern: PlayersController::SEARCH_TERM_REGEX_JS,
+                               minlength: PlayersController::SEARCH_TERM_MIN_LENGTH,
+                               maxlength: Player::MAX_NAME_LENGTH,
+                               oninput: "this.setCustomValidity('')",
+                               oninvalid: "this.setCustomValidity('#{t("players.search.check_requirements")}')" %>
+
+            <%= button_tag id: "reset_search", type: :reset, class: "btn btn-primary" do %>
+              <i class="bi bi-x-lg"></i>
+            <% end %>
+
+            <%= button_tag id: "submit_search", type: :submit, class: "btn btn-primary", name: nil do %>
+              <i class="bi bi-search"></i>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="d-flex flex-column mt-3 mt-md-4 small <%= @search_invalid ? "text-danger" : "text-muted" %>">
+          <%= t("players.search.requirements_html") %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
