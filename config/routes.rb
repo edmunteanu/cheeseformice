@@ -16,7 +16,11 @@ Rails.application.routes.draw do
 
   get "/leaderboard", to: "players#index"
 
-  resources :players, only: :show
+  resources :players, only: :show, param: :name do
+    collection do
+      get :search
+    end
+  end
 
   get "/404", to: "errors#not_found"
   get "/500", to: "errors#internal_server_error"

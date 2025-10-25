@@ -1,10 +1,10 @@
 en:
   simple_form:
-    "yes": "Yes"
     "no": "No"
+    "yes": "Yes"
+    error_notification:
+      default_message: "Please review the problems below:"
     required:
       text: "required"
       mark: "*"
       html: "<span title=\"required\">*</span>"
-    error_notification:
-      default_message: "Please review the problems below:"

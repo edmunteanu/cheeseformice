@@ -1,4 +1,6 @@
 class RankUpdateService
+  BATCH_SIZE = 50_000
+
   def call
     # Step 1: Precompute all ranks into a single temporary table
     create_tmp_ranking_table
@@ -37,7 +39,6 @@ class RankUpdateService
     SQL
   end
 
-  BATCH_SIZE = 50_000
   def apply_batch_updates
     last_id = 0
     max_id = Player.qualified.maximum(:id) || 0
