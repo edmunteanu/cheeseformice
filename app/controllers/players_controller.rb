@@ -12,7 +12,7 @@ class PlayersController < AuthenticatedController
   end
 
   def show
-    @player = Player.find_by!(name: normalize_name(params[:name]))
+    @player = Player.find_by!(name: Player.normalize_name(params[:name]))
     @previous_month_logs = @player.change_logs.previous_month.to_a
     @previous_day_log = @previous_month_logs.find { |logs| logs.created_at.to_date > 1.day.ago }
   end
@@ -24,7 +24,7 @@ class PlayersController < AuthenticatedController
     @search_valid = valid_search_term?
     return unless @search_valid
 
-    exact_match = Player.find_by(name: normalize_name(@search_term))
+    exact_match = Player.find_by(name: Player.normalize_name(@search_term))
     return redirect_to player_path(name: exact_match.name) if exact_match
 
     @search_results = SearchService.new(@search_term).perform_search
@@ -51,12 +51,6 @@ class PlayersController < AuthenticatedController
   # in this context, so we overwrite the page param if it exceeds the maximum number of pages.
   def set_page
     params[:page] = MAX_LEADERBOARD_PAGES if params[:page].to_i > MAX_LEADERBOARD_PAGES
-  end
-
-  # Same as the normalization in the Player model.
-  def normalize_name(name)
-    prefix, first_alpha, remainder = name.partition(/[A-Za-z]/)
-    prefix + first_alpha.upcase + remainder.downcase
   end
 
   def valid_search_term?
