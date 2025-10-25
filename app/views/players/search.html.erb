@@ -4,49 +4,41 @@
     <span><%= t("players.search.subtitle") %></span>
   </div>
 
-  <!-- TODO: Revisit and restyle the search to be one single field (google-like). -->
-  <!--       Make "search" or "go" icon primary color, to contrast with gray -->
   <div class="search-container">
-    <div class="card">
-      <div class="card-body">
-        <%= form_tag search_players_path, method: :get do %>
-          <div class="d-flex gap-3">
-            <%= text_field_tag :term, nil,
-                               required: true,
-                               autocomplete: :off,
-                               class: "form-control",
-                               placeholder: t("players.search.placeholder"),
-                               pattern: PlayersController::SEARCH_TERM_REGEX_JS,
-                               minlength: PlayersController::SEARCH_TERM_MIN_LENGTH,
-                               maxlength: Player::MAX_NAME_LENGTH,
-                               oninput: "this.setCustomValidity('')",
-                               oninvalid: "this.setCustomValidity('#{t("players.search.check_requirements")}')" %>
+    <!-- TODO: Add tooltip that appears when trying to submit invalid search term -->
+    <!--       This tooltip should contain the requirements for valid input -->
+    <%= form_tag search_players_path, method: :get do %>
+      <div class="search-bar">
+        <%= text_field_tag :term, nil,
+                           required: true,
+                           autocomplete: :off,
+                           value: @search_term,
+                           class: "search-input",
+                           placeholder: t("players.search.placeholder"),
+                           pattern: PlayersController::SEARCH_TERM_REGEX_JS,
+                           minlength: PlayersController::SEARCH_TERM_MIN_LENGTH,
+                           maxlength: Player::MAX_NAME_LENGTH,
+                           oninput: "this.setCustomValidity('')",
+                           oninvalid: "this.setCustomValidity('#{t("players.search.check_requirements")}')" %>
 
-            <%= button_tag id: "reset_search", type: :reset, class: "btn btn-primary" do %>
-              <i class="bi bi-x-lg"></i>
-            <% end %>
-
-            <%= button_tag id: "submit_search", type: :submit, class: "btn btn-primary", name: nil do %>
-              <i class="bi bi-search"></i>
-            <% end %>
-          </div>
+        <%= button_tag id: "reset_search", type: :reset, class: "btn btn-search" do %>
+          <i class="bi bi-x-lg"></i>
         <% end %>
 
-        <div class="d-flex flex-column mt-3 mt-md-4 small <%= @search_valid  ? "text-muted" : "text-danger" %>">
-          <%= t("players.search.requirements_html") %>
-        </div>
+        <%= button_tag id: "submit_search", type: :submit, class: "btn btn-search", name: nil do %>
+          <i class="bi bi-search"></i>
+        <% end %>
       </div>
-    </div>
+    <% end %>
 
-    <!-- TODO: Revisit and change empty card body with the 404 page picture alongside no_results text -->
     <% if @search_term.present? && @search_valid %>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="text-center mb-0"><%= t("players.search.results_title") %></h4>
+      <% if @search_results.any? %>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="text-center mb-0"><%= t("players.search.results_title") %></h4>
 
-          <div class="card-separator"></div>
+            <div class="card-separator"></div>
 
-          <% if @search_results.any? %>
             <div class="search-results">
               <% @search_results.each do |result| %>
                 <div class="search-result">
@@ -58,13 +50,14 @@
                 </div>
               <% end %>
             </div>
-          <% elsif @search_results.empty? %>
-            <div class="d-flex flex-column">
-              <span class="text-center my-4"><%= t("players.search.no_results") %></span>
-            </div>
-          <% end %>
+          </div>
         </div>
-      </div>
+      <% else %>
+        <div class="d-flex flex-column align-items-center gap-5">
+          <span class="text-center"><%= t("players.search.no_results") %></span>
+          <%= image_tag "not_found.webp", alt: t("errors.not_found.image_alt"), class: "hero-image" %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
