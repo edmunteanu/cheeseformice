@@ -1,10 +1,10 @@
 class PlayersController < AuthenticatedController
   MAX_LEADERBOARD_PAGES = 50
-  SEARCH_TERM_REGEX_JS = /^\+?[A-Za-z0-9_#]+$/
+  SEARCH_TERM_MIN_LENGTH = 3
+  SEARCH_TERM_REGEX = /\A\+?[A-Za-z0-9_#]+\z/ # Ruby-specific for server-side validation
+  SEARCH_TERM_REGEX_JS = /^\+?[A-Za-z0-9_#]+$/ # JS-specific for client-side validation
 
   before_action :set_statistic, :set_category, :set_page, only: :index
-  before_action :set_name, only: :show
-  before_action :set_search_variables, only: :search
 
   def index
     @current_page = params[:page].to_i.zero? ? 1 : params[:page].to_i
@@ -12,15 +12,22 @@ class PlayersController < AuthenticatedController
   end
 
   def show
-    @player = Player.find_by!(name: params[:name])
+    @player = Player.find_by!(name: normalize_name(params[:name]))
     @previous_month_logs = @player.change_logs.previous_month.to_a
     @previous_day_log = @previous_month_logs.find { |logs| logs.created_at.to_date > 1.day.ago }
   end
 
   def search
-    return if @search_term.blank? || @search_invalid
+    @search_term = params[:term].to_s.strip
+    return @search_valid = true if @search_term.blank?
 
-    @search_results = []
+    @search_valid = valid_search_term?
+    return unless @search_valid
+
+    exact_match = Player.find_by(name: normalize_name(@search_term))
+    return redirect_to player_path(name: exact_match.name) if exact_match
+
+    @search_results = SearchService.new(@search_term).perform_search
   end
 
   private
@@ -47,19 +54,12 @@ class PlayersController < AuthenticatedController
   end
 
   # Same as the normalization in the Player model.
-  def set_name
-    prefix, first_alpha, remainder = params[:name].partition(/[A-Za-z]/)
-    params[:name] = prefix + first_alpha.upcase + remainder.downcase
+  def normalize_name(name)
+    prefix, first_alpha, remainder = name.partition(/[A-Za-z]/)
+    prefix + first_alpha.upcase + remainder.downcase
   end
 
-  def set_search_variables
-    @search_term = params[:term].to_s.strip
-    @search_invalid = !valid_search_term?
-  end
-
-  SEARCH_TERM_MIN_LENGTH = 3
-  SEARCH_TERM_REGEX = /\A\+?[A-Za-z0-9_#]+\z/
   def valid_search_term?
-    @search_term.blank? || (@search_term.length >= SEARCH_TERM_MIN_LENGTH && @search_term.match?(SEARCH_TERM_REGEX))
+    @search_term.length >= SEARCH_TERM_MIN_LENGTH && @search_term.match?(SEARCH_TERM_REGEX)
   end
 end

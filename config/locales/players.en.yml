@@ -9,7 +9,9 @@ en:
       title: "Top players"
     search:
       check_requirements: "Please follow the search term requirements"
+      no_results: "We've searched far and wide, but couldn't find any players matching your search term"
       placeholder: "eg. Noisette#0001 or noisette..."
+      results_title: "Search results"
       requirements_html: |-
         <span>Please ensure your search term meets the following requirements:</span>
         <span>• At least 3 characters long</span>

@@ -185,41 +185,86 @@ RSpec.describe PlayersController do
     end
 
     context "when signed in" do
+      let(:get_request) { get search_players_path, params: params }
+
       before do
+        allow(SearchService).to receive(:new).and_call_original
         sign_in(user)
-        get search_players_path, params: params
+      end
+
+      context "when the search term has an exact match" do
+        let(:params) { { term: exact_player.name } }
+        let(:exact_player) { create(:player, name: "Noisette#0001") }
+
+        it "redirects to the player's page" do
+          get_request
+
+          expect(response).to redirect_to(player_path(name: exact_player.name))
+          expect(SearchService).not_to have_received(:new)
+        end
+      end
+
+      context "when the search term is vague but valid" do
+        let(:first_player) { create(:player, name: "Match#1111") }
+        let(:second_player) { create(:player, name: "Match#2222") }
+        let(:third_player) { create(:player, name: "Vague#2222") }
+        let(:params) { { term: "match" } }
+
+        before do
+          first_player
+          second_player
+          third_player
+        end
+
+        it "performs a search page and displays the results" do
+          get_request
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(I18n.t("players.search.title"))
+          expect(response.body).to include("small text-muted") # Does not highlight requirements
+          expect(response.body).to include(first_player.name)
+          expect(response.body).to include(second_player.name)
+          expect(response.body).not_to include(third_player.name)
+          expect(SearchService).to have_received(:new).with("match")
+        end
       end
 
       context "when the search term is blank" do
         let(:params) { { term: "" } }
 
-        # TODO: Add expectation for the SearchService not to be invoked.
         it "does not perform a search and renders the search page" do
+          get_request
+
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(I18n.t("players.search.title"))
           expect(response.body).to include("small text-muted") # Does not highlight requirements
+          expect(SearchService).not_to have_received(:new)
         end
       end
 
       context "when the search term is too short" do
         let(:params) { { term: "ab" } }
 
-        # TODO: Add expectation for the SearchService not to be invoked.
         it "does not perform a search and renders the search page" do
+          get_request
+
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(I18n.t("players.search.title"))
           expect(response.body).to include("small text-danger") # Highlights requirements
+          expect(SearchService).not_to have_received(:new)
         end
       end
 
       context "when the search term contains disallowed symbols" do
         let(:params) { { term: "!!!!" } }
 
-        # TODO: Add expectation for the SearchService not to be invoked.
         it "does not perform a search and renders the search page" do
+          get_request
+
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(I18n.t("players.search.title"))
           expect(response.body).to include("small text-danger") # Highlights requirements
+          expect(SearchService).not_to have_received(:new)
         end
       end
     end

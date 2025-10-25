@@ -58,7 +58,29 @@
 }
 
 .search-container {
-  @extend .d-flex, .flex-column, .gap-3, .gap-md-4, .align-self-center, .w-100;
+  @extend .d-flex, .flex-column, .gap-3, .gap-md-5, .align-self-center, .w-100;
 
   max-width: 768px;
+
+  .search-results {
+    .search-result {
+      @extend .px-4, .py-2;
+
+      margin: 0 calc(var(--bs-card-spacer-x) * -1);
+
+      &:first-child {
+        @extend .pt-0;
+      }
+
+      &:last-child {
+        @extend .pb-0;
+      }
+
+      &:nth-child(2n)  {
+        @extend .pb-2;
+
+        background-color: darken($dark, 3%);
+      }
+    }
+  }
 }
