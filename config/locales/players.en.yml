@@ -15,8 +15,8 @@ en:
       requirements_html: |-
         <span>Please ensure your search term meets the following requirements:</span>
         <span>• At least 3 characters long</span>
-        <span>• Only letters (A-Z, a-z), digits (0-9), underscores (_), and hash symbols (#) are allowed</span>
-        <span>• The plus sign (+) is only permitted at the beginning of the input</span>
+        <span>• Only letters (A-Z, a-z), digits (0-9), underscores (_), and hashes (#)</span>
+        <span>• Plus sign (+) only as the first character</span>
       subtitle: "Who are you looking for?"
       title: "Player search"
     show:

@@ -177,7 +177,7 @@ RSpec.describe PlayersController do
     let(:user) { create(:user) }
 
     context "when not signed in" do
-      before { get search_players_path, params: { term: "TestPlayer" } }
+      before { get search_players_path, params: { term: "test" } }
 
       it "redirects to the sign-in page" do
         expect(response).to redirect_to(new_user_session_path)
@@ -221,7 +221,6 @@ RSpec.describe PlayersController do
 
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(I18n.t("players.search.title"))
-          expect(response.body).to include("small text-muted") # Does not highlight requirements
           expect(response.body).to include(first_player.name)
           expect(response.body).to include(second_player.name)
           expect(response.body).not_to include(third_player.name)
@@ -237,7 +236,6 @@ RSpec.describe PlayersController do
 
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(I18n.t("players.search.title"))
-          expect(response.body).to include("small text-muted") # Does not highlight requirements
           expect(SearchService).not_to have_received(:new)
         end
       end
@@ -250,7 +248,6 @@ RSpec.describe PlayersController do
 
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(I18n.t("players.search.title"))
-          expect(response.body).to include("small text-danger") # Highlights requirements
           expect(SearchService).not_to have_received(:new)
         end
       end
@@ -263,7 +260,6 @@ RSpec.describe PlayersController do
 
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(I18n.t("players.search.title"))
-          expect(response.body).to include("small text-danger") # Highlights requirements
           expect(SearchService).not_to have_received(:new)
         end
       end

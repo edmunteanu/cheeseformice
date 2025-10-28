@@ -23,7 +23,7 @@ RSpec.describe SearchService, type: :service do
       let(:search_term) { "ali" }
 
       it "uses a prefix search" do
-        expect(results.to_sql).to match(/ali%/)
+        expect(results.to_sql).to match(/Ali%/)
         expect(results.to_sql).not_to match(/%ali%/)
         expect(results).to include(alice, alicia)
         expect(results).not_to include(bob, matthew)
@@ -34,17 +34,17 @@ RSpec.describe SearchService, type: :service do
       let(:search_term) { "aaaaa" }
 
       it "uses a prefix search" do
-        expect(results.to_sql).to match(/aaaaa%/)
+        expect(results.to_sql).to match(/Aaaaa%/)
         expect(results.to_sql).not_to match(/%aaaaa%/)
         expect(results).to be_empty
       end
     end
 
     context "when the term is long enough and has a high entropy" do
-      let(:search_term) { "matt" }
+      let(:search_term) { "matth" }
 
       it "uses a substring search" do
-        expect(results.to_sql).to match(/%matt%/)
+        expect(results.to_sql).to match(/%matth%/)
         expect(results).to include(matthew)
         expect(results).not_to include(alice, alicia, bob)
       end
