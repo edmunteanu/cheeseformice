@@ -9,6 +9,8 @@ RSpec.describe SearchService, type: :service do
     let!(:bob) { create(:player, name: "Bob#0000") }
     let!(:matthew) { create(:player, name: "Matthew#0000") }
 
+    before { allow(Player).to receive(:find_by_sql).and_call_original }
+
     describe "result limitation" do
       let(:search_term) { "player" }
 
@@ -27,6 +29,7 @@ RSpec.describe SearchService, type: :service do
         expect(results.to_sql).not_to match(/%ali%/)
         expect(results).to include(alice, alicia)
         expect(results).not_to include(bob, matthew)
+        expect(Player).not_to have_received(:find_by_sql)
       end
     end
 
@@ -37,6 +40,7 @@ RSpec.describe SearchService, type: :service do
         expect(results.to_sql).to match(/Aaaaa%/)
         expect(results.to_sql).not_to match(/%aaaaa%/)
         expect(results).to be_empty
+        expect(Player).not_to have_received(:find_by_sql)
       end
     end
 
@@ -44,9 +48,9 @@ RSpec.describe SearchService, type: :service do
       let(:search_term) { "matth" }
 
       it "uses a substring search" do
-        expect(results.to_sql).to match(/%matth%/)
         expect(results).to include(matthew)
         expect(results).not_to include(alice, alicia, bob)
+        expect(Player).to have_received(:find_by_sql)
       end
     end
   end
