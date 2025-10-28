@@ -7,7 +7,7 @@
 # Make sure to build the image correctly by using bin/build, otherwise the required ARGs won't be set
 # The warning about the missing ARG can be ignored, as they are set in the build script
 ARG RUBY_VERSION
-FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
+FROM ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
 WORKDIR /rails
@@ -31,7 +31,7 @@ FROM base AS build
 # Install packages needed to build gems and node modules, then delete caches to reduce image size
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev node-gyp pkg-config \
-                                               python-is-python3 libyaml-dev default-libmysqlclient-dev  && \
+                                               python-is-python3 libyaml-dev default-libmysqlclient-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install JavaScript dependencies, then delete temporary files to reduce image size
@@ -39,10 +39,9 @@ ARG NODE_VERSION
 ARG YARN_VERSION
 ENV PATH=/usr/local/node/bin:$PATH
 RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
-    /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
+    /tmp/node-build-master/bin/node-build "$NODE_VERSION" /usr/local/node && \
     npm install -g yarn@$YARN_VERSION && \
-    rm -rf /usr/local/node/lib/node_modules/npm && \
-    rm -rf /tmp/node-build-master
+    rm -rf /usr/local/node/lib/node_modules/npm /tmp/node-build-master
 
 # Install application gems, then delete caches to reduce image size
 COPY .ruby-version Gemfile Gemfile.lock ./
@@ -63,7 +62,8 @@ RUN bundle exec bootsnap precompile app/ lib/
 # Copy application.example.yml to application.yml for default values as preparation for asset precompilation
 # (since precompilation requires some ENV variables like APP_HOST to be set), then precompile the assets for
 # production without requiring secret RAILS_MASTER_KEY and remove the application.yml again
-RUN cp config/application.example.yml config/application.yml && \
+RUN rm -f public/assets/.sprockets-manifest-*.json && \
+    cp config/application.example.yml config/application.yml && \
     SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile && \
     rm config/application.yml
 
@@ -88,7 +88,7 @@ ENV PATH=/usr/local/node/bin:$PATH
 
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails db log storage tmp public/assets
 USER rails:rails
 
 # Entrypoint prepares the database.
