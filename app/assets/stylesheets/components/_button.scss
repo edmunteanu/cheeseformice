@@ -20,3 +20,20 @@
     }
   }
 }
+
+.btn-search {
+  @extend .bg-dark;
+
+  --bs-btn-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
+  --bs-btn-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-border-color: transparent;
+
+  border-radius: 0;
+  padding: 0.5rem 0.75rem;
+
+  &:last-of-type {
+    border-radius: 0 1rem 1rem 0;
+    padding-right: 1.5rem;
+  }
+}

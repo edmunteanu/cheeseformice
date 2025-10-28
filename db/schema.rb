@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_220503) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_24_205919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "blazer_audits", force: :cascade do |t|
     t.bigint "user_id"
@@ -264,6 +265,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_220503) do
     t.index ["defilante_points"], name: "index_players_on_defilante_points"
     t.index ["firsts"], name: "index_players_on_firsts"
     t.index ["name"], name: "index_players_on_name", unique: true
+    t.index ["name"], name: "index_players_on_name_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["racing_finished_maps"], name: "index_players_on_racing_finished_maps"
     t.index ["racing_firsts"], name: "index_players_on_racing_firsts"
     t.index ["racing_podiums"], name: "index_players_on_racing_podiums"

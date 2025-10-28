@@ -7,6 +7,18 @@ en:
         survivor: "Survivor score: %{score}"
         defilante: "Defilante score: %{score}"
       title: "Top players"
+    search:
+      check_requirements: "Please follow the search term requirements"
+      no_results: "We've searched far and wide, but couldn't find any players matching your search term."
+      placeholder: "Search"
+      results_title: "Search results"
+      requirements_html: |-
+        <span>Please ensure your search term meets the following requirements:</span>
+        <span>• At least 3 characters long</span>
+        <span>• Only letters (A-Z, a-z), digits (0-9), underscores (_), and hashes (#)</span>
+        <span>• Plus sign (+) only as the first character</span>
+      subtitle: "Who are you looking for?"
+      title: "Player search"
     show:
       categories:
         defilante: "Defilante"
