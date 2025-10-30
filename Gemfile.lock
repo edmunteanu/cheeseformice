@@ -515,11 +515,11 @@ DEPENDENCIES
   jbuilder
   kamal
   mysql2
-  pagy (~> 9.4)
+  pagy
   pg
   puma
   rails (~> 8.0)
-  redis (~> 5.0)
+  redis
   rspec-rails
   rubocop-rails-omakase
   rubocop-rspec
@@ -534,7 +534,7 @@ DEPENDENCIES
   super_diff
   turbo-rails
   tzinfo-data
-  view_component (~> 4.1)
+  view_component
 
 RUBY VERSION
    ruby 3.4.6p54
