@@ -50,7 +50,7 @@ class PlayersController < AuthenticatedController
   # won't work with this setup, since it only allows :empty_page or :exception. Neither of these options are suitable
   # in this context, so we overwrite the page param if it exceeds the maximum number of pages.
   def set_page
-    params[:page] = MAX_LEADERBOARD_PAGES if params[:page].to_i > MAX_LEADERBOARD_PAGES
+    params[:page] = params[:page].to_i.clamp(1, MAX_LEADERBOARD_PAGES)
   end
 
   def valid_search_term?
