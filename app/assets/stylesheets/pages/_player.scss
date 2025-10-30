@@ -66,7 +66,7 @@
     @extend .d-flex;
 
     .search-input {
-      @extend .form-control, .bg-dark, .border-dark, .px-4, .py-3;
+      @extend .form-control, .bg-secondary, .border-dark, .px-4, .py-3;
 
       border-radius: 1rem 0 0 1rem;
 
@@ -93,7 +93,7 @@
       &:nth-child(2n)  {
         @extend .pb-2;
 
-        background-color: darken($dark, 3%);
+        background-color: darken($bg-secondary-dark, 3%);
       }
     }
   }

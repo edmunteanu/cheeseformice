@@ -1,12 +1,17 @@
 // Colors
+$bg-primary-dark: rgb(40 40 40);
+$bg-secondary-dark: rgb(50 50 50);
+$color-light: rgb(240 240 240);
+$dark: $bg-secondary-dark;
+
+$border-color: rgb(32 32 32);
+
 $primary: rgb(210 75 175);
 $secondary: rgb(50 50 50);
 $info: rgb(70 185 230);
 $success: rgb(85 170 105);
 $warning: rgb(240 185 65);
 $danger: rgb(220 100 90);
-$light: rgb(240 240 240);
-$dark: rgb(40 40 40);
 
 $admin: rgb(216 56 85);
 $admin-title: rgb(254 177 252);
@@ -15,11 +20,11 @@ $sentinel: rgb(102 204 124);
 $map-crew: rgb(70 126 198);
 
 // Links
-$nav-link-transition: background-color .15s ease-in-out,
-                      border-color .15s ease-in-out,
-                      color .15s ease-in-out,
+$nav-link-transition: background-color 0.15s ease-in-out,
+                      border-color 0.15s ease-in-out,
+                      color 0.15s ease-in-out,
                       text-decoration-color 0.15s ease-in-out;
 
 // Nav
-$navbar-light-active-color: $light;
-$nav-underline-link-active-color: $light;
+$navbar-light-active-color: $color-light;
+$nav-underline-link-active-color: $color-light;
