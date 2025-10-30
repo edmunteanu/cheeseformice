@@ -2,7 +2,6 @@ class FlashMessage < ViewComponent::Base
   attr_reader :icon_class, :message
 
   def initialize(type, message, dismissible: true)
-    super
     @alert_class, @icon_class = infer_alert_and_icon(type)
     @message = message
     @dismissible = dismissible

@@ -4,7 +4,6 @@ class PlayerLogs < ViewComponent::Base
   delegate :display_ratio, to: :helpers
 
   def initialize(previous_month_logs, category:)
-    super
     @previous_month_logs = previous_month_logs
     @category = category
   end
