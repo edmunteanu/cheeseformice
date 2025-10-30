@@ -22,7 +22,7 @@
 }
 
 .btn-search {
-  @extend .bg-dark;
+  @extend .bg-secondary;
 
   --bs-btn-color: rgba(var(--bs-emphasis-color-rgb), 0.65);
   --bs-btn-hover-color: rgba(var(--bs-emphasis-color-rgb), 0.8);

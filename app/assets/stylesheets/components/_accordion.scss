@@ -28,8 +28,8 @@
     }
 
     &:nth-child(2n) .accordion-button {
-      --bs-accordion-active-bg: #{darken($dark, 3%)};
-      --bs-accordion-btn-bg: #{darken($dark, 3%)};
+      --bs-accordion-active-bg: #{darken($bg-secondary-dark, 3%)};
+      --bs-accordion-btn-bg: #{darken($bg-secondary-dark, 3%)};
     }
   }
 
