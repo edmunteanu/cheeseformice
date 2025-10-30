@@ -30,7 +30,7 @@ class PlayerCard < ViewComponent::Base
       number_with_delimiter(@player.public_send(:"#{@category}_rank"))
     else
       # Calculate rank based on current page and index for non-score statistics, because they are not explicitly ranked
-      statistic_rank = (@player_index + 1) + (@current_page - 1) * Pagy::DEFAULT[:items]
+      statistic_rank = (@player_index + 1) + (@current_page - 1) * Pagy::DEFAULT[:limit]
       number_with_delimiter(statistic_rank)
     end
   end

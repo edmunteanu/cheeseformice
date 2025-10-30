@@ -1,4 +1,4 @@
-Pagy::DEFAULT[:items] = 20
+Pagy::DEFAULT[:limit] = 25
 Pagy::DEFAULT[:size] = 4
 
 # Countless extra: Paginate without any count, saving one query per rendering
