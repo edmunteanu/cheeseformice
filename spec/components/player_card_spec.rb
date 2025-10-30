@@ -43,7 +43,7 @@ RSpec.describe PlayerCard, type: :component do
       let(:player_index) { 4 }
       let(:current_page) { 2 }
 
-      before { stub_const("Pagy::DEFAULT", items: 20) }
+      before { stub_const("Pagy::DEFAULT", limit: 20) }
 
       it "calculates and returns the rank based on index and page" do
         expect(component.current_rank).to eq("25")

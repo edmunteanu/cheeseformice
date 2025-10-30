@@ -1,5 +1,5 @@
 class PlayersController < AuthenticatedController
-  MAX_LEADERBOARD_PAGES = 50
+  MAX_LEADERBOARD_PAGES = 200
   SEARCH_TERM_MIN_LENGTH = 3
   SEARCH_TERM_REGEX = /\A\+?[A-Za-z0-9_#]+\z/ # Ruby-specific for server-side validation
   SEARCH_TERM_REGEX_JS = /^\+?[A-Za-z0-9_#]+$/ # JS-specific for client-side validation
