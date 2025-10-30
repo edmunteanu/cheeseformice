@@ -15,7 +15,7 @@ gem "importmap-rails"
 gem "jbuilder"
 gem "kamal"
 gem "mysql2"
-gem "pagy", "~> 8.6"
+gem "pagy", "~> 9.4"
 gem "pg"
 gem "puma"
 gem "rails", "~> 8.0"
@@ -50,4 +50,9 @@ end
 group :development do
   gem "better_errors"
   gem "binding_of_caller"
+end
+
+group :production do
+  gem "sentry-ruby"
+  gem "sentry-rails"
 end

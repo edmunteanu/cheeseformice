@@ -1,8 +1,10 @@
 class PlayersController < AuthenticatedController
-  MAX_LEADERBOARD_PAGES = 50
+  MAX_LEADERBOARD_PAGES = 200
+  SEARCH_TERM_MIN_LENGTH = 3
+  SEARCH_TERM_REGEX = /\A\+?[A-Za-z0-9_#]+\z/ # Ruby-specific for server-side validation
+  SEARCH_TERM_REGEX_JS = /^\+?[A-Za-z0-9_#]+$/ # JS-specific for client-side validation
 
-  before_action :set_statistic, :set_category, :sanitize_page, only: :index
-  before_action :capitalize_name, only: :show
+  before_action :set_statistic, :set_category, :set_page, only: :index
 
   def index
     @current_page = params[:page].to_i.zero? ? 1 : params[:page].to_i
@@ -10,9 +12,22 @@ class PlayersController < AuthenticatedController
   end
 
   def show
-    @player = Player.find_by!(name: params[:id])
+    @player = Player.find_by!(name: Player.normalize_name(params[:name]))
     @previous_month_logs = @player.change_logs.previous_month.to_a
     @previous_day_log = @previous_month_logs.find { |logs| logs.created_at.to_date > 1.day.ago }
+  end
+
+  def search
+    @search_term = params[:term].to_s.strip
+    return @search_valid = true if @search_term.blank?
+
+    @search_valid = valid_search_term?
+    return unless @search_valid
+
+    exact_match = Player.find_by(name: Player.normalize_name(@search_term))
+    return redirect_to player_path(name: exact_match.name) if exact_match
+
+    @search_results = SearchService.new(@search_term).perform_search
   end
 
   private
@@ -34,13 +49,11 @@ class PlayersController < AuthenticatedController
   # The Pagy overflow extra does not work with the :max_pages option. Setting it to :last_page in the initializer
   # won't work with this setup, since it only allows :empty_page or :exception. Neither of these options are suitable
   # in this context, so we overwrite the page param if it exceeds the maximum number of pages.
-  def sanitize_page
-    params[:page] = MAX_LEADERBOARD_PAGES if params[:page].to_i > MAX_LEADERBOARD_PAGES
+  def set_page
+    params[:page] = params[:page].to_i.clamp(1, MAX_LEADERBOARD_PAGES)
   end
 
-  # Same as the normalization in the Player model.
-  def capitalize_name
-    prefix, first_alpha, remainder = params[:id].partition(/[A-Za-z]/)
-    params[:id] = prefix + first_alpha.upcase + remainder.downcase
+  def valid_search_term?
+    @search_term.length >= SEARCH_TERM_MIN_LENGTH && @search_term.match?(SEARCH_TERM_REGEX)
   end
 end

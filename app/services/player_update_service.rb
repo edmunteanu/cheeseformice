@@ -1,11 +1,13 @@
 class PlayerUpdateService
   include Utils::PlayerMapper
 
+  MAX_POOL_SIZE = 9
+  MIN_CHEESE_GATHERED = 250
+
   def initialize(batch_size: ENV.fetch("UPDATER_BATCH_SIZE", 1000).to_i)
     @batch_size = batch_size
   end
 
-  MAX_POOL_SIZE = 9
   def call
     records.in_batches(of: @batch_size) do |batch|
       threads = []
@@ -20,7 +22,6 @@ class PlayerUpdateService
 
   private
 
-  MIN_CHEESE_GATHERED = 250
   def records
     A801::Player.where(updatedLast7days: true, cheese_gathered: MIN_CHEESE_GATHERED..)
   end

@@ -23,7 +23,7 @@ class Player < ApplicationRecord
   validates :a801_id, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true, length: { maximum: MAX_NAME_LENGTH }
 
-  after_validation :normalize_name
+  after_validation :prepare_name
   before_save :update_scores, :log_changes # Order matters
 
   delegate :normal_score, :normal_rank, :previous_normal_rank,
@@ -31,6 +31,11 @@ class Player < ApplicationRecord
            :racing_score, :racing_rank, :previous_racing_rank,
            :defilante_score, :defilante_rank, :previous_defilante_rank,
            to: :category_standing, allow_nil: true
+
+  def self.normalize_name(name)
+    prefix, first_alpha, remainder = name.partition(/[A-Za-z]/)
+    prefix + first_alpha.upcase + remainder.downcase
+  end
 
   def to_param
     name.downcase
@@ -42,11 +47,10 @@ class Player < ApplicationRecord
 
   private
 
-  def normalize_name
+  def prepare_name
     return if name.blank?
 
-    prefix, first_alpha, remainder = name.partition(/[A-Za-z]/)
-    normalized_name = prefix + first_alpha.upcase + remainder.downcase
+    normalized_name = self.class.normalize_name(name)
     normalized_name += "#0000" unless normalized_name.match?(TAG_REGEX)
 
     self.name = normalized_name

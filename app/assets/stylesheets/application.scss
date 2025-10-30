@@ -4,6 +4,7 @@
 
 // Bootstrap and overrides
 @import "bootstrap";
+@import "abstracts/bootstrap_overrides";
 @import "abstracts/bootstrap_utils";
 @import "bootstrap/utilities/api"; // Regenerate the utility classes after modifying the utilities map
 
@@ -22,4 +23,5 @@
 @import "components/pagy";
 @import "components/rule";
 @import "components/score_header";
+@import "components/tooltip";
 @import "pages/player";

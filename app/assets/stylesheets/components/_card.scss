@@ -1,5 +1,5 @@
 .card {
-  --bs-card-bg: var(--bs-dark);
+  --bs-card-bg: var(--bs-secondary-bg);
   --bs-card-border-radius: 1rem;
   --bs-card-border-width: 0;
 
@@ -13,7 +13,7 @@
   }
 
   .card-separator {
-    @extend .my-3;
+    @extend .my-3, .my-md-4;
 
     background-color: var(--separator-color);
     height: var(--separator-thickness);

@@ -72,7 +72,7 @@ RSpec.describe PlayersController do
       describe "page parameter" do
         before do
           stub_const("PlayersController::MAX_LEADERBOARD_PAGES", 2)
-          stub_const("Pagy::DEFAULT", Pagy::DEFAULT.merge(items: 1))
+          stub_const("Pagy::DEFAULT", Pagy::DEFAULT.merge(limit: 1))
           get leaderboard_path, params: { page: page }
         end
 
@@ -168,6 +168,99 @@ RSpec.describe PlayersController do
           it "does not perform too many queries" do
             expect { get player_path(player) }.to make_database_queries(count: 4, matching: /SELECT/)
           end
+        end
+      end
+    end
+  end
+
+  describe "#search" do
+    let(:user) { create(:user) }
+
+    context "when not signed in" do
+      before { get search_players_path, params: { term: "test" } }
+
+      it "redirects to the sign-in page" do
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context "when signed in" do
+      let(:get_request) { get search_players_path, params: params }
+
+      before do
+        allow(SearchService).to receive(:new).and_call_original
+        sign_in(user)
+      end
+
+      context "when the search term has an exact match" do
+        let(:params) { { term: exact_player.name } }
+        let(:exact_player) { create(:player, name: "Noisette#0001") }
+
+        it "redirects to the player's page" do
+          get_request
+
+          expect(response).to redirect_to(player_path(name: exact_player.name))
+          expect(SearchService).not_to have_received(:new)
+        end
+      end
+
+      context "when the search term is vague but valid" do
+        let(:first_player) { create(:player, name: "Match#1111") }
+        let(:second_player) { create(:player, name: "Match#2222") }
+        let(:third_player) { create(:player, name: "Vague#2222") }
+        let(:params) { { term: "match" } }
+
+        before do
+          first_player
+          second_player
+          third_player
+        end
+
+        it "performs a search page and displays the results" do
+          get_request
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(I18n.t("players.search.title"))
+          expect(response.body).to include(first_player.name)
+          expect(response.body).to include(second_player.name)
+          expect(response.body).not_to include(third_player.name)
+          expect(SearchService).to have_received(:new).with("match")
+        end
+      end
+
+      context "when the search term is blank" do
+        let(:params) { { term: "" } }
+
+        it "does not perform a search and renders the search page" do
+          get_request
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(I18n.t("players.search.title"))
+          expect(SearchService).not_to have_received(:new)
+        end
+      end
+
+      context "when the search term is too short" do
+        let(:params) { { term: "ab" } }
+
+        it "does not perform a search and renders the search page" do
+          get_request
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(I18n.t("players.search.title"))
+          expect(SearchService).not_to have_received(:new)
+        end
+      end
+
+      context "when the search term contains disallowed symbols" do
+        let(:params) { { term: "!!!!" } }
+
+        it "does not perform a search and renders the search page" do
+          get_request
+
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include(I18n.t("players.search.title"))
+          expect(SearchService).not_to have_received(:new)
         end
       end
     end

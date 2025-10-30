@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_220503) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_28_223247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "blazer_audits", force: :cascade do |t|
     t.bigint "user_id"
@@ -220,7 +221,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_220503) do
   create_table "players", force: :cascade do |t|
     t.bigint "a801_id", null: false
     t.boolean "updated_last_7_days", default: false, null: false
-    t.string "name", null: false
+    t.string "name", null: false, collation: "C"
     t.date "registration_date"
     t.text "title"
     t.text "unlocked_titles"
@@ -264,6 +265,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_220503) do
     t.index ["defilante_points"], name: "index_players_on_defilante_points"
     t.index ["firsts"], name: "index_players_on_firsts"
     t.index ["name"], name: "index_players_on_name", unique: true
+    t.index ["name"], name: "index_players_on_name_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["racing_finished_maps"], name: "index_players_on_racing_finished_maps"
     t.index ["racing_firsts"], name: "index_players_on_racing_firsts"
     t.index ["racing_podiums"], name: "index_players_on_racing_podiums"
