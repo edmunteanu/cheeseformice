@@ -4,7 +4,6 @@ class PlayerStat < ViewComponent::Base
   delegate :display_ratio, to: :helpers
 
   def initialize(player, previous_day_log, attribute:, style:, display_ratio: true)
-    super
     @player = player
     @previous_day_log = previous_day_log
     @attribute = attribute

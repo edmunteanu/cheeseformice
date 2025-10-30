@@ -232,7 +232,6 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.2)
-    method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.26.0)
     msgpack (1.8.0)
@@ -474,10 +473,9 @@ GEM
     uniform_notifier (1.18.0)
     uri (1.0.4)
     useragent (0.16.11)
-    view_component (3.23.2)
-      activesupport (>= 5.2.0, < 8.1)
+    view_component (4.1.0)
+      activesupport (>= 7.1.0, < 8.2)
       concurrent-ruby (~> 1)
-      method_source (~> 1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     websocket (1.2.11)
@@ -517,11 +515,11 @@ DEPENDENCIES
   jbuilder
   kamal
   mysql2
-  pagy (~> 9.4)
+  pagy
   pg
   puma
   rails (~> 8.0)
-  redis (~> 5.0)
+  redis
   rspec-rails
   rubocop-rails-omakase
   rubocop-rspec
@@ -536,7 +534,7 @@ DEPENDENCIES
   super_diff
   turbo-rails
   tzinfo-data
-  view_component (~> 3.23)
+  view_component
 
 RUBY VERSION
    ruby 3.4.6p54

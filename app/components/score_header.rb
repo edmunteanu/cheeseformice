@@ -4,7 +4,6 @@ class ScoreHeader < ViewComponent::Base
   attr_reader :player, :title, :category
 
   def initialize(player, previous_day_log, title:, category:)
-    super
     @player = player
     @previous_day_log = previous_day_log
     @title = title

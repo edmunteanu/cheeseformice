@@ -13,7 +13,6 @@ class PlayerCard < ViewComponent::Base
   delegate :player_path, to: :helpers
 
   def initialize(player:, category:, statistic:, player_index:, current_page:)
-    super
     @player = player
     @category = category
     @statistic = statistic
