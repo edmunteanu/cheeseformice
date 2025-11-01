@@ -39,16 +39,16 @@
   <div id="statisticsTabPane" class="tab-pane fade show active" role="tabpanel">
     <div class="statistics-grid">
       <div class="normal-stats">
-        <%= render "players/show/normal_stats", player: @player, previous_day_log: @previous_day_log %>
+        <%= render "players/show/normal_stats", player: @player, past_day: @past_day %>
       </div>
       <div class="racing-stats">
-        <%= render "players/show/racing_stats", player: @player, previous_day_log: @previous_day_log %>
+        <%= render "players/show/racing_stats", player: @player, past_day: @past_day %>
       </div>
       <div class="survivor-stats">
-        <%= render "players/show/survivor_stats", player: @player, previous_day_log: @previous_day_log %>
+        <%= render "players/show/survivor_stats", player: @player, past_day: @past_day %>
       </div>
       <div class="defilante-stats">
-        <%= render "players/show/defilante_stats", player: @player, previous_day_log: @previous_day_log %>
+        <%= render "players/show/defilante_stats", player: @player, past_day: @past_day %>
       </div>
     </div>
   </div>
@@ -56,7 +56,9 @@
   <div id="performanceTabPane" class="tab-pane fade" role="tabpanel">
     <div class="row g-3">
       <div class="col-12">
-        <%= render "players/show/change_logs", player: @player, previous_month_logs: @previous_month_logs %>
+        <%= render "players/show/change_logs", player: @player,
+                                               past_7_days: @past_7_days,
+                                               past_30_days: @past_30_days %>
       </div>
     </div>
   </div>

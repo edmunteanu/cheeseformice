@@ -1,8 +1,8 @@
-<% if previous_month_logs.any? %>
+<% if past_30_days.any? %>
   <div id="<%= accordion_id %>" class="accordion accordion-flush">
-    <% %i[previous_week previous_month].each do |period| %>
-      <% aggregated = public_send(:"#{period}_aggregated_log") %>
-      <% target = "#{period}_aggregated_log" %>
+    <% %i[past_7_days past_30_days].each do |period| %>
+      <% aggregated = public_send(:"#{period}_aggregated") %>
+      <% target = "#{period}_aggregated" %>
 
       <div class="accordion-item">
         <div class="accordion-header">

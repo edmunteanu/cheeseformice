@@ -1,9 +1,9 @@
 require "rails_helper"
 
 RSpec.describe PlayerStat, type: :component do
-  let(:component) { described_class.new(player, previous_day, attribute: :cheese_gathered, style: "") }
+  let(:component) { described_class.new(player, past_day, attribute: :cheese_gathered, style: "") }
   let(:player) { create(:player) }
-  let(:previous_day) { player.change_logs.previous_month.first }
+  let(:past_day) { player.change_logs.past_day.first }
 
   describe "#display_change?" do
     let(:display_change) { component.display_change? }
@@ -35,12 +35,12 @@ RSpec.describe PlayerStat, type: :component do
     end
   end
 
-  describe "#previous_day_value" do
-    let(:previous_day_value) { component.previous_day_value }
+  describe "#past_day_value" do
+    let(:past_day_value) { component.past_day_value }
 
     context "when the player has no previous day change log" do
       it "returns nil" do
-        expect(previous_day_value).to be_nil
+        expect(past_day_value).to be_nil
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe PlayerStat, type: :component do
       before { create(:change_log, player: player, cheese_gathered: 100) }
 
       it "returns the correct value" do
-        expect(previous_day_value).to eq(100)
+        expect(past_day_value).to eq(100)
       end
     end
   end

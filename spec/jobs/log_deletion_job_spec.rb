@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe LogDeletionJob do
   describe "#perform" do
     let!(:change_log) { create(:change_log) }
-    let!(:expired_change_log) { create(:change_log, created_at: ChangeLog::EXPIRED_AFTER.days.ago.to_date) }
+    let!(:expired_change_log) { create(:change_log, created_at: 29.days.ago.beginning_of_day - 1.hour) }
 
     context "when the deletion is successful" do
       it "performs the job" do

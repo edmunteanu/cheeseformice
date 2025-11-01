@@ -160,13 +160,13 @@ RSpec.describe PlayersController do
           before { create(:change_log, player: player) }
 
           it "does not perform too many queries" do
-            expect { get player_path(player) }.to make_database_queries(count: 4, matching: /SELECT/)
+            expect { get player_path(player) }.to make_database_queries(count: 6, matching: /SELECT/)
           end
         end
 
         context "when the player has no previous day change log" do
           it "does not perform too many queries" do
-            expect { get player_path(player) }.to make_database_queries(count: 4, matching: /SELECT/)
+            expect { get player_path(player) }.to make_database_queries(count: 6, matching: /SELECT/)
           end
         end
       end

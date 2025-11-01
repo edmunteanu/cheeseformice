@@ -1,11 +1,11 @@
 class PlayerStat < ViewComponent::Base
-  attr_reader :player, :previous_day_log, :attribute, :style
+  attr_reader :player, :past_day, :attribute, :style
 
   delegate :display_ratio, to: :helpers
 
-  def initialize(player, previous_day_log, attribute:, style:, display_ratio: true)
+  def initialize(player, past_day, attribute:, style:, display_ratio: true)
     @player = player
-    @previous_day_log = previous_day_log
+    @past_day = past_day
     @attribute = attribute
     @style = style
     @display_ratio = display_ratio
@@ -16,12 +16,12 @@ class PlayerStat < ViewComponent::Base
   end
 
   def display_change?
-    previous_day_value.present? && previous_day_value.positive?
+    past_day_value.present? && past_day_value.positive?
   end
 
-  def previous_day_value
-    return if previous_day_log.blank?
+  def past_day_value
+    return if past_day.blank?
 
-    previous_day_log.public_send(attribute)
+    past_day.public_send(attribute)
   end
 end

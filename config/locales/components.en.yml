@@ -3,7 +3,7 @@ en:
     no_log: "No changes"
     no_logs: "No data to display. This player's profile has either not changed in the last 30 days or the profile
       is new to CheeseForMice."
-    previous_month: "Previous month (aggregated)"
-    previous_week: "Previous week (aggregated)"
+    past_30_days: "Past 30 days (aggregated)"
+    past_7_days: "Past 7 days (aggregated)"
   score_header:
     new: "New"

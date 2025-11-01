@@ -13,8 +13,9 @@ class PlayersController < AuthenticatedController
 
   def show
     @player = Player.find_by!(name: Player.normalize_name(params[:name]))
-    @previous_month_logs = @player.change_logs.previous_month.to_a
-    @previous_day_log = @previous_month_logs.find { |logs| logs.created_at.to_date > 1.day.ago }
+    @past_day = @player.change_logs.past_day.first
+    @past_7_days = @player.change_logs.past_7_days.to_a
+    @past_30_days = @player.change_logs.past_30_days.to_a
   end
 
   def search

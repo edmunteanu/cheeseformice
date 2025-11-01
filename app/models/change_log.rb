@@ -2,12 +2,13 @@ class ChangeLog < ApplicationRecord
   include PlayerExtensions::Ratio
 
   MAX_AMOUNT = 30
-  EXPIRED_AFTER = MAX_AMOUNT - 1
 
   belongs_to :player, counter_cache: true
 
-  scope(:previous_month, lambda do
-    where(created_at: EXPIRED_AFTER.days.ago.to_date..).order(created_at: :desc).limit(MAX_AMOUNT)
-  end)
-  scope :expired, -> { where(created_at: ...EXPIRED_AFTER.days.ago.to_date) }
+  # Since there can be a log for the current day, and we want to create scopes for 30, 7 and 1 day(s),
+  # we need to subtract one from the start of the created_at range.
+  scope :past_30_days, -> { where(created_at: 29.days.ago.beginning_of_day..).order(created_at: :desc) }
+  scope :past_7_days, -> { where(created_at: 6.days.ago.beginning_of_day..).order(created_at: :desc) }
+  scope :past_day, -> { where(created_at: Time.current.beginning_of_day..) }
+  scope :expired, -> { where(created_at: ...29.days.ago.beginning_of_day) }
 end
