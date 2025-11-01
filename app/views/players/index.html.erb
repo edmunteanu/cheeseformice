@@ -6,6 +6,10 @@
   <div class="vr mx-2"></div>
 
   <span><%= t(@statistic, scope: "activerecord.attributes.player") %></span>
+
+  <div class="vr mx-2"></div>
+
+  <span><%= t(@time_range, scope: "players.index.time_ranges") %></span>
 </div>
 
 <div class="d-flex">
@@ -18,7 +22,7 @@
 
 <div class="player-list">
   <% @players.each_with_index do |player, index| %>
-    <%= render PlayerCard.new(player: player, category: @category, statistic: @statistic,
+    <%= render PlayerCard.new(player: player, category: @category, statistic: @statistic, time_range: @time_range,
                               player_index: index, current_page: @current_page) %>
   <% end %>
 </div>

@@ -13,7 +13,8 @@
         <ul class="dropdown-menu">
           <% Player::LEADERBOARD_STATISTICS[key].each do |statistic| %>
             <li>
-              <%= link_to leaderboard_path(statistic: statistic), class: "dropdown-item",
+              <%= link_to leaderboard_path(statistic: statistic, time_range: params[:time_range]),
+                          class: "dropdown-item",
                           data: { "turbo-prefetch": false } do %>
                 <span><%= t(statistic, scope: "activerecord.attributes.player") %></span>
               <% end %>

@@ -6,6 +6,11 @@ en:
         racing: "Racing score: %{score}"
         survivor: "Survivor score: %{score}"
         defilante: "Defilante score: %{score}"
+      time_ranges:
+        all_time: "All time"
+        past_30_days: "Past 30 days"
+        past_7_days: "Past 7 days"
+        past_day: "Past day"
       title: "Top players"
     search:
       check_requirements: "Please follow the search term requirements"
