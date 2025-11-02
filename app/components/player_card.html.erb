@@ -2,8 +2,7 @@
   <div class="card-body">
     <div class="d-flex justify-content-between gap-3">
       <div class="score-container">
-        <%= link_to player_path(player),
-                    class: "link-light link-offset-1 link-underline-opacity-50 link-underline-opacity-100-hover" do %>
+        <%= link_to player_path(player), class: "underlined-link" do %>
           <h4 class="text-truncate mb-0"><%= player.name %></h4>
         <% end %>
 

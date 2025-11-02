@@ -49,9 +49,7 @@
             <div class="search-results">
               <% @search_results.each do |result| %>
                 <div class="search-result">
-                  <%= link_to player_path(result),
-                              class: "link-light link-offset-1 link-underline-opacity-50" \
-                                " link-underline-opacity-100-hover" do %>
+                  <%= link_to player_path(result), class: "underlined-link" do %>
                     <%= result.name %>
                   <% end %>
                 </div>
