@@ -11,7 +11,7 @@
   border-bottom: 2px solid transparent;
 
   .icon-container {
-    @extend .d-none, .d-md-inline-block, .ms-2;
+    @extend .d-none, .d-md-flex, .align-items-center, .ms-2;
 
     transition: transform 0.2s ease;
 

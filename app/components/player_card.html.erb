@@ -10,39 +10,40 @@
         <div class="vr d-none d-md-block"></div>
 
         <div class="d-flex align-self-md-end gap-3">
-          <span>
-            <% if score_statistic? %>
-              <%= t(category, scope: "players.index.scores",
-                              score: number_with_delimiter(player.public_send(:"#{category}_score"))) %>
-            <% else %>
-              <%= "#{Player.human_attribute_name(statistic)}: #{number_with_delimiter(player.public_send(statistic))}" %>
-            <% end %>
-          </span>
+          <span><%= category_score %></span>
         </div>
       </div>
 
       <div class="rank-container">
         <h4 class="mb-0"><%= "##{current_rank}" %></h4>
 
-        <% if score_statistic? %>
+        <% if score_statistic? && show_player_data? %>
           <%== displayed_rank_change %>
         <% end %>
       </div>
     </div>
 
-    <% if score_statistic? %>
-      <div class="card-separator"></div>
+    <div class="card-separator"></div>
 
-      <div class="row g-3">
-        <% cols = "col-6 col-md-#{12 / CATEGORY_FIELDS[category].count}" %>
-
-        <% CATEGORY_FIELDS[category].each do |attribute| %>
-          <div class="<%= cols %>">
-            <span class="d-block fw-bold"><%= Player.human_attribute_name(attribute) %></span>
-            <span><%= number_with_delimiter(player.public_send(attribute)) %></span>
+    <div class="player-card-grid">
+      <% if score_statistic? %>
+        <% CATEGORY_ATTRIBUTES[category].each do |attribute| %>
+          <div>
+            <span class="d-block text-muted"><%= Player.human_attribute_name(attribute) %></span>
+            <span><%= category_attribute_value(attribute) %></span>
           </div>
         <% end %>
-      </div>
-    <% end %>
+      <% else %>
+        <div>
+          <span class="d-block text-muted"><%= Player.human_attribute_name(statistic) %></span>
+          <span><%= statistic_value %></span>
+        </div>
+
+        <div>
+          <span class="d-block text-muted"><%= Player.human_attribute_name(category_rounds_played_attribute) %></span>
+          <span><%= category_rounds_played_value %></span>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

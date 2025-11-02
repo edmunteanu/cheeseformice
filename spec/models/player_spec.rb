@@ -172,7 +172,7 @@ RSpec.describe Player do
     end
   end
 
-  describe ".ranked_by" do
+  describe "#ranked_by" do
     let!(:disqualified_player) do
       create(:player, cheese_gathered: 1_000, rounds_played: 1_500, stats_reliability: 2, a801_id: 5)
     end
@@ -181,7 +181,7 @@ RSpec.describe Player do
       let(:first_player) { create(:player) }
       let(:second_player) { create(:player) }
       let(:third_player) { create(:player) }
-      let(:ranked_players) { described_class.ranked_by(statistic: "normal_score") }
+      let(:ranked_players) { described_class.ranked_by(:normal_score, :all_time) }
 
       before do
         first_player.category_standing.update!(normal_rank: 2)
@@ -200,10 +200,31 @@ RSpec.describe Player do
       let!(:second_player) { create(:player, cheese_gathered: 750, rounds_played: 1_000, a801_id: 2) }
       let!(:third_player) { create(:player, cheese_gathered: 500, rounds_played: 1_000, a801_id: 3) }
       let!(:fourth_player) { create(:player, cheese_gathered: 600, rounds_played: 1_000, a801_id: 4) }
-      let(:ranked_players) { described_class.ranked_by(statistic: "cheese_gathered") }
+      let(:ranked_players) { described_class.ranked_by(:cheese_gathered, :all_time) }
 
       it "returns players ranked by the specified statistic in descending order and a801_id in ascending order" do
         expect(ranked_players).to eq([ second_player, fourth_player, first_player, third_player ])
+        expect(ranked_players).not_to include(disqualified_player)
+      end
+    end
+
+    context "when ranking by a statistic and a time range other than all_time" do
+      let(:first_player) { create(:player, a801_id: 1) }
+      let(:second_player) { create(:player, a801_id: 2) }
+      let(:third_player) { create(:player, a801_id: 3) }
+      let(:ranked_players) { described_class.ranked_by(:normal_score, :past_7_days) }
+
+      before do
+        create(:change_log, player: first_player, normal_score: 300, created_at: 3.days.ago)
+        create(:change_log, player: second_player, normal_score: 300, created_at: 2.days.ago)
+        create(:change_log, player: second_player, normal_score: 300, created_at: 3.days.ago)
+        create(:change_log, player: third_player, normal_score: 200, created_at: 1.day.ago)
+        create(:change_log, player: third_player, normal_score: 200, created_at: 2.day.ago)
+        create(:change_log, player: third_player, normal_score: 200, created_at: 3.day.ago)
+      end
+
+      it "returns players ranked by the specified statistic in descending order and a801_id in ascending order" do
+        expect(ranked_players).to eq([ second_player, third_player, first_player ])
         expect(ranked_players).not_to include(disqualified_player)
       end
     end

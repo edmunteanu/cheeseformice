@@ -1,21 +1,21 @@
 <div class="<%= [ style, "d-flex flex-column justify-content-between" ].join(" ") %>">
-  <span class="d-block fw-bold"><%= Player.human_attribute_name(attribute) %></span>
+  <span class="d-block text-muted"><%= Player.human_attribute_name(attribute) %></span>
 
   <div class="d-flex gap-2">
     <span><%= number_with_delimiter(player.public_send(attribute)) %></span>
 
     <% if display_ratio? %>
-      <span class="text-muted"><%= display_ratio(player.public_send(:"#{attribute}_ratio")) %></span>
+      <span><%= display_ratio(player.public_send(:"#{attribute}_ratio")) %></span>
     <% end %>
   </div>
 
   <div class="d-flex align-items-center gap-2 h-100">
     <% if display_change? %>
-      <span class="text-success"><%= number_with_delimiter(previous_day_value) %></span>
+      <span class="text-success"><%= number_with_delimiter(past_day_value) %></span>
 
       <% if display_ratio? %>
         <span class="text-success">
-          <%= display_ratio(previous_day_log.public_send(:"#{attribute}_ratio")) %>
+          <%= display_ratio(past_day.public_send(:"#{attribute}_ratio")) %>
         </span>
       <% end %>
 

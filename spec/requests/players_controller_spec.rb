@@ -30,14 +30,17 @@ RSpec.describe PlayersController do
       end
 
       describe "statistic parameter" do
+        let(:players) { [] }
+
         before { get leaderboard_path, params: { statistic: statistic_param } }
 
         context "when the statistic parameter is valid" do
-          let(:statistic_param) { "normal_score" }
+          let(:statistic_param) { "racing_score" }
 
           it "displays the leaderboard for the specified statistic" do
+            expect(Player.count).to eq(0)
             expect(response).to have_http_status(:ok)
-            players.each { |player| expect(response.body).to include(player.name) }
+            expect(response.body).to include(I18n.t("activerecord.attributes.player.racing_score"))
           end
         end
 
@@ -45,13 +48,18 @@ RSpec.describe PlayersController do
           let(:statistic_param) { "invalid_statistic" }
 
           it "defaults to normal_score" do
+            expect(Player.count).to eq(0)
             expect(response).to have_http_status(:ok)
-            players.each { |player| expect(response.body).to include(player.name) }
+            expect(response.body).to include(I18n.t("activerecord.attributes.player.normal_score"))
           end
         end
       end
 
       describe "category parameter" do
+        let(:players) { [] }
+
+        before { get leaderboard_path, params: { statistic: statistic_param } }
+
         context "when the statistic parameter corresponds to the normal category" do
           let(:statistic_param) { "saved_mice" }
 
@@ -63,8 +71,30 @@ RSpec.describe PlayersController do
         context "when the statistic parameter corresponds to the racing category" do
           let(:statistic_param) { "racing_firsts" }
 
-          it "sets the category to normal" do
+          it "sets the category to racing" do
             expect(response.body).to include(I18n.t("players.show.categories.racing"))
+          end
+        end
+      end
+
+      describe "time_range parameter" do
+        before { get leaderboard_path, params: { time_range: time_range_param } }
+
+        context "when the time_range parameter is valid" do
+          let(:time_range_param) { "past_7_days" }
+
+          it "displays the leaderboard for the specified time range" do
+            expect(response).to have_http_status(:ok)
+            expect(response.body).to include(I18n.t("players.index.time_ranges.past_7_days"))
+          end
+        end
+
+        context "when the time_range parameter is invalid" do
+          let(:time_range_param) { "invalid_time_range" }
+
+          it "defaults to all_time" do
+            expect(response).to have_http_status(:ok)
+            expect(response.body).to include(I18n.t("players.index.time_ranges.all_time"))
           end
         end
       end
@@ -120,6 +150,28 @@ RSpec.describe PlayersController do
           end
         end
       end
+
+      describe "performance" do
+        context "when loading the default (score-statistic) leaderboard page" do
+          it "does not perform too many queries" do
+            expect { get leaderboard_path }.to make_database_queries(count: 2, matching: /SELECT/)
+          end
+        end
+
+        context "when selecting a non-score statistic" do
+          it "does not perform too many queries" do
+            expect { get leaderboard_path, params: { statistic: "saved_mice" } }
+              .to make_database_queries(count: 2, matching: /SELECT/)
+          end
+        end
+
+        context "when selecting a time range" do
+          it "does not perform too many queries" do
+            expect { get leaderboard_path, params: { time_range: "past_7_days" } }
+              .to make_database_queries(count: 2, matching: /SELECT/)
+          end
+        end
+      end
     end
   end
 
@@ -160,13 +212,13 @@ RSpec.describe PlayersController do
           before { create(:change_log, player: player) }
 
           it "does not perform too many queries" do
-            expect { get player_path(player) }.to make_database_queries(count: 4, matching: /SELECT/)
+            expect { get player_path(player) }.to make_database_queries(count: 6, matching: /SELECT/)
           end
         end
 
         context "when the player has no previous day change log" do
           it "does not perform too many queries" do
-            expect { get player_path(player) }.to make_database_queries(count: 4, matching: /SELECT/)
+            expect { get player_path(player) }.to make_database_queries(count: 6, matching: /SELECT/)
           end
         end
       end

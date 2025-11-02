@@ -1,10 +1,11 @@
 class PlayerLogs < ViewComponent::Base
-  attr_reader :previous_month_logs, :category
+  attr_reader :past_30_days, :category
 
   delegate :display_ratio, to: :helpers
 
-  def initialize(previous_month_logs, category:)
-    @previous_month_logs = previous_month_logs
+  def initialize(past_7_days, past_30_days, category:)
+    @past_7_days = past_7_days
+    @past_30_days = past_30_days
     @category = category
   end
 
@@ -12,18 +13,16 @@ class PlayerLogs < ViewComponent::Base
     "#{category}ChangeLogs"
   end
 
-  def previous_week_aggregated_log
-    previous_week_logs = previous_month_logs.select { |log| log.created_at.to_date > 1.week.ago }
-
-    aggregate_log_data(previous_week_logs)
+  def past_7_days_aggregated
+    aggregate_log_data(@past_7_days)
   end
 
-  def previous_month_aggregated_log
-    aggregate_log_data(previous_month_logs)
+  def past_30_days_aggregated
+    aggregate_log_data(@past_30_days)
   end
 
   def log_map
-    @log_map ||= previous_month_logs.index_by { |log| log.created_at.to_date }
+    @log_map ||= past_30_days.index_by { |log| log.created_at.to_date }
   end
 
   def button_class(period)
@@ -73,7 +72,7 @@ class PlayerLogs < ViewComponent::Base
   end
 
   def expand_log?(period)
-    period == :previous_week
+    period == :past_7_days
   end
 
   def display_score(score, span_class:, icon_class:)

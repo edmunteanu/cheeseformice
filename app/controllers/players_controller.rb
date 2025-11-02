@@ -4,17 +4,18 @@ class PlayersController < AuthenticatedController
   SEARCH_TERM_REGEX = /\A\+?[A-Za-z0-9_#]+\z/ # Ruby-specific for server-side validation
   SEARCH_TERM_REGEX_JS = /^\+?[A-Za-z0-9_#]+$/ # JS-specific for client-side validation
 
-  before_action :set_statistic, :set_category, :set_page, only: :index
+  before_action :set_statistic, :set_category, :set_time_range, :set_page, only: :index
 
   def index
     @current_page = params[:page].to_i.zero? ? 1 : params[:page].to_i
-    @pagy, @players = pagy_countless(Player.ranked_by(statistic: @statistic), max_pages: MAX_LEADERBOARD_PAGES)
+    @pagy, @players = pagy_countless(Player.ranked_by(@statistic, @time_range), max_pages: MAX_LEADERBOARD_PAGES)
   end
 
   def show
     @player = Player.find_by!(name: Player.normalize_name(params[:name]))
-    @previous_month_logs = @player.change_logs.previous_month.to_a
-    @previous_day_log = @previous_month_logs.find { |logs| logs.created_at.to_date > 1.day.ago }
+    @past_day = @player.change_logs.past_day.first
+    @past_7_days = @player.change_logs.past_7_days.to_a
+    @past_30_days = @player.change_logs.past_30_days.to_a
   end
 
   def search
@@ -33,10 +34,11 @@ class PlayersController < AuthenticatedController
   private
 
   def set_statistic
-    @statistic = if Player::LEADERBOARD_STATISTICS.values.flatten.include?(params[:statistic])
-                   params[:statistic]
+    @statistic = if params[:statistic].present? &&
+                    Player::LEADERBOARD_STATISTICS.values.flatten.include?(params[:statistic].to_sym)
+                   params[:statistic].to_sym
     else
-                   "normal_score"
+                   Player::LEADERBOARD_DEFAULT
     end
   end
 
@@ -44,6 +46,14 @@ class PlayersController < AuthenticatedController
     @category = Player::LEADERBOARD_STATISTICS.key(
       Player::LEADERBOARD_STATISTICS.values.find { |types| types.include?(@statistic) }
     )
+  end
+
+  def set_time_range
+    @time_range = if params[:time_range].present? && Player::TIME_RANGES.include?(params[:time_range].to_sym)
+                    params[:time_range].to_sym
+    else
+                    Player::TIME_RANGE_DEFAULT
+    end
   end
 
   # The Pagy overflow extra does not work with the :max_pages option. Setting it to :last_page in the initializer

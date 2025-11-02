@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_28_223247) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_01_230009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -124,6 +124,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_28_223247) do
     t.integer "defilante_score", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at", "player_id"], name: "index_change_logs_on_created_at_and_player_id"
     t.index ["player_id"], name: "index_change_logs_on_player_id"
   end
 

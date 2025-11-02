@@ -8,6 +8,19 @@
   }
 }
 
+.player-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  row-gap: 1rem;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 1fr;
+    row-gap: 0;
+  }
+}
+
 .title-container {
   @extend .d-flex, .flex-column, .flex-md-row, .align-items-md-center, .justify-content-md-between,
           .gap-2, .gap-md-0, .mb-2;
