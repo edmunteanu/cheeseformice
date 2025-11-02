@@ -16,6 +16,28 @@ RSpec.describe PlayerUpdateJob do
         expect(PlayerUpdateService).to have_received(:new)
         expect(RankUpdateJob).to have_received(:perform_later)
       end
+
+      describe "MetricsOverview update" do
+        before do
+          overview = MetricsOverview.instance
+          allow(MetricsOverview).to receive(:instance).and_return(overview)
+          allow(overview).to receive(:update)
+        end
+
+        it "updates the metrics overview" do
+          assert_performed_jobs 1, only: described_class do
+            described_class.perform_later
+          end
+
+          overview = MetricsOverview.instance
+          expect(overview).to have_received(:update).with(
+            player_count: Player.count,
+            previous_player_count: overview.player_count,
+            disqualified_player_count: Player.disqualified.count,
+            previous_disqualified_player_count: overview.disqualified_player_count
+          )
+        end
+      end
     end
 
     context "when the update raises an error" do
