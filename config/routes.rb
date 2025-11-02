@@ -8,10 +8,6 @@ Rails.application.routes.draw do
     mount Blazer::Engine, at: "/blazer"
   end
 
-  authenticated :user do
-    root to: "players#index", as: :authenticated_root
-  end
-
   root to: "home#index"
 
   get "/leaderboard", to: "players#index"
