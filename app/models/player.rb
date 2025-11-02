@@ -22,6 +22,7 @@ class Player < ApplicationRecord
   has_many :change_logs_past_30_days, -> { past_30_days }, class_name: "ChangeLog"
 
   scope :qualified, -> { where.not(stats_reliability: 2) }
+  scope :disqualified, -> { where(stats_reliability: 2) }
 
   validates :a801_id, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true, length: { maximum: MAX_NAME_LENGTH }

@@ -1,5 +1,15 @@
 en:
   home:
     index:
-      description: "Coming soon!"
-      image_alt: "Mouse holding a wrench and wearing a hard hat"
+      cta_html: "Curious? You should check out the %{leaderboard_link} or %{search_link} a player!"
+      disqualified_player_count: "Disqualified Players"
+      image_alt: "Mouse lying on a piece of cheese"
+      intro: "A place where you can view detailed leaderboards and individual profiles of Transformice players."
+      last_player_update: "Last Player Update"
+      last_rank_update: "Last Ranking Update"
+      last_update: "%{time_ago} ago"
+      leaderboards: "leaderboards"
+      look_up: "look up"
+      metrics_overview: "Overview"
+      player_count: "Synchronized Players"
+      title: "Welcome to CheeseForMice!"

@@ -1,5 +1,61 @@
 <div class="d-flex flex-column align-items-center justify-content-center gap-5 h-100">
-  <%= image_tag "under_maintenance.webp", alt: t("home.index.image_alt"), class: "hero-image" %>
+  <%= image_tag "mouse_on_cheese.webp", alt: t("home.index.image_alt"), class: "hero-image-sm" %>
 
-  <h1 class="text-center text-primary"><%= t("home.index.description") %></h1>
+  <div class="d-flex flex-column align-items-center">
+    <h1 class="text-center text-primary"><%= t("home.index.title") %></h1>
+    <span class="text-center"><%= t("home.index.intro") %></span>
+
+    <% leaderboard_link = link_to t("home.index.leaderboards"), leaderboard_path, class: "underlined-link" %>
+    <% search_link = link_to t("home.index.look_up"), search_players_path, class: "underlined-link" %>
+    <span class="text-center"><%= t("home.index.cta_html", leaderboard_link: leaderboard_link,
+                                                      search_link: search_link) %></span>
+  </div>
+
+  <div class="card general-statistics-card mt-5">
+    <div class="card-body">
+      <h4 class="text-center mb-0"><%= t("home.index.metrics_overview") %></h4>
+
+      <div class="card-separator"></div>
+
+      <div class="row g-0 g-md-3 mb-3 mb-md-2">
+        <div class="col-12 col-md-5">
+          <span class="text-muted"><%= t("home.index.player_count") %></span>
+        </div>
+        <div class="col-12 col-md-7 d-flex">
+          <span><%= number_with_delimiter(@metrics_overview.player_count) %></span>
+          <%= sanitize(difference_to_previous(@metrics_overview.player_count,
+                                              @metrics_overview.previous_player_count)) %>
+        </div>
+      </div>
+
+      <div class="row g-0 g-md-3 mb-3 mb-md-2">
+        <div class="col-12 col-md-5">
+          <span class="text-muted"><%= t("home.index.disqualified_player_count") %></span>
+        </div>
+        <div class="col-12 col-md-7 d-flex">
+          <span><%= number_with_delimiter(@metrics_overview.disqualified_player_count) %></span>
+          <%= sanitize(difference_to_previous(@metrics_overview.disqualified_player_count,
+                                              @metrics_overview.previous_disqualified_player_count)) %>
+        </div>
+      </div>
+
+      <div class="row g-0 g-md-3 mb-3 mb-md-2">
+        <div class="col-12 col-md-5">
+          <span class="text-muted"><%= t("home.index.last_player_update") %></span>
+        </div>
+        <div class="col-12 col-md-7">
+          <span><%= l(@last_player_update_at, format: :long_with_timezone) %></span>
+        </div>
+      </div>
+
+      <div class="row g-0 g-md-3 mb-3 mb-md-2">
+        <div class="col-12 col-md-5">
+          <span class="text-muted"><%= t("home.index.last_rank_update") %></span>
+        </div>
+        <div class="col-12 col-md-7">
+          <span><%= l(@last_rank_update_at, format: :long_with_timezone) %></span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

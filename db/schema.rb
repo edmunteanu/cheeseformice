@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_01_230009) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_02_143750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -217,6 +217,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_01_230009) do
     t.index ["priority", "scheduled_at"], name: "index_good_jobs_on_priority_scheduled_at_unfinished_unlocked", where: "((finished_at IS NULL) AND (locked_by_id IS NULL))"
     t.index ["queue_name", "scheduled_at"], name: "index_good_jobs_on_queue_name_and_scheduled_at", where: "(finished_at IS NULL)"
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
+  end
+
+  create_table "metrics_overviews", force: :cascade do |t|
+    t.integer "player_count", default: 0, null: false
+    t.integer "previous_player_count", default: 0, null: false
+    t.integer "disqualified_player_count", default: 0, null: false
+    t.integer "previous_disqualified_player_count", default: 0, null: false
+    t.boolean "singleton_guard", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["singleton_guard"], name: "index_metrics_overviews_on_singleton_guard", unique: true
   end
 
   create_table "players", force: :cascade do |t|

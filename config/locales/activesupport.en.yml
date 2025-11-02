@@ -6,3 +6,4 @@ en:
   time:
     formats:
       long: "%d. %B %Y, %H:%M"
+      long_with_timezone: "%d. %B %Y, %H:%M %Z"
