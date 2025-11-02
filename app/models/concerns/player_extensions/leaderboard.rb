@@ -13,7 +13,7 @@ module PlayerExtensions
     LEADERBOARD_DEFAULT = :normal_score.freeze
 
     # All time ranges (except for "all_time") correspond to ChangeLog scopes.
-    TIME_RANGES = %i[all_time past_30_days past_7_days past_day].freeze
+    TIME_RANGES = %i[all_time past_day past_7_days past_30_days].freeze
     TIME_RANGE_DEFAULT = :all_time.freeze
 
     class_methods do

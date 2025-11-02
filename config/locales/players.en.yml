@@ -1,11 +1,16 @@
 en:
   players:
     index:
+      no_data:
+        message: "The daily statistics update didn't take place yet. Please check back later or select a
+          different time range."
+        title: "No data yet"
       scores:
         normal: "Normal score: %{score}"
         racing: "Racing score: %{score}"
         survivor: "Survivor score: %{score}"
         defilante: "Defilante score: %{score}"
+      time_range: "Time range"
       time_ranges:
         all_time: "All time"
         past_30_days: "Past 30 days"

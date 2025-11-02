@@ -1,11 +1,11 @@
 <div class="<%= [ style, "d-flex flex-column justify-content-between" ].join(" ") %>">
-  <span class="d-block fw-bold"><%= Player.human_attribute_name(attribute) %></span>
+  <span class="d-block text-muted"><%= Player.human_attribute_name(attribute) %></span>
 
   <div class="d-flex gap-2">
     <span><%= number_with_delimiter(player.public_send(attribute)) %></span>
 
     <% if display_ratio? %>
-      <span class="text-muted"><%= display_ratio(player.public_send(:"#{attribute}_ratio")) %></span>
+      <span><%= display_ratio(player.public_send(:"#{attribute}_ratio")) %></span>
     <% end %>
   </div>
 

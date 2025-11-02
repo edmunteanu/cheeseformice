@@ -25,21 +25,21 @@
 
     <div class="card-separator"></div>
 
-    <div class="row g-3">
+    <div class="player-card-grid">
       <% if score_statistic? %>
         <% CATEGORY_ATTRIBUTES[category].each do |attribute| %>
-          <div class="<%= column_classes %>">
+          <div>
             <span class="d-block text-muted"><%= Player.human_attribute_name(attribute) %></span>
             <span><%= category_attribute_value(attribute) %></span>
           </div>
         <% end %>
       <% else %>
-        <div class="col-6">
+        <div>
           <span class="d-block text-muted"><%= Player.human_attribute_name(statistic) %></span>
           <span><%= statistic_value %></span>
         </div>
 
-        <div class="col-6">
+        <div>
           <span class="d-block text-muted"><%= Player.human_attribute_name(category_rounds_played_attribute) %></span>
           <span><%= category_rounds_played_value %></span>
         </div>
