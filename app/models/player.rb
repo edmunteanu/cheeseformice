@@ -17,7 +17,7 @@ class Player < ApplicationRecord
 
   has_one :category_standing, autosave: true, dependent: :destroy
   has_many :change_logs, dependent: :destroy
-  has_many :change_logs_past_day, -> { past_day }, class_name: "ChangeLog"
+  has_one :change_logs_past_day, -> { past_day }, class_name: "ChangeLog"
   has_one :change_logs_past_7_days
   has_one :change_logs_past_30_days
 

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe PlayerStat, type: :component do
   let(:component) { described_class.new(player, past_day, attribute: :cheese_gathered, style: "") }
   let(:player) { create(:player) }
-  let(:past_day) { player.change_logs.past_day.first }
+  let(:past_day) { player.change_logs_past_day }
 
   describe "#display_change?" do
     let(:display_change) { component.display_change? }

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ScoreHeader, type: :component do
   let(:component) { described_class.new(player, past_day, title: player.name, category: :normal) }
   let(:player) { create(:player) }
-  let(:past_day) { player.change_logs.past_day.first }
+  let(:past_day) { player.change_logs_past_day }
 
   describe "#score_change" do
     let(:score_change) { component.score_change }

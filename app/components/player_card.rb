@@ -83,7 +83,7 @@ class PlayerCard < ViewComponent::Base
   def set_change_log
     case @time_range
     when :past_day
-      player.change_logs_past_day.first
+      player.change_logs_past_day
     when :past_7_days
       player.change_logs_past_7_days
     when :past_30_days
