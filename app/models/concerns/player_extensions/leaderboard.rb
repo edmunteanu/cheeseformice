@@ -18,14 +18,37 @@ module PlayerExtensions
 
     class_methods do
       def ranked_by(statistic, time_range)
-        if time_range == TIME_RANGE_DEFAULT
+        case time_range
+        when :past_day
+          players_by_statistic_past_day(statistic)
+        when :past_7_days
+          players_by_statistic_materialized_view(ChangeLogsPast7Days, statistic)
+        when :past_30_days
+          players_by_statistic_materialized_view(ChangeLogsPast30Days, statistic)
+        else # :all_time
           players_by_statistic(statistic)
-        else
-          players_by_statistic_and_time_range(statistic, time_range)
         end
       end
 
       private
+
+      # ChangeLogs only exist for qualified players, so we don't need to filter.
+      # Inclusion of CategoryStanding is also not required, since we have everything we need in the ChangeLogs.
+      def players_by_statistic_past_day(statistic)
+        Player.includes(:change_logs_past_day)
+              .joins(:change_logs_past_day)
+              .select("players.*, change_logs.#{statistic}")
+              .order("change_logs.#{statistic} DESC, players.a801_id")
+      end
+
+      def players_by_statistic_materialized_view(view_model, statistic)
+        table_name = view_model.table_name
+        subquery = view_model.order(statistic => :desc).to_sql
+
+        Player.includes(table_name.to_sym)
+              .joins("JOIN LATERAL (#{subquery}) #{table_name} ON #{table_name}.player_id = players.id")
+              .order("#{table_name}.#{statistic} DESC", :a801_id)
+      end
 
       def players_by_statistic(statistic)
         rank_suffix = "_rank"
@@ -42,22 +65,6 @@ module PlayerExtensions
           # We break ties by ordering players with the same statistic by their a801_id in ascending order.
           base_relation.order({ statistic => :desc, a801_id: :asc })
         end
-      end
-
-      # ChangeLogs only exist for qualified players, so we don't need to filter.
-      # Inclusion of CategoryStanding is also not required, since we have everything we need in the ChangeLogs.
-      def players_by_statistic_and_time_range(statistic, time_range)
-        eager_loaded_logs = :"change_logs_#{time_range}"
-
-        grouped_logs = ChangeLog.public_send(time_range)
-                                .group(:player_id)
-                                .select(:player_id, ChangeLog.arel_table[statistic].sum.as("summed_statistic"))
-
-        Player.select("players.*, grouped_logs.summed_statistic")
-              .joins("INNER JOIN (#{grouped_logs.to_sql}) grouped_logs ON grouped_logs.player_id = players.id")
-              .includes(eager_loaded_logs)
-              .joins(eager_loaded_logs)
-              .order("grouped_logs.summed_statistic DESC, players.a801_id")
       end
     end
   end

@@ -17,12 +17,13 @@ class PlayerCard < ViewComponent::Base
     @category = category
     @statistic = statistic
     @time_range = time_range
+    @change_log = set_change_log
     @player_index = player_index
     @current_page = current_page
   end
 
   def category_score
-    score = show_player_data? ? player.public_send(score_attribute) : aggregated_log_data[score_attribute]
+    score = show_player_data? ? player.public_send(score_attribute) : @change_log.public_send(score_attribute)
     I18n.t(category, scope: "players.index.scores", score: number_with_delimiter(score))
   end
 
@@ -52,12 +53,12 @@ class PlayerCard < ViewComponent::Base
   end
 
   def category_attribute_value(attribute)
-    value = show_player_data? ? player.public_send(attribute) : aggregated_log_data[attribute]
+    value = show_player_data? ? player.public_send(attribute) : @change_log.public_send(attribute)
     number_with_delimiter(value)
   end
 
   def statistic_value
-    value = show_player_data? ? player.public_send(statistic) : aggregated_log_data[statistic]
+    value = show_player_data? ? player.public_send(statistic) : @change_log.public_send(statistic)
     number_with_delimiter(value)
   end
 
@@ -71,7 +72,7 @@ class PlayerCard < ViewComponent::Base
     value = if show_player_data?
               player.public_send(category_rounds_played_attribute)
     else
-              aggregated_log_data[category_rounds_played_attribute]
+              @change_log.public_send(category_rounds_played_attribute)
     end
 
     number_with_delimiter(value)
@@ -79,18 +80,16 @@ class PlayerCard < ViewComponent::Base
 
   private
 
-  def aggregated_log_data
-    @aggregated_log_data ||= aggregate_log_data
-  end
-
-  def aggregate_log_data
-    attributes = [ score_attribute ] + Player.const_get("#{category.upcase}_ATTRIBUTES")
-    aggregated = attributes.index_with { |_attr| 0 }
-
-    attributes.each do |attr|
-      aggregated[attr] = player.public_send(:"change_logs_#{@time_range}").sum { |log| log.public_send(attr) }
+  def set_change_log
+    case @time_range
+    when :past_day
+      player.change_logs_past_day.first
+    when :past_7_days
+      player.change_logs_past_7_days
+    when :past_30_days
+      player.change_logs_past_30_days
+    else
+      nil
     end
-
-    aggregated
   end
 end

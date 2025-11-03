@@ -18,8 +18,8 @@ class Player < ApplicationRecord
   has_one :category_standing, autosave: true, dependent: :destroy
   has_many :change_logs, dependent: :destroy
   has_many :change_logs_past_day, -> { past_day }, class_name: "ChangeLog"
-  has_many :change_logs_past_7_days, -> { past_7_days }, class_name: "ChangeLog"
-  has_many :change_logs_past_30_days, -> { past_30_days }, class_name: "ChangeLog"
+  has_one :change_logs_past_7_days
+  has_one :change_logs_past_30_days
 
   scope :qualified, -> { where.not(stats_reliability: 2) }
   scope :disqualified, -> { where(stats_reliability: 2) }
