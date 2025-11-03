@@ -44,7 +44,11 @@
           <span class="text-muted"><%= t("home.index.last_player_update") %></span>
         </div>
         <div class="col-12 col-md-7">
-          <span><%= l(@last_player_update_at, format: :long_with_timezone) %></span>
+          <% if @last_player_update_at %>
+            <span><%= l(@last_player_update_at, format: :long_with_timezone) %></span>
+          <% else %>
+            <span><%= t("home.index.update_running") %></span>
+          <% end %>
         </div>
       </div>
 
@@ -53,7 +57,11 @@
           <span class="text-muted"><%= t("home.index.last_rank_update") %></span>
         </div>
         <div class="col-12 col-md-7">
-          <span><%= l(@last_rank_update_at, format: :long_with_timezone) %></span>
+          <% if @last_rank_update_at %>
+            <span><%= l(@last_rank_update_at, format: :long_with_timezone) %></span>
+          <% else %>
+            <span><%= t("home.index.update_running") %></span>
+          <% end %>
         </div>
       </div>
     </div>
