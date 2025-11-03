@@ -3,7 +3,9 @@ class PlayerUpdateJob < ApplicationJob
 
   def perform
     PlayerUpdateService.new.call
+
     update_metrics_overview
+    update_materialized_views
 
     RankUpdateJob.perform_later
   end
@@ -19,5 +21,10 @@ class PlayerUpdateJob < ApplicationJob
                     previous_player_count: previous_player_count,
                     disqualified_player_count: Player.disqualified.count,
                     previous_disqualified_player_count: previous_disqualified_player_count)
+  end
+
+  def update_materialized_views
+    ChangeLogsPast7Days.refresh
+    ChangeLogsPast30Days.refresh
   end
 end

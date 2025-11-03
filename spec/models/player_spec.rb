@@ -208,24 +208,52 @@ RSpec.describe Player do
       end
     end
 
-    context "when ranking by a statistic and a time range other than all_time" do
+    describe "time_range handling" do
       let(:first_player) { create(:player, a801_id: 1) }
       let(:second_player) { create(:player, a801_id: 2) }
       let(:third_player) { create(:player, a801_id: 3) }
-      let(:ranked_players) { described_class.ranked_by(:normal_score, :past_7_days) }
 
       before do
+        create(:change_log, player: first_player, normal_score: 300, created_at: Time.current)
         create(:change_log, player: first_player, normal_score: 300, created_at: 3.days.ago)
+        create(:change_log, player: first_player, normal_score: 300, created_at: 10.days.ago)
+        create(:change_log, player: second_player, normal_score: 300, created_at: Time.current)
         create(:change_log, player: second_player, normal_score: 300, created_at: 2.days.ago)
         create(:change_log, player: second_player, normal_score: 300, created_at: 3.days.ago)
         create(:change_log, player: third_player, normal_score: 200, created_at: 1.day.ago)
-        create(:change_log, player: third_player, normal_score: 200, created_at: 2.day.ago)
-        create(:change_log, player: third_player, normal_score: 200, created_at: 3.day.ago)
+        create(:change_log, player: third_player, normal_score: 200, created_at: 2.days.ago)
+        create(:change_log, player: third_player, normal_score: 200, created_at: 3.days.ago)
+        create(:change_log, player: third_player, normal_score: 400, created_at: 11.days.ago)
+
+        ChangeLogsPast7Days.refresh
+        ChangeLogsPast30Days.refresh
       end
 
-      it "returns players ranked by the specified statistic in descending order and a801_id in ascending order" do
-        expect(ranked_players).to eq([ second_player, third_player, first_player ])
-        expect(ranked_players).not_to include(disqualified_player)
+      context "when restricting the time range to past_day" do
+        let(:ranked_players) { described_class.ranked_by(:normal_score, :past_day) }
+
+        it "returns players ranked by the specified statistic in descending order and a801_id in ascending order" do
+          expect(ranked_players).to eq([ first_player, second_player ])
+          expect(ranked_players).not_to include([ third_player, disqualified_player ])
+        end
+      end
+
+      context "when restricting the time range to past_7_days" do
+        let(:ranked_players) { described_class.ranked_by(:normal_score, :past_7_days) }
+
+        it "returns players ranked by the specified statistic in descending order and a801_id in ascending order" do
+          expect(ranked_players).to eq([ second_player, first_player, third_player ])
+          expect(ranked_players).not_to include(disqualified_player)
+        end
+      end
+
+      context "when restricting the time range to past_30_days" do
+        let(:ranked_players) { described_class.ranked_by(:normal_score, :past_30_days) }
+
+        it "returns players ranked by the specified statistic in descending order and a801_id in ascending order" do
+          expect(ranked_players).to eq([ third_player, first_player, second_player ])
+          expect(ranked_players).not_to include(disqualified_player)
+        end
       end
     end
   end

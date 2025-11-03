@@ -38,6 +38,22 @@ RSpec.describe PlayerUpdateJob do
           )
         end
       end
+
+      describe "materialized views refresh" do
+        before do
+          allow(ChangeLogsPast7Days).to receive(:refresh)
+          allow(ChangeLogsPast30Days).to receive(:refresh)
+        end
+
+        it "refreshes the materialized views" do
+          assert_performed_jobs 1, only: described_class do
+            described_class.perform_later
+          end
+
+          expect(ChangeLogsPast7Days).to have_received(:refresh)
+          expect(ChangeLogsPast30Days).to have_received(:refresh)
+        end
+      end
     end
 
     context "when the update raises an error" do

@@ -1,0 +1,31 @@
+SELECT
+    player_id,
+    SUM(rounds_played) AS rounds_played,
+    SUM(shaman_cheese) AS shaman_cheese,
+    SUM(saved_mice) AS saved_mice,
+    SUM(saved_mice_hard) AS saved_mice_hard,
+    SUM(saved_mice_divine) AS saved_mice_divine,
+    SUM(saved_mice_without_skills) AS saved_mice_without_skills,
+    SUM(saved_mice_hard_without_skills) AS saved_mice_hard_without_skills,
+    SUM(saved_mice_divine_without_skills) AS saved_mice_divine_without_skills,
+    SUM(cheese_gathered) AS cheese_gathered,
+    SUM(firsts) AS firsts,
+    SUM(bootcamp) AS bootcamp,
+    SUM(survivor_rounds_played) AS survivor_rounds_played,
+    SUM(survivor_mice_killed) AS survivor_mice_killed,
+    SUM(survivor_shaman_rounds) AS survivor_shaman_rounds,
+    SUM(survivor_survived_rounds) AS survivor_survived_rounds,
+    SUM(racing_rounds_played) AS racing_rounds_played,
+    SUM(racing_finished_maps) AS racing_finished_maps,
+    SUM(racing_firsts) AS racing_firsts,
+    SUM(racing_podiums) AS racing_podiums,
+    SUM(defilante_rounds_played) AS defilante_rounds_played,
+    SUM(defilante_finished_maps) AS defilante_finished_maps,
+    SUM(defilante_points) AS defilante_points,
+    SUM(normal_score) AS normal_score,
+    SUM(survivor_score) AS survivor_score,
+    SUM(racing_score) AS racing_score,
+    SUM(defilante_score) AS defilante_score
+FROM change_logs
+WHERE created_at >= (CURRENT_DATE - INTERVAL '29 days')
+GROUP BY player_id;

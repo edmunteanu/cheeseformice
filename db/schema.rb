@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_02_143750) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_03_103837) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -306,4 +306,73 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_02_143750) do
 
   add_foreign_key "category_standings", "players"
   add_foreign_key "change_logs", "players"
+
+  create_view "change_logs_past_30_days", materialized: true, sql_definition: <<-SQL
+      SELECT player_id,
+      sum(rounds_played) AS rounds_played,
+      sum(shaman_cheese) AS shaman_cheese,
+      sum(saved_mice) AS saved_mice,
+      sum(saved_mice_hard) AS saved_mice_hard,
+      sum(saved_mice_divine) AS saved_mice_divine,
+      sum(saved_mice_without_skills) AS saved_mice_without_skills,
+      sum(saved_mice_hard_without_skills) AS saved_mice_hard_without_skills,
+      sum(saved_mice_divine_without_skills) AS saved_mice_divine_without_skills,
+      sum(cheese_gathered) AS cheese_gathered,
+      sum(firsts) AS firsts,
+      sum(bootcamp) AS bootcamp,
+      sum(survivor_rounds_played) AS survivor_rounds_played,
+      sum(survivor_mice_killed) AS survivor_mice_killed,
+      sum(survivor_shaman_rounds) AS survivor_shaman_rounds,
+      sum(survivor_survived_rounds) AS survivor_survived_rounds,
+      sum(racing_rounds_played) AS racing_rounds_played,
+      sum(racing_finished_maps) AS racing_finished_maps,
+      sum(racing_firsts) AS racing_firsts,
+      sum(racing_podiums) AS racing_podiums,
+      sum(defilante_rounds_played) AS defilante_rounds_played,
+      sum(defilante_finished_maps) AS defilante_finished_maps,
+      sum(defilante_points) AS defilante_points,
+      sum(normal_score) AS normal_score,
+      sum(survivor_score) AS survivor_score,
+      sum(racing_score) AS racing_score,
+      sum(defilante_score) AS defilante_score
+     FROM change_logs
+    WHERE (created_at >= (CURRENT_DATE - 'P29D'::interval))
+    GROUP BY player_id;
+  SQL
+  add_index "change_logs_past_30_days", ["player_id"], name: "index_change_logs_past_30_days_on_player_id", unique: true
+
+  create_view "change_logs_past_7_days", materialized: true, sql_definition: <<-SQL
+      SELECT player_id,
+      sum(rounds_played) AS rounds_played,
+      sum(shaman_cheese) AS shaman_cheese,
+      sum(saved_mice) AS saved_mice,
+      sum(saved_mice_hard) AS saved_mice_hard,
+      sum(saved_mice_divine) AS saved_mice_divine,
+      sum(saved_mice_without_skills) AS saved_mice_without_skills,
+      sum(saved_mice_hard_without_skills) AS saved_mice_hard_without_skills,
+      sum(saved_mice_divine_without_skills) AS saved_mice_divine_without_skills,
+      sum(cheese_gathered) AS cheese_gathered,
+      sum(firsts) AS firsts,
+      sum(bootcamp) AS bootcamp,
+      sum(survivor_rounds_played) AS survivor_rounds_played,
+      sum(survivor_mice_killed) AS survivor_mice_killed,
+      sum(survivor_shaman_rounds) AS survivor_shaman_rounds,
+      sum(survivor_survived_rounds) AS survivor_survived_rounds,
+      sum(racing_rounds_played) AS racing_rounds_played,
+      sum(racing_finished_maps) AS racing_finished_maps,
+      sum(racing_firsts) AS racing_firsts,
+      sum(racing_podiums) AS racing_podiums,
+      sum(defilante_rounds_played) AS defilante_rounds_played,
+      sum(defilante_finished_maps) AS defilante_finished_maps,
+      sum(defilante_points) AS defilante_points,
+      sum(normal_score) AS normal_score,
+      sum(survivor_score) AS survivor_score,
+      sum(racing_score) AS racing_score,
+      sum(defilante_score) AS defilante_score
+     FROM change_logs
+    WHERE (created_at >= (CURRENT_DATE - 'P6D'::interval))
+    GROUP BY player_id;
+  SQL
+  add_index "change_logs_past_7_days", ["player_id"], name: "index_change_logs_past_7_days_on_player_id", unique: true
+
 end

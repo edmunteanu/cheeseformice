@@ -13,7 +13,7 @@ class PlayersController < ApplicationController
 
   def show
     @player = Player.find_by!(name: Player.normalize_name(params[:name]))
-    @past_day = @player.change_logs.past_day.first
+    @past_day = @player.change_logs_past_day
     @past_7_days = @player.change_logs.past_7_days.to_a
     @past_30_days = @player.change_logs.past_30_days.to_a
   end

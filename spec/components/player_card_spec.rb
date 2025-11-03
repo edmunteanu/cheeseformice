@@ -18,6 +18,8 @@ RSpec.describe PlayerCard, type: :component do
       create(:change_log, player: player, normal_score: 100, created_at: 2.days.ago)
       create(:change_log, player: player, normal_score: 100, created_at: 3.days.ago)
       create(:change_log, player: player, normal_score: 100, created_at: 14.days.ago)
+
+      ChangeLogsPast7Days.refresh
     end
 
     context "when showing player data" do
@@ -31,6 +33,38 @@ RSpec.describe PlayerCard, type: :component do
 
       it "returns the aggregated category score from change logs with delimiters" do
         expect(component.category_score).to eq(I18n.t("players.index.scores.normal", score: 300))
+      end
+    end
+  end
+
+  describe "#show_player_data?" do
+    context "when time range is all_time" do
+      it "returns true" do
+        expect(component.show_player_data?).to be true
+      end
+    end
+
+    context "when time range is past_day" do
+      let(:time_range) { :past_day }
+
+      it "returns false" do
+        expect(component.show_player_data?).to be false
+      end
+    end
+
+    context "when time range is past_7_days" do
+      let(:time_range) { :past_7_days }
+
+      it "returns false" do
+        expect(component.show_player_data?).to be false
+      end
+    end
+
+    context "when time range is past_30_days" do
+      let(:time_range) { :past_30_days }
+
+      it "returns false" do
+        expect(component.show_player_data?).to be false
       end
     end
   end
@@ -115,6 +149,8 @@ RSpec.describe PlayerCard, type: :component do
       create(:change_log, player: player, saved_mice: 30, created_at: 2.days.ago)
       create(:change_log, player: player, saved_mice: 20, created_at: 3.days.ago)
       create(:change_log, player: player, saved_mice: 10, created_at: 14.days.ago)
+
+      ChangeLogsPast7Days.refresh
     end
 
     context "when showing player data" do
@@ -141,6 +177,8 @@ RSpec.describe PlayerCard, type: :component do
       create(:change_log, player: player, firsts: 100, created_at: 2.days.ago)
       create(:change_log, player: player, firsts: 50, created_at: 3.days.ago)
       create(:change_log, player: player, firsts: 25, created_at: 14.days.ago)
+
+      ChangeLogsPast7Days.refresh
     end
 
     context "when showing player data" do
@@ -201,6 +239,8 @@ RSpec.describe PlayerCard, type: :component do
       create(:change_log, player: player, rounds_played: 30, created_at: 2.days.ago)
       create(:change_log, player: player, rounds_played: 20, created_at: 3.days.ago)
       create(:change_log, player: player, rounds_played: 10, created_at: 14.days.ago)
+
+      ChangeLogsPast7Days.refresh
     end
 
     context "when showing player data" do
