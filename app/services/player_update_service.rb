@@ -3,7 +3,7 @@ class PlayerUpdateService
 
   MAX_POOL_SIZE = 9
   MIN_CHEESE_GATHERED = 250
-  MIN_BOOTCAMP_GATHERED = 100
+  MIN_BOOTCAMP = 100
 
   def initialize(batch_size: ENV.fetch("UPDATER_BATCH_SIZE", 1000).to_i)
     @batch_size = batch_size
@@ -24,12 +24,11 @@ class PlayerUpdateService
   private
 
   def records
-    A801::Player.where("cheese_gathered >= ? OR bootcamp_gathered >= ?",
-                       MIN_CHEESE_GATHERED, MIN_BOOTCAMP_GATHERED)
+    A801::Player.where("cheese_gathered >= ? OR bootcamp >= ?", MIN_CHEESE_GATHERED, MIN_BOOTCAMP)
 
     # TODO: Uncomment after new players with bootcamp >= 100 are imported!
-    # A801::Player.where("updatedLast7days = ? AND (cheese_gathered >= ? OR bootcamp_gathered >= ?)",
-    #                    true, MIN_CHEESE_GATHERED, MIN_BOOTCAMP_GATHERED)
+    # A801::Player.where("updatedLast7days = ? AND (cheese_gathered >= ? OR bootcamp >= ?)",
+    #                    true, MIN_CHEESE_GATHERED, MIN_BOOTCAMP)
   end
 
   def start_threads(threads, batch, slice_size)
