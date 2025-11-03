@@ -1,7 +1,7 @@
 class PlayerUpdateService
   include Utils::PlayerMapper
 
-  MAX_POOL_SIZE = 9
+  MAX_POOL_SIZE = 20
   MIN_CHEESE_GATHERED = 250
   MIN_BOOTCAMP = 100
 
@@ -24,11 +24,8 @@ class PlayerUpdateService
   private
 
   def records
-    A801::Player.where("cheese_gathered >= ? OR bootcamp >= ?", MIN_CHEESE_GATHERED, MIN_BOOTCAMP)
-
-    # TODO: Uncomment after new players with bootcamp >= 100 are imported!
-    # A801::Player.where("updatedLast7days = ? AND (cheese_gathered >= ? OR bootcamp >= ?)",
-    #                    true, MIN_CHEESE_GATHERED, MIN_BOOTCAMP)
+    A801::Player.where("updatedLast7days = ? AND (cheese_gathered >= ? OR bootcamp >= ?)",
+                       true, MIN_CHEESE_GATHERED, MIN_BOOTCAMP)
   end
 
   def start_threads(threads, batch, slice_size)
