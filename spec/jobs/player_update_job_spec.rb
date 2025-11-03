@@ -40,13 +40,18 @@ RSpec.describe PlayerUpdateJob do
       end
 
       describe "materialized views refresh" do
-        it "refreshes the materialized views" do
-          expect(ChangeLogsPast7Days).to receive(:refresh)
-          expect(ChangeLogsPast30Days).to receive(:refresh)
+        before do
+          allow(ChangeLogsPast7Days).to receive(:refresh)
+          allow(ChangeLogsPast30Days).to receive(:refresh)
+        end
 
+        it "refreshes the materialized views" do
           assert_performed_jobs 1, only: described_class do
             described_class.perform_later
           end
+
+          expect(ChangeLogsPast7Days).to have_received(:refresh)
+          expect(ChangeLogsPast30Days).to have_received(:refresh)
         end
       end
     end
