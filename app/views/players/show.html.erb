@@ -1,5 +1,5 @@
 <div class="title-container">
-  <h1 class="<%= name_color(@player.name) %> mb-0"><%= @player.name %></h1>
+  <h1 class="<%= name_color(@player.name) %> mb-0"><%= title(@player.name) %></h1>
 
   <% if @player.disqualified? %>
     <div class="disqualified-badge">

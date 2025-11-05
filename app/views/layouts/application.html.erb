@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" data-bs-theme="dark">
   <head>
+    <%= display_meta_tags(site: t("meta.title")) %>
     <meta charset="utf-8">
-    <title><%= content_for?(:title) ? yield(:title) : t("meta.title") %></title>
     <meta name="description" content="<%= t("meta.description") %>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
