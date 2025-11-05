@@ -1,4 +1,6 @@
-<h1 class="text-primary mb-2"><%= t("players.index.title") %></h1>
+<% set_meta_tags(canonical: leaderboard_url) %>
+
+<h1 class="text-primary mb-2"><%= title(t("players.index.title")) %></h1>
 
 <div class="d-flex gap-3 mb-4 mb-md-5">
   <span><%= t(@category, scope: "players.show.categories") %></span>

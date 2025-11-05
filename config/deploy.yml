@@ -44,7 +44,7 @@ registry:
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:
   clear:
-    APP_HOST: cheeseformice.cc
+    APP_HOST: www.cheeseformice.cc
     APP_PORT: 443
     RAILS_MASTER_KEY: <%= ENV.fetch("RAILS_MASTER_KEY") %>
     DOCKER_REGISTRY_PASSWORD: <%= ENV.fetch("DOCKER_REGISTRY_PASSWORD") %>
