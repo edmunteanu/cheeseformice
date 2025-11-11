@@ -5,7 +5,10 @@
         <div class="card-body">
           <div class="d-flex justify-content-between mb-3 mb-md-4">
             <div class="d-flex flex-column">
-              <h5 class="mb-0"><%= player.name %></h5>
+              <%= link_to player_path(player), class: "underlined-link" do %>
+                <h5 class="mb-0"><%= player.name %></h5>
+              <% end %>
+
               <span><%= sanitize(humanized_title(player.title)) %></span>
             </div>
 
