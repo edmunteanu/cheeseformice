@@ -1,9 +1,10 @@
 require "rails_helper"
 
 RSpec.describe ScoreHeader, type: :component do
-  let(:component) { described_class.new(player, past_day, title: player.name, category: :normal) }
+  let(:component) { described_class.new(player, past_day, title: player.name, category: category) }
   let(:player) { create(:player) }
   let(:past_day) { player.change_logs_past_day }
+  let(:category) { :normal }
 
   describe "#score_change" do
     let(:score_change) { component.score_change }
@@ -48,8 +49,8 @@ RSpec.describe ScoreHeader, type: :component do
   end
 
   # components/concerns/player_rank_change.rb
-  describe "#displayed_rank_change" do
-    let(:displayed_rank_change) { component.displayed_rank_change }
+  describe "#displayed_rank_change_for" do
+    let(:displayed_rank_change) { component.displayed_rank_change_for(player, category) }
 
     context "when the player has no previous rank" do
       let(:player) { create(:player) }

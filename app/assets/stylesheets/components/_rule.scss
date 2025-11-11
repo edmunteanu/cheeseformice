@@ -1,6 +1,7 @@
 :root {
   --separator-color: rgb(75 75 75);
   --separator-thickness: 2px;
+  --separator-thickness-thin: 1px;
 }
 
 .hr {
@@ -9,8 +10,20 @@
   height: var(--separator-thickness);
 }
 
+.hr-thin {
+  background-color: var(--separator-color);
+  opacity: 1;
+  height: var(--separator-thickness-thin);
+}
+
 .vr {
   background-color: var(--separator-color);
   opacity: 1;
   width: var(--separator-thickness);
+}
+
+.vr-thin {
+  background-color: var(--separator-color);
+  opacity: 1;
+  width: var(--separator-thickness-thin);
 }
