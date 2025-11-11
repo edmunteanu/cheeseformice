@@ -11,7 +11,7 @@ class PlayerLeaderboard < ViewComponent::Base
 
   attr_reader :players, :category, :statistic
 
-  delegate :player_path, to: :helpers
+  delegate :humanized_title, :player_path, to: :helpers
 
   def initialize(players:, category:, statistic:, time_range:, current_page:)
     @players = players
@@ -19,6 +19,10 @@ class PlayerLeaderboard < ViewComponent::Base
     @statistic = statistic
     @time_range = time_range
     @current_page = current_page
+  end
+
+  def first_page?
+    @current_page == 1
   end
 
   def score_statistic?
@@ -35,7 +39,8 @@ class PlayerLeaderboard < ViewComponent::Base
     if score_statistic? && show_player_data?
       number_with_delimiter(player.public_send(:"#{category}_rank"))
     else
-      statistic_rank = (index + 1) + (@current_page - 1) * Pagy::DEFAULT[:limit]
+      podium_offset = first_page? ? PODIUM_COUNT : 0
+      statistic_rank = podium_offset + (index + 1) + (@current_page - 1) * Pagy::DEFAULT[:limit]
       number_with_delimiter(statistic_rank)
     end
   end
