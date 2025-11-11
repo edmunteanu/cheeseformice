@@ -4,54 +4,54 @@
     @extend .py-2;
 
     display: grid;
-    grid-template-columns: repeat(32, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-auto-rows: auto;
     gap: 0.5rem;
 
-    .rank {
-      @extend .d-flex, .gap-3;
+    @include media-breakpoint-up(xl) {
+      grid-template-columns: repeat(32, 1fr);
+    }
 
-      grid-column: span 3;
+    .rank {
+      @extend .d-flex, .gap-2, .gap-xxl-3;
+
+      grid-column: span 1;
+
+      @include media-breakpoint-up(xl) {
+        grid-column: span 3;
+      }
     }
 
     .name {
-      grid-column: span 6;
+      grid-column: span 3;
+
+      @include media-breakpoint-up(xl) {
+        grid-column: span 6;
+      }
     }
 
     .score {
       @extend .text-end;
 
-      grid-column: span 3;
+      grid-column: span 1;
+
+      @include media-breakpoint-up(xl) {
+        grid-column: span 3;
+      }
     }
 
-    .attr-0 {
-      @extend .text-end;
-
-      grid-column: span 4;
-    }
-
-    .attr-1 {
-      @extend .text-end;
-
-      grid-column: span 4;
-    }
-
-    .attr-2 {
-      @extend .text-end;
-
-      grid-column: span 4;
-    }
-
-    .attr-3 {
-      @extend .text-end;
-
-      grid-column: span 4;
-    }
-
+    .attr-0,
+    .attr-1,
+    .attr-2,
+    .attr-3,
     .attr-4 {
-      @extend .text-end;
+      display: none;
 
-      grid-column: span 4;
+      @include media-breakpoint-up(xl) {
+        display: block;
+        grid-column: span 4;
+        text-align: right;
+      }
     }
   }
 

@@ -25,7 +25,9 @@
           <span><%= current_rank(player, player_index) %></span>
 
           <% if score_statistic? && show_player_data? %>
-            <%== displayed_rank_change_for(player, category) %>
+            <div class="d-none d-md-block">
+              <%== displayed_rank_change_for(player, category) %>
+            </div>
           <% end %>
         </div>
 
