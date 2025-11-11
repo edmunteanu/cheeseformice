@@ -18,7 +18,7 @@
   <% unless player.disqualified? %>
     <div class="rank-container">
       <h4 class="mb-0"><%= "##{number_with_delimiter(player.public_send(:"#{category}_rank"))}" %></h4>
-      <%== displayed_rank_change %>
+      <%== displayed_rank_change_for(player, category) %>
     </div>
   <% end %>
 </div>

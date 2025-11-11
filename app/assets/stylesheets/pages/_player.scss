@@ -1,10 +1,91 @@
-.player-list {
-  .card {
-    @extend .mb-3;
+.podium-grid {
+  @extend .mb-3;
 
-    &:last-child {
-      @extend .mb-0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-auto-rows: auto;
+  gap: 1rem;
+
+  @include media-breakpoint-up(xl) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .trophy-0 {
+    color: $gold;
+  }
+
+  .trophy-1 {
+    color: $silver;
+  }
+
+  .trophy-2 {
+    color: $bronze;
+  }
+}
+
+.leaderboard {
+  .leaderboard-header,
+  .leaderboard-row {
+    @extend .py-2;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: auto;
+    gap: 0.5rem;
+
+    @include media-breakpoint-up(xl) {
+      grid-template-columns: repeat(32, 1fr);
     }
+
+    .rank {
+      @extend .d-flex, .gap-2, .gap-xxl-3;
+
+      grid-column: span 1;
+
+      @include media-breakpoint-up(xl) {
+        grid-column: span 3;
+      }
+    }
+
+    .name {
+      grid-column: span 3;
+
+      @include media-breakpoint-up(xl) {
+        grid-column: span 6;
+      }
+    }
+
+    .score {
+      @extend .text-end;
+
+      grid-column: span 1;
+
+      @include media-breakpoint-up(xl) {
+        grid-column: span 3;
+      }
+    }
+
+    .attr-0,
+    .attr-1,
+    .attr-2,
+    .attr-3,
+    .attr-4 {
+      display: none;
+
+      @include media-breakpoint-up(xl) {
+        display: block;
+        grid-column: span 4;
+        text-align: right;
+      }
+    }
+  }
+
+  .leaderboard-header {
+    @extend .pt-0;
+  }
+
+  .leaderboard-row:last-of-type {
+    @extend .pb-0;
   }
 }
 
@@ -91,23 +172,15 @@
 
   .search-results {
     .search-result {
-      @extend .px-4, .py-2;
+      @extend .py-2;
 
-      margin: 0 calc(var(--bs-card-spacer-x) * -1);
-
-      &:first-child {
-        @extend .pt-0;
-      }
-
-      &:last-child {
+      &:last-of-type {
         @extend .pb-0;
       }
+    }
 
-      &:nth-child(2n)  {
-        @extend .pb-2;
-
-        background-color: darken($bg-secondary-dark, 3%);
-      }
+    .hr-thin:last-of-type {
+      @extend .d-none;
     }
   }
 }

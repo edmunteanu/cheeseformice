@@ -1,0 +1,99 @@
+<% if first_page? %>
+  <div class="podium-grid">
+    <% players.first(PODIUM_COUNT).each_with_index do |player, index| %>
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between mb-3 mb-md-4">
+            <div class="d-flex flex-column">
+              <h5 class="mb-0"><%= player.name %></h5>
+              <span><%= sanitize(humanized_title(player.title)) %></span>
+            </div>
+
+            <i class="<%= [ "bi bi-trophy-fill h3", "trophy-#{index}" ].join(" ") %>"></i>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
+              <span class="text-muted"><%= t("players.index.score") %></span>
+              <span><%= category_score(player) %></span>
+            </div>
+
+            <% if score_statistic? %>
+              <% CATEGORY_ATTRIBUTES[category].each do |attribute| %>
+                <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
+                  <span class="text-muted"><%= Player.human_attribute_name(attribute) %></span>
+                  <span><%= category_attribute_value(player, attribute) %></span>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
+                <span class="text-muted"><%= Player.human_attribute_name(statistic) %></span>
+                <span><%= statistic_value(player) %></span>
+              </div>
+
+              <div class="col-6 col-md-4 d-flex flex-column justify-content-between">
+                <span class="text-muted"><%= Player.human_attribute_name(category_rounds_played_attribute) %></span>
+                <span><%= category_rounds_played_value(player) %></span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="card">
+  <div class="card-body leaderboard">
+    <div class="leaderboard-header">
+      <span class="rank text-muted"><%= t("players.index.rank") %></span>
+      <span class="name text-muted"><%= Player.human_attribute_name(:name) %></span>
+      <span class="score text-muted"><%= t("players.index.score") %></span>
+
+      <% if score_statistic? %>
+        <% CATEGORY_ATTRIBUTES[category].each_with_index do |attribute, index| %>
+          <span class="<%= %W[attr-#{index} text-muted].join(" ") %>">
+            <%= Player.human_attribute_name(attribute) %>
+          </span>
+        <% end %>
+      <% else %>
+        <span class="attr-0 text-muted"><%= Player.human_attribute_name(statistic) %></span>
+        <span class="attr-1 text-muted"><%= Player.human_attribute_name(category_rounds_played_attribute) %></span>
+      <% end %>
+    </div>
+
+    <% tabulated_players = first_page? ? players.drop(PODIUM_COUNT) : players %>
+    <% tabulated_players.each_with_index do |player, player_index| %>
+      <div class="hr-thin"></div>
+
+      <div class="leaderboard-row">
+        <div class="rank">
+          <span><%= current_rank(player, player_index) %></span>
+
+          <% if score_statistic? && show_player_data? %>
+            <div class="d-none d-md-block">
+              <%== displayed_rank_change_for(player, category) %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="name text-truncate">
+          <%= link_to player_path(player), class: "underlined-link" do %>
+            <span><%= player.name %></span>
+          <% end %>
+        </div>
+
+        <span class="score"><%= category_score(player) %></span>
+
+        <% if score_statistic? %>
+          <% CATEGORY_ATTRIBUTES[category].each_with_index do |attribute, attribute_index| %>
+            <span class="<%= "attr-#{attribute_index}" %>"><%= category_attribute_value(player, attribute) %></span>
+          <% end %>
+        <% else %>
+          <span class="attr-0"><%= statistic_value(player) %></span>
+          <span class="attr-1"><%= category_rounds_played_value(player) %></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
