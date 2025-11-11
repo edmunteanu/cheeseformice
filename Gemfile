@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(File.join(__dir__, ".ruby-version")).strip
 
+gem "rails", "~> 8.1"
+
 gem "blazer"
 gem "bootsnap", require: false
 gem "bootstrap"
@@ -19,7 +21,6 @@ gem "mysql2"
 gem "pagy"
 gem "pg"
 gem "puma"
-gem "rails", "~> 8.1"
 gem "redis"
 gem "scenic"
 gem "simple_form"
