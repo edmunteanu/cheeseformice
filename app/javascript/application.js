@@ -4,3 +4,6 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "popper"
 import "bootstrap"
+import "pagy"
+
+window.addEventListener("turbo:load", Pagy.init)

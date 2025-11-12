@@ -72,7 +72,7 @@ RSpec.describe PlayerLeaderboard, type: :component do
       let(:statistic) { :cheese_gathered }
       let(:current_page) { 2 }
 
-      before { stub_const("Pagy::DEFAULT", limit: 20) }
+      before { allow(Pagy).to receive(:options).and_return(Pagy::DEFAULT.merge(limit: 20)) }
 
       it "calculates rank based on index and current page" do
         expect(component.current_rank(players.first, 3)).to eq("24")
@@ -83,7 +83,7 @@ RSpec.describe PlayerLeaderboard, type: :component do
       let(:time_range) { :past_7_days }
       let(:current_page) { 4 }
 
-      before { stub_const("Pagy::DEFAULT", limit: 20) }
+      before { allow(Pagy).to receive(:options).and_return(Pagy::DEFAULT.merge(limit: 20)) }
 
       it "calculates rank based on index and current page" do
         expect(component.current_rank(players.first, 2)).to eq("63")

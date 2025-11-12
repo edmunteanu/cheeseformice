@@ -7,38 +7,34 @@
     --bs-pagination-padding-y: 0;
 
     .page-item {
-      .page-link {
-        @extend .btn, .btn-primary;
+      @extend .d-flex;
+
+      &.disabled {
+        .page-link {
+          @extend .border-secondary, .bg-secondary;
+
+          color: rgba(var(--bs-emphasis-color-rgb), 0.65);
+        }
       }
-    }
 
-    .page-item.prev {
-      @extend .me-auto;
-
-      .page-link {
-        @extend .btn, .btn-primary;
+      &.previous {
+        @extend .me-auto;
       }
-    }
 
-    .page-item.disabled {
-      .page-link {
-        @extend .border-secondary, .bg-secondary, .text-muted;
+      &.next {
+        @extend .ms-auto;
       }
-    }
 
-    .page-item.active {
       .page-link {
-        @extend .border-secondary, .bg-secondary, .text-muted;
-
-        cursor: initial;
+        @extend .btn, .btn-primary, .d-flex, .align-items-center;
       }
-    }
 
-    .page-item.next {
-      @extend .ms-auto;
+      label.page-link {
+        @extend .gap-2;
 
-      .page-link {
-        @extend .btn, .btn-primary;
+        input {
+          min-width: 4rem; // Accounts for 3 digit page numbers plus increase / decrease buttons
+        }
       }
     }
   }
