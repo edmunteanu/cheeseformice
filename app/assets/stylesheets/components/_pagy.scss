@@ -8,7 +8,7 @@
 
     .page-item {
       .page-link {
-        @extend .btn, .btn-secondary;
+        @extend .btn, .btn-primary;
       }
     }
 
@@ -22,16 +22,13 @@
 
     .page-item.disabled {
       .page-link {
-        @extend .text-muted;
-
-        background-color: transparent;
-        border-color: transparent;
+        @extend .border-secondary, .bg-secondary, .text-muted;
       }
     }
 
     .page-item.active {
       .page-link {
-        @extend .border-primary, .bg-primary, .text-bg-primary;
+        @extend .border-secondary, .bg-secondary, .text-muted;
 
         cursor: initial;
       }
