@@ -40,7 +40,7 @@ class PlayerLeaderboard < ViewComponent::Base
       number_with_delimiter(player.public_send(:"#{category}_rank"))
     else
       podium_offset = first_page? ? PODIUM_COUNT : 0
-      statistic_rank = podium_offset + (index + 1) + (@current_page - 1) * Pagy::DEFAULT[:limit]
+      statistic_rank = podium_offset + (index + 1) + (@current_page - 1) * Pagy.options[:limit]
       number_with_delimiter(statistic_rank)
     end
   end

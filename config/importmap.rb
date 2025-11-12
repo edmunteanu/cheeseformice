@@ -12,3 +12,6 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 # Bootstrap JS
 pin "popper", to: "popper.js"
 pin "bootstrap", to: "bootstrap.min.js"
+
+# Pagy JS
+pin "pagy", to: "pagy.min.js", preload: true

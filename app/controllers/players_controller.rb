@@ -1,14 +1,16 @@
 class PlayersController < ApplicationController
-  MAX_LEADERBOARD_PAGES = 200
   SEARCH_TERM_MIN_LENGTH = 3
   SEARCH_TERM_REGEX = /\A\+?[A-Za-z0-9_#]+\z/ # Ruby-specific for server-side validation
   SEARCH_TERM_REGEX_JS = /^\+?[A-Za-z0-9_#]+$/ # JS-specific for client-side validation
 
-  before_action :set_statistic, :set_category, :set_time_range, :set_page, only: :index
+  before_action :set_statistic, :set_category, :set_time_range, only: :index
 
   def index
     @current_page = params[:page].to_i.zero? ? 1 : params[:page].to_i
-    @pagy, @players = pagy_countless(Player.ranked_by(@statistic, @time_range), max_pages: MAX_LEADERBOARD_PAGES)
+
+    # We know that the Player.ranked_by is always going to return more than enough records for the max amount
+    # of pages, since we simply order differently based on the statistic and time range.
+    @pagy, @players = pagy(:countless, Player.ranked_by(@statistic, @time_range), last: Pagy.options[:max_pages])
   end
 
   def show
@@ -54,13 +56,6 @@ class PlayersController < ApplicationController
     else
                     Player::TIME_RANGE_DEFAULT
     end
-  end
-
-  # The Pagy overflow extra does not work with the :max_pages option. Setting it to :last_page in the initializer
-  # won't work with this setup, since it only allows :empty_page or :exception. Neither of these options are suitable
-  # in this context, so we overwrite the page param if it exceeds the maximum number of pages.
-  def set_page
-    params[:page] = params[:page].to_i.clamp(1, MAX_LEADERBOARD_PAGES)
   end
 
   def valid_search_term?

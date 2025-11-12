@@ -1,20 +1,13 @@
-Pagy::DEFAULT[:limit] = 25
-Pagy::DEFAULT[:size] = 4
+############ Global Options ################################################################
+# See https://ddnexus.github.io/pagy/toolbox/options/ for details.
+Pagy.options[:limit] = 25
+Pagy.options[:size] = 3
+Pagy.options[:max_pages] = 200
 
-# Countless extra: Paginate without any count, saving one query per rendering
-# See https://ddnexus.github.io/pagy/docs/extras/countless
-require "pagy/extras/countless"
+############ JavaScript ####################################################################
+# See https://ddnexus.github.io/pagy/resources/javascript/ for details.
+Rails.application.config.assets.paths << Pagy::ROOT.join("javascripts")
 
-# Bootstrap extra: Add nav, nav_js and combo_nav_js helpers and templates for Bootstrap pagination
-# See https://ddnexus.github.io/pagy/docs/extras/bootstrap
-require "pagy/extras/bootstrap"
-
-# Trim extra: Remove the page=1 param from links
-# See https://ddnexus.github.io/pagy/docs/extras/trim
-require "pagy/extras/trim"
-
-# Pagy internal I18n: ~18x faster using ~10x less memory than the i18n gem
-# See https://ddnexus.github.io/pagy/docs/api/i18n
-Pagy::I18n.load(locale: "en", filepath: Rails.root.join("config/locales/pagy.en.yml"))
-
-Pagy::DEFAULT.freeze
+############# Overriding Pagy::I18n Lookup #################################################
+# Refer to https://ddnexus.github.io/pagy/resources/i18n/ for details.
+Pagy::I18n.pathnames << Rails.root.join("config/locales/pagy")

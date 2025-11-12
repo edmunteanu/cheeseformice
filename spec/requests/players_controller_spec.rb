@@ -88,8 +88,8 @@ RSpec.describe PlayersController do
 
     describe "page parameter" do
       before do
-        stub_const("PlayersController::MAX_LEADERBOARD_PAGES", 2)
-        stub_const("Pagy::DEFAULT", Pagy::DEFAULT.merge(limit: 1))
+        allow(Pagy).to receive(:options).and_return(Pagy::DEFAULT.merge(limit: 1, max_pages: 2))
+
         get leaderboard_path, params: { page: page }
       end
 
