@@ -100,5 +100,4 @@ EXPOSE 80
 CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "80"]
 
 # Configure a healthcheck for Kamal to check if the app is up and running
-HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
-  CMD curl -f http://localhost:80/up || exit 1
+HEALTHCHECK CMD curl -f http://localhost:80/up || exit 1
