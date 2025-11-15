@@ -5,7 +5,7 @@ class PlayerUpdateService
   MIN_CHEESE_GATHERED = 250
   MIN_BOOTCAMP = 100
 
-  def initialize(batch_size: ENV.fetch("UPDATER_BATCH_SIZE", 1000).to_i)
+  def initialize(batch_size: 2000)
     @batch_size = batch_size
   end
 
