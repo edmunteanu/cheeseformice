@@ -10,8 +10,8 @@ servers:
     hosts:
       - 78.47.203.46
     options:
-      health-interval: 30s
-      health-retries: 30
+      health-interval: 300s
+      health-retries: 3
   job:
     hosts:
       - 78.47.203.46
