@@ -50,8 +50,9 @@ env:
     DOCKER_REGISTRY_PASSWORD: <%= ENV.fetch("DOCKER_REGISTRY_PASSWORD") %>
     POSTGRES_PASSWORD: <%= ENV.fetch("POSTGRES_PASSWORD") %>
 
-    # Set number of cores available to the application on each server (default: 1).
-    WEB_CONCURRENCY: auto
+    # Set number of cores and threads available to the application on each server (default: 1).
+    WEB_CONCURRENCY: 2
+    RAILS_MAX_THREADS: 5
 
   #   # Match this to any external database server to configure Active Record correctly
   #   DB_HOST: 192.168.0.2
