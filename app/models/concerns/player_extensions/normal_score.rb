@@ -6,8 +6,9 @@ module PlayerExtensions
     # (saves, cheese, firsts) will return roughly the same amount of points at baseline ratios, with the saves
     # receiving a slight boost due to the consideration of saves without skills. The bootcamp score is given a
     # weight based on the top bootcamp players' scores to ensure that they are not completely disregarded. The
-    # bootcamp ratio is not used in the calculation though, as it is possible to collect bootcamp without
-    # collecting rounds.
+    # bootcamp ratio is not used in the calculation though, as its variance is extremely high (can range from
+    # a few percent to over 1000% depending on the player's dedication to bootcamp). This makes it effectively
+    # impossible to define a meaningful baseline ratio for bootcamp.
     SAVED_MICE_WEIGHT = 1
     SAVED_MICE_HARD_WEIGHT = 1.1
     SAVED_MICE_DIVINE_WEIGHT = 1.3
@@ -15,7 +16,7 @@ module PlayerExtensions
     SAVED_MICE_WITHOUT_SKILLS_TOTAL_WEIGHT = 1.1
     CHEESE_GATHERED_WEIGHT = 1
     FIRSTS_WEIGHT = 16
-    BOOTCAMP_WEIGHT = 2
+    BOOTCAMP_WEIGHT = 2 # TODO: Lower weight to 1.5 – this should be more aligned with saves / cheese / firsts
 
     # Order matters – used to display the attributes on the profile page
     SHAMAN_ATTRIBUTES = %i[saved_mice saved_mice_without_skills saved_mice_hard saved_mice_hard_without_skills
