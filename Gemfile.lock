@@ -269,7 +269,7 @@ GEM
     optimist (3.2.1)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
-    pagy (43.2.2)
+    pagy (43.0.7)
       json
       yaml
     parallel (1.27.0)
@@ -531,7 +531,7 @@ DEPENDENCIES
   kamal
   meta-tags
   mysql2
-  pagy
+  pagy (~> 43.0.0)
   pg
   puma
   rails (~> 8.1)
