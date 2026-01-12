@@ -3,13 +3,13 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "5e2de557d82d243b66e7e09d8691cf803702279982a84697495f982f6eeb81b6",
+      "fingerprint": "648c31f553f860397b1994737077cc4de475e56bcfb0b2bda0d1ce2aa8faa30c",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/concerns/player_extensions/leaderboard.rb",
-      "line": 40,
+      "line": 41,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "Player.includes(:change_logs_past_day).joins(:change_logs_past_day).select(\"players.*, change_logs.#{statistic}\")",
+      "code": "Player.qualified.includes(:change_logs_past_day).joins(:change_logs_past_day).select(\"players.*, change_logs.#{statistic}\")",
       "render_path": null,
       "location": {
         "type": "method",
@@ -24,5 +24,5 @@
       "note": ""
     }
   ],
-  "brakeman_version": "7.1.0"
+  "brakeman_version": "7.1.2"
 }
