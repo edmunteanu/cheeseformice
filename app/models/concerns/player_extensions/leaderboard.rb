@@ -35,7 +35,8 @@ module PlayerExtensions
       # ChangeLogs only exist for qualified players, so we don't need to filter.
       # Inclusion of CategoryStanding is also not required, since we have everything we need in the ChangeLogs.
       def players_by_statistic_past_day(statistic)
-        Player.includes(:change_logs_past_day)
+        Player.qualified
+              .includes(:change_logs_past_day)
               .joins(:change_logs_past_day)
               .select("players.*, change_logs.#{statistic}")
               .order("change_logs.#{statistic} DESC, players.a801_id")
@@ -45,7 +46,8 @@ module PlayerExtensions
         table_name = view_model.table_name
         subquery = view_model.order(statistic => :desc).to_sql
 
-        Player.includes(table_name.to_sym)
+        Player.qualified
+              .includes(table_name.to_sym)
               .joins("JOIN LATERAL (#{subquery}) #{table_name} ON #{table_name}.player_id = players.id")
               .order("#{table_name}.#{statistic} DESC", :a801_id)
       end
