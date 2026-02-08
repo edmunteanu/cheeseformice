@@ -14,7 +14,9 @@ namespace :players do
         external_player = A801::Player.find(player.a801_id)
         return unless external_player
 
-        player.update!(map_player(external_player))
+        # Mark player as dirty even if there are no changes to ensure score is recalculated.
+        attributes = map_player(external_player).merge(updated_at: Time.current)
+        player.update!(attributes)
       rescue StandardError => e
         warn "Failed to sync player '#{player.name} (#{player.a801_id})': #{e.message}"
       end
