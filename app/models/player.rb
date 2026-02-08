@@ -80,6 +80,17 @@ class Player < ApplicationRecord
     return if all_changes.empty?
 
     calculated_deltas = all_changes.transform_values { |(old, new)| new - old }
-    change_logs.create!(calculated_deltas)
+    past_day_log = change_logs.past_day.first
+
+    if past_day_log
+      merged_attributes = calculated_deltas.each_with_object({}) do |(attr, delta), memo|
+        current_value = past_day_log[attr] || 0
+        memo[attr] = current_value + delta
+      end
+
+      past_day_log.update!(merged_attributes)
+    else
+      change_logs.create!(calculated_deltas)
+    end
   end
 end

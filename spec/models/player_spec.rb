@@ -83,7 +83,7 @@ RSpec.describe Player do
       expect(player.firsts_ratio).to eq(0.2)
       expect(player.bootcamp_ratio).to eq(0.05)
 
-      expect(player.normal_score).to eq(356_325)
+      expect(player.normal_score).to eq(353_825)
     end
 
     it "calculates the survivor score and all the needed ratios correctly" do
@@ -168,6 +168,41 @@ RSpec.describe Player do
         expect(player.current_experience).to eq(113_474)
         expect(player.experience_needed).to eq(113_475)
         expect(player.level_progress).to be_within(0.1).of(0.99)
+      end
+    end
+  end
+
+  describe "change log management" do
+    let(:player) { create(:player) }
+
+    context "when player statistics change" do
+      it "creates a new change log record" do
+        expect do
+          player.update(cheese_gathered: player.cheese_gathered + 500, firsts: player.firsts + 100)
+        end.to change(ChangeLog, :count).by(1)
+
+        log = player.change_logs.last
+        expect(log).to have_attributes(cheese_gathered: 500, firsts: 100)
+      end
+    end
+
+    context "when non-statistical attributes change" do
+      it "does not create a change log for irrelevant updates" do
+        expect { player.touch }.not_to change(ChangeLog, :count)
+      end
+    end
+
+    describe "daily snapshot accumulation" do
+      let(:player) { create(:player, cheese_gathered: 3_500) }
+
+      it "accumulates the deltas of multiple updates into a single daily log" do
+        player.update(cheese_gathered: 3_750)
+
+        log = player.change_logs.last
+        expect(log.cheese_gathered).to eq(250)
+
+        expect { player.update(cheese_gathered: 3_800) }.not_to change(ChangeLog, :count)
+        expect(log.reload.cheese_gathered).to eq(300)
       end
     end
   end

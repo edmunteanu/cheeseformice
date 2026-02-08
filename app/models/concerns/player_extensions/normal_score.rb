@@ -16,7 +16,7 @@ module PlayerExtensions
     SAVED_MICE_WITHOUT_SKILLS_TOTAL_WEIGHT = 1.1
     CHEESE_GATHERED_WEIGHT = 1
     FIRSTS_WEIGHT = 16
-    BOOTCAMP_WEIGHT = 2 # TODO: Lower weight to 1.5 – this should be more aligned with saves / cheese / firsts
+    BOOTCAMP_WEIGHT = 1.5
 
     # Order matters – used to display the attributes on the profile page
     SHAMAN_ATTRIBUTES = %i[saved_mice saved_mice_without_skills saved_mice_hard saved_mice_hard_without_skills
