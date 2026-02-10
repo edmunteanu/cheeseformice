@@ -19,7 +19,7 @@ gem "kamal"
 gem "meta-tags"
 gem "mysql2"
 # TODO: Pagy 43.1 + causes an unexpected error in the tests (spec/requests/players_controller_spec.rb:132)
-gem "pagy", "~> 43.0.0"
+gem "pagy", "~> 43.2.9"
 gem "pg"
 gem "puma"
 gem "redis"
